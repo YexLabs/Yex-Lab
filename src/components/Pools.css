@@ -1,0 +1,37 @@
+#Switch-body {
+  /* background: linear-gradient(30deg, rgba(23,38,183,1) -80%, rgb(0, 172, 193) 100%); */
+  /*background: linear-gradient(#2b1055, #7597de);*/
+  /*min-height: 100vh;*/
+}
+section {
+  position: relative;
+  width: 100%;
+  height: 93.2vh;
+  padding: 100px;
+  display: flex;
+  justify-content: center;
+}
+section img#stars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  z-index: 0;
+}
+section img#moon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  mix-blend-mode: screen; /*背景融合方法*/
+  z-index: 0;
+}
+#words {
+  word-wrap: break-word;
+}

@@ -1,0 +1,109 @@
+.root {
+  height: 100%;
+}
+.App {
+  text-align: center;
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.fade-in {
+  -webkit-animation: fade-in 0.5s ease-in-out;
+  animation: fade-in 0.5s ease-in-out;
+}
+
+.fade-out {
+  animation: fadeOut 3s forwards;
+}
+
+.ethTextGradient,
+.scrollTextGradient {
+  -webkit-background-clip: text !important;
+  color: transparent !important;
+  letter-spacing: 0.0075rem;
+  text-rendering: auto !important;
+}
+.scrollTextGradient {
+  background: 0 0;
+  background-image: linear-gradient(
+    272.04deg,
+    #8c8dfc 46.24%,
+    #4e529a 99.45%
+  ) !important;
+}
+
+.polling-dot {
+  border-radius: 50%;
+  height: 8px;
+  min-height: 8px;
+  min-width: 8px;
+  position: relative;
+  transition: background-color 0.25s ease 0s;
+  width: 8px;
+}
+
+.network-warning {
+  background-color: #f3b71e;
+}
+
+.network-health {
+  background-color: #007d35;
+}
+
+.react-pdf__Page__textContent {
+  display: none;
+}
+
+.react-pdf__Page__canvas {
+  margin-bottom: 30px;
+}
+
+#Top-line {
+  background: linear-gradient(
+    60deg,
+    rgba(84, 58, 183, 1) 0%,
+    rgba(0, 172, 193, 1) 100%
+  );
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
