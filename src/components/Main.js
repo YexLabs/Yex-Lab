@@ -4,7 +4,7 @@ import bg from "../assets/images/intro/bg.png";
 import curve from "../assets/images/intro/curve.png";
 import honypot from "../assets/images/intro/honypot.png";
 import scroll from "../assets/images/intro/scroll.png";
-import berachain from "../assets/images/intro/berachain.png";
+import berachain from "../assets/images/intro/bera.png";
 
 export default function Main() {
   return (

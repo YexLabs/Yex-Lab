@@ -1,7 +1,7 @@
 // @xiaochen
 import { ConnectKitButton, ConnectKitProvider } from "connectkit";
 import React from "react";
-import logo from "../assets/images/logo.png";
+import logo from "../assets/images/yexlab.png";
 import Faucet from "./Faucet";
 
 export default function AppHeader() {
