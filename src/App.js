@@ -4,7 +4,7 @@ import {
   ConnectKitButton,
   getDefaultClient,
 } from "connectkit";
-import { mainnet, goerli, scrollTestnet } from "@wagmi/chains";
+import { goerli, scrollTestnet, polygonMumbai } from "@wagmi/chains";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import "./App.css";
 import { useEffect } from "react";
