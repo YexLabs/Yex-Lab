@@ -7,6 +7,7 @@ import { Pools } from "../components/Pools";
 import { Found } from "../components/Found";
 import Main from "../components/Main";
 import WhitePaper from "../components/WhitePaper";
+import PoolLists from "../components/PoolLists";
 
 export function BaseRoutes() {
   return (
@@ -17,6 +18,7 @@ export function BaseRoutes() {
           {/* <Route path="/Exchange" element={<Exchange />} /> */}
           {/* <Route path="/Pools" element={<Pools />} /> */}
           {/* <Route path="/Found" element={<Found />} /> */}
+          <Route path="/PoolLists" element={<PoolLists />} />
           <Route path="/Main" element={<Main />} />
           <Route path="/whitepaper" element={<WhitePaper />} />
         </Route>
