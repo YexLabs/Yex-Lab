@@ -21,7 +21,7 @@ import { pools_abi } from "../contracts/abis";
 import { message } from "antd";
 
 // For Css
-import "./Exchange.css";
+import "../components/Exchange.css";
 import stars from "../assets/images/switch/stars.png";
 import moon from "../assets/images/switch/moon.png";
 import m_behind from "../assets/images/switch/mountains_behind.png";

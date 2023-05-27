@@ -28,7 +28,7 @@ import { ethers } from "ethers";
 // For Css
 import stars from "../assets/images/switch/stars.png";
 import moon from "../assets/images/switch/moon.png";
-import "./Pools.css";
+import "../components/Pools.css";
 import { type } from "@testing-library/user-event/dist/type";
 // Css Over
 
