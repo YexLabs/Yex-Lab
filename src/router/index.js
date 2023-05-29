@@ -8,6 +8,7 @@ import { Found } from "../pages/Found";
 import Main from "../pages/Main";
 import WhitePaper from "../pages/WhitePaper";
 import Demo1_Swap from "../pages/Demo1_Swap";
+import PoolLists from '../components/PoolLists';
 
 export function BaseRoutes() {
   return (
