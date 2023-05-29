@@ -15,7 +15,7 @@ import { DownloadOutlined } from "@ant-design/icons";
 import { message } from "antd";
 
 // For Css
-import "./Found.css";
+import "../components/Found.css";
 import stars from "../assets/images/switch/stars.png";
 import moon from "../assets/images/switch/moon.png";
 import m_front from "../assets/images/switch/mountains_front.png";

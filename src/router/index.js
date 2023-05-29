@@ -1,13 +1,13 @@
 import { BrowserRouter as Router, Link, Route, Routes } from "react-router-dom";
 
 import App from "../App";
-import { Switch } from "../components/Switch";
-import { Exchange } from "../components/Exchange";
-import { Pools } from "../components/Pools";
-import { Found } from "../components/Found";
-import Main from "../components/Main";
-import WhitePaper from "../components/WhitePaper";
-import PoolLists from "../components/PoolLists";
+import { Switch } from "../pages/Switch";
+import { Exchange } from "../pages/Exchange";
+import { Pools } from "../pages/Pools";
+import { Found } from "../pages/Found";
+import Main from "../pages/Main";
+import WhitePaper from "../pages/WhitePaper";
+import Demo1_Swap from "../pages/Demo1_Swap";
 
 export function BaseRoutes() {
   return (
@@ -21,6 +21,7 @@ export function BaseRoutes() {
           <Route path="/PoolLists" element={<PoolLists />} />
           <Route path="/Main" element={<Main />} />
           <Route path="/whitepaper" element={<WhitePaper />} />
+          <Route path="/demo1_swap" element={<Demo1_Swap />} />
         </Route>
       </Routes>
     </Router>
