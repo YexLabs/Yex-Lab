@@ -1,10 +1,10 @@
 import React, { useState } from 'react'
-import PoolList from './pool/PoolList'
+import PoolList from '../components/pool/PoolList'
 import ethicon from "../assets/images/pools/eth.png";
 import scrollIcon from "../assets/images/scroll.png";
-import DepositCard from './pool/depositCard/DepositCard';
-import Sidebar from './pool/Sidebar';
-import WithdrawCard from './pool/withdrawCard/WithdrawCard';
+import DepositCard from '../components/pool/depositCard/DepositCard';
+import Sidebar from '../components/pool/Sidebar';
+import WithdrawCard from '../components/pool/withdrawCard/WithdrawCard';
 
 const mockData = [
     {
@@ -49,7 +49,7 @@ const mockData = [
     },
 ]
 
-const PoolLists = () => {
+const Demo2_Pool = () => {
     const [currentComponent, setCurrentComponent] = useState('PoolList');
 
     return (
@@ -86,4 +86,4 @@ const PoolLists = () => {
     )
 }
 
-export default PoolLists
+export default Demo2_Pool
