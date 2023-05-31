@@ -1,10 +1,11 @@
-import Reactm, { useState } from 'react';
+import React, { useState } from 'react';
 
 const Sidebar = ({ onSelectComponent }) => {
 
     const componentConfig = [
         { name: 'PoolList', displayName: 'Pools' },
         { name: 'DepositCard', displayName: 'Deposit' },
+        { name: 'WithdrawCard', displayName: 'Withdraw' },
     ];
 
     const [selectedComponent, setSelectedComponent] = useState('PoolList');
