@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
-import PoolList from './poolList/PoolList'
+import PoolList from './pool/PoolList'
 import ethicon from "../assets/images/pools/eth.png";
 import scrollIcon from "../assets/images/scroll.png";
-import DepositCard from './poolList/depositCard/DepositCard';
-import Sidebar from './poolList/Sidebar';
+import DepositCard from './pool/depositCard/DepositCard';
+import Sidebar from './pool/Sidebar';
+import WithdrawCard from './pool/withdrawCard/WithdrawCard';
 
 const mockData = [
     {
@@ -61,7 +62,7 @@ const PoolLists = () => {
                     {currentComponent === 'DepositCard' && <DepositCard />}
                 </div>
                 <div>
-                    <div className="justify-center items-center flex flex-col">
+                    <div className='justify-center items-center flex flex-col'>
                         {currentComponent === 'PoolList' && mockData.map((data, index) => (
                             <PoolList
                                 key={index}
@@ -76,6 +77,9 @@ const PoolLists = () => {
                             />
                         ))}
                     </div>
+                </div>
+                <div>
+                    {currentComponent === 'WithdrawCard' && <WithdrawCard />}
                 </div>
             </div>
         </div>

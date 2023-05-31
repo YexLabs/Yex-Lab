@@ -7,7 +7,6 @@ const DepositCard_Header = () => {
                 <p>Tokens to deposit</p>
             </div>
             <div>
-                {/* 下拉设置滑点卡片 */}
                 <div className="dropdown dropdown-bottom dropdown-end">
                     <div
                         className="p-1 rotate-on-hover hover:cursor-pointer rounded-xl "
