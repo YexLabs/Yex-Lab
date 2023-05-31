@@ -1,6 +1,4 @@
 import React from 'react'
-import ethicon from "../../assets/images/pools/eth.png";
-import scrollIcon from "../../assets/images/scroll.png";
 
 const PoolList = ({ tokenAIcon, tokenBIcon, statusIcon, tokenAName, tokenBName, status, liquidity, apr }) => {
     return (

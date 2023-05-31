@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
 import PoolList from './poolList/PoolList'
 import ethicon from "../assets/images/pools/eth.png";
 import scrollIcon from "../assets/images/scroll.png";
 import DepositCard from './poolList/depositCard/DepositCard';
+import Sidebar from './poolList/Sidebar';
 
 const mockData = [
     {
@@ -48,27 +49,34 @@ const mockData = [
 ]
 
 const PoolLists = () => {
+    const [currentComponent, setCurrentComponent] = useState('PoolList');
+
     return (
-
-
-        <div className="mt-16 min-h-screen md:min-h-auto md:h-auto">
+        <div className='flex flex-row gap-2 justify-center items-center mt-20 min-h-screen'>
             <div>
-                <DepositCard />
+                <Sidebar onSelectComponent={setCurrentComponent} />
             </div>
-            <div className="mt-16 justify-center items-center flex flex-col">
-                {mockData.map((data, index) => (
-                    <PoolList
-                        key={index}
-                        tokenAIcon={data.tokenAIcon}
-                        tokenBIcon={data.tokenBIcon}
-                        statusIcon={data.statusIcon}
-                        tokenAName={data.tokenAName}
-                        tokenBName={data.tokenBName}
-                        status={data.status}
-                        liquidity={data.liquidity}
-                        apr={data.apr}
-                    />
-                ))}
+            <div className='w-3/4'>
+                <div>
+                    {currentComponent === 'DepositCard' && <DepositCard />}
+                </div>
+                <div>
+                    <div className="justify-center items-center flex flex-col">
+                        {currentComponent === 'PoolList' && mockData.map((data, index) => (
+                            <PoolList
+                                key={index}
+                                tokenAIcon={data.tokenAIcon}
+                                tokenBIcon={data.tokenBIcon}
+                                statusIcon={data.statusIcon}
+                                tokenAName={data.tokenAName}
+                                tokenBName={data.tokenBName}
+                                status={data.status}
+                                liquidity={data.liquidity}
+                                apr={data.apr}
+                            />
+                        ))}
+                    </div>
+                </div>
             </div>
         </div>
     )
