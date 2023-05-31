@@ -22,7 +22,7 @@ export function BaseRoutes() {
           <Route path="/Main" element={<Main />} />
           <Route path="/whitepaper" element={<WhitePaper />} />
           <Route path="/demo1_swap" element={<Demo1_Swap />} />
-          <Route path="/PoolLists" element={<Demo2_Pool />} />
+          <Route path="/demo2_pool" element={<Demo2_Pool />} />
 
         </Route>
       </Routes>
