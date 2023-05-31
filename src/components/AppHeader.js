@@ -59,7 +59,7 @@ export default function AppHeader() {
                   </div>
                 </div>
                 {/* Pool */}
-                {/* <div className="relative">
+                <div className="relative">
                   <div>
                     <a
                       href="#"
@@ -97,6 +97,24 @@ export default function AppHeader() {
                           tabindex="0"
                           class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-80 mt-0"
                         >
+                          <li>
+                            <a href="PoolLists">
+                              <div class="flex">
+                                <div className="flex items-center">
+                                  <img
+                                    src={logo}
+                                    className="h-[24px] w-[24px] z-1"
+                                  />
+                                </div>
+                                <div className="flex flex-col ml-3">
+                                  <p>PoolLists</p>
+                                  <p className=" text-xs">
+                                    Explore all pools on yexdex
+                                  </p>
+                                </div>
+                              </div>
+                            </a>
+                          </li>
                           <li>
                             <a>
                               <div class="flex">
@@ -137,7 +155,7 @@ export default function AppHeader() {
                       </div>
                     </a>
                   </div>
-                </div> */}
+                </div>
                 {/* <div className="relative">
                   <div>
                     <a
