@@ -59,7 +59,7 @@ export default function AppHeader() {
                   </div>
                 </div>
                 {/* Pool */}
-                <div className="relative">
+                {/* <div className="relative">
                   <div>
                     <a
                       href="#"
@@ -155,7 +155,7 @@ export default function AppHeader() {
                       </div>
                     </a>
                   </div>
-                </div>
+                </div> */}
                 {/* <div className="relative">
                   <div>
                     <a
