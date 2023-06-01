@@ -4,8 +4,11 @@ import React from "react";
 import logo from "../assets/images/yexlab.png";
 import Faucet from "./Faucet";
 import { useState } from "react";
+import { useNetwork } from "wagmi";
+import Faucet_Mumbai from "./Faucet_Mumbai";
 
 export default function AppHeader() {
+  const { chain } = useNetwork();
   const [isPoolHovered, setIsPoolHovered] = useState(false);
   const handleMouseEnter = () => {
     setIsPoolHovered(true);
@@ -230,7 +233,7 @@ export default function AppHeader() {
               </div>
             </div>
             <div class="flex flex-row items-center gap-3">
-              <Faucet />
+              {chain?.id != 80001 ? <Faucet /> : <Faucet_Mumbai />}
               <div className=" relative">
                 <div className="">
                   <ConnectKitProvider>

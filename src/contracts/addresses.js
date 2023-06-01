@@ -7,3 +7,12 @@ export const vault_address = "0xe7C6a9D88f68b96a9697129Ed3E5BD8F7274fAD8";
 export const pools_address = "0x191Da4faDc59BfAc88406e2b4CE9B87890D93FB4";
 export const panel_adress = "0xe95A7847fe13BB6b69cc299Ad057A4D6C28aEC46";
 export const purchase_address = "0xb16d3Eaa4dD2eC8684569bB0aC601E713dD7787E";
+
+export const Mumbai_yexExample_address =
+  "0xD57830050A168207F94AB9cC8151246410E05E25";
+export const Mumbai_yexExample_pool2_address =
+  "0x9086b5D836a3BBBC58C09199296C6cE188ebE94d";
+export const Mumbai_tokenA_address =
+  "0x4e87D3b429bac6737315073a7D3DD0696e9AEBac";
+export const Mumbai_tokenB_address =
+  "0x3c7Ff9d95083d19CB1bE2B6a7A506e72dDbC9A24";

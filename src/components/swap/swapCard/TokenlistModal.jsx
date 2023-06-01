@@ -140,12 +140,12 @@ export default function TokenListModal(props) {
                     onClick={() => {
                       // eslint-disable-next-line no-unused-expressions
                       props.selectedTokenlist == 0
-                        ? (props.selectedCoin_input != "ETH"
+                        ? props.selectedCoin_input != "ETH"
                           ? changeSelectedCoin_input("ETH")
-                          : "")
-                        : (props.selectedCoin_out != "ETH"
+                          : ""
+                        : props.selectedCoin_out != "ETH"
                         ? changeSelectedCoin_out("ETH")
-                        : "");
+                        : "";
                     }}
                   >
                     <div className="w-[20px] h-[20px]">
@@ -167,7 +167,7 @@ export default function TokenListModal(props) {
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                         // eslint-disable-next-line no-unused-expressions
+                      // eslint-disable-next-line no-unused-expressions
                       props.selectedTokenlist == 0
                         ? props.selectedCoin_input != "WETH"
                           ? changeSelectedCoin_input("WETH")
@@ -193,7 +193,7 @@ export default function TokenListModal(props) {
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                         // eslint-disable-next-line no-unused-expressions
+                      // eslint-disable-next-line no-unused-expressions
                       props.selectedTokenlist == 0
                         ? props.selectedCoin_input != "USDC"
                           ? changeSelectedCoin_input("USDC")
@@ -211,21 +211,21 @@ export default function TokenListModal(props) {
                   <div
                     className={`flex items-center bg-white ${
                       props.selectedTokenlist == 0
-                        ? props.selectedCoin_input == "tToken"
+                        ? props.selectedCoin_input == "tokenA"
                           ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
                           : " hover:cursor-pointer"
-                        : props.selectedCoin_out == "tToken"
+                        : props.selectedCoin_out == "tokenA"
                         ? "bg-slate-100 text-gray-500 opacity-50 "
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                         // eslint-disable-next-line no-unused-expressions
+                      // eslint-disable-next-line no-unused-expressions
                       props.selectedTokenlist == 0
-                        ? props.selectedCoin_input != "tToken"
-                          ? changeSelectedCoin_input("tToken")
+                        ? props.selectedCoin_input != "tokenA"
+                          ? changeSelectedCoin_input("tokenA")
                           : ""
-                        : props.selectedCoin_out != "tToken"
-                        ? changeSelectedCoin_out("tToken")
+                        : props.selectedCoin_out != "tokenA"
+                        ? changeSelectedCoin_out("tokenA")
                         : "";
                     }}
                   >
@@ -235,26 +235,26 @@ export default function TokenListModal(props) {
                         src="data:image/png;base64,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"
                       />
                     </div>
-                    <div className="ml-1 text-sm">tToken</div>
+                    <div className="ml-1 text-sm">tokenA</div>
                   </div>
                   <div
                     className={`flex items-center bg-white ${
                       props.selectedTokenlist == 0
-                        ? props.selectedCoin_input == "vToken"
+                        ? props.selectedCoin_input == "tokenB"
                           ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
                           : " hover:cursor-pointer"
-                        : props.selectedCoin_out == "vToken"
+                        : props.selectedCoin_out == "tokenB"
                         ? "bg-slate-100 text-gray-500 opacity-50 "
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                         // eslint-disable-next-line no-unused-expressions
+                      // eslint-disable-next-line no-unused-expressions
                       props.selectedTokenlist == 0
-                        ? props.selectedCoin_input != "vToken"
-                          ? changeSelectedCoin_input("vToken")
+                        ? props.selectedCoin_input != "tokenB"
+                          ? changeSelectedCoin_input("tokenB")
                           : ""
-                        : props.selectedCoin_out != "vToken"
-                        ? changeSelectedCoin_out("vToken")
+                        : props.selectedCoin_out != "tokenB"
+                        ? changeSelectedCoin_out("tokenB")
                         : "";
                     }}
                   >
@@ -264,7 +264,7 @@ export default function TokenListModal(props) {
                         src="data:image/png;base64,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"
                       />
                     </div>
-                    <div className="ml-1 text-sm">vToken</div>
+                    <div className="ml-1 text-sm">tokenB</div>
                   </div>
                 </div>
               </div>
@@ -352,17 +352,17 @@ export default function TokenListModal(props) {
                 <div
                   className={`${
                     props.selectedTokenlist == 0
-                      ? props.selectedCoin_input == "tPaper"
+                      ? props.selectedCoin_input == "tokenA"
                         ? "opacity-50"
                         : "hover:bg-slate-100 hover:cursor-pointer"
-                      : props.selectedCoin_out == "tPaper"
+                      : props.selectedCoin_out == "tokenA"
                       ? "opacity-50"
                       : "hover:bg-slate-100 hover:cursor-pointer"
                   }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
                   onClick={() =>
                     props.selectedTokenlist == 0
-                      ? changeSelectedCoin_input("tPaper")
-                      : changeSelectedCoin_out("tPaper")
+                      ? changeSelectedCoin_input("tokenA")
+                      : changeSelectedCoin_out("tokenA")
                   }
                 >
                   <div className="w-[26px] h-[26px]">
@@ -372,26 +372,24 @@ export default function TokenListModal(props) {
                     />
                   </div>
                   <div className="flex-col ">
-                    <div className="font-normal">tPaper</div>
-                    <div className="text-xs text-slate-600">
-                      Test PaperToken
-                    </div>
+                    <div className="font-normal">tokenA</div>
+                    <div className="text-xs text-slate-600">Test A token</div>
                   </div>
                 </div>
                 <div
                   className={`${
                     props.selectedTokenlist == 0
-                      ? props.selectedCoin_input == "oPaper"
+                      ? props.selectedCoin_input == "tokenB"
                         ? "opacity-50"
                         : "hover:bg-slate-100 hover:cursor-pointer"
-                      : props.selectedCoin_out == "oPaper"
+                      : props.selectedCoin_out == "tokenB"
                       ? "opacity-50"
                       : "hover:bg-slate-100 hover:cursor-pointer"
                   }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
                   onClick={() =>
                     props.selectedTokenlist == 0
-                      ? changeSelectedCoin_input("oPaper")
-                      : changeSelectedCoin_out("oPaper")
+                      ? changeSelectedCoin_input("tokenB")
+                      : changeSelectedCoin_out("tokenB")
                   }
                 >
                   <div className="w-[26px] h-[26px]">
@@ -401,8 +399,8 @@ export default function TokenListModal(props) {
                     />
                   </div>
                   <div className="flex-col ">
-                    <div className="font-normal">oPaper</div>
-                    <div className="text-xs text-slate-600">Old PaperToken</div>
+                    <div className="font-normal">tokenB</div>
+                    <div className="text-xs text-slate-600">Test B token</div>
                   </div>
                 </div>
               </div>

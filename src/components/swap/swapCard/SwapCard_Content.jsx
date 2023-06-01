@@ -1,7 +1,29 @@
-import React, { useState,useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import TokenListModal from "./TokenlistModal";
+import {
+  useAccount,
+  useBalance,
+  useContractRead,
+  useContractReads,
+  useContractWrite,
+  usePrepareContractWrite,
+  useWaitForTransaction,
+} from "wagmi";
+import {
+  Mumbai_yexExample_address,
+  Mumbai_tokenA_address,
+  Mumbai_tokenB_address,
+} from "../../../contracts/addresses";
+import {
+  Mumbai_faucet_abi,
+  Mumbai_yexExample_abi,
+} from "../../../contracts/abis";
+import { ethers } from "ethers";
+import { message } from "antd";
 
 export default function SwapCard_Content() {
+  const [hash, setHash] = useState("0x");
+  const { address } = useAccount();
   const [inputValue, setInputValue] = useState(1781.84);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTokenlist, setSelectedTokenlist] = useState(0); // 0 input of tokenlist,1 out of tokenlist
@@ -12,11 +34,80 @@ export default function SwapCard_Content() {
   const [inputTokenPriceForOutToken, setInputTokenPriceForOutToken] =
     useState("0.0");
 
-  const [currentInputTokenContract, setCurrentInputTokenContract] = useState("0x");
+  const [currentInputTokenContract, setCurrentInputTokenContract] =
+    useState("0x");
   const [currentOutTokenContract, setCurrentOutTokenContract] = useState("0x");
 
   const [isOpen_Alert, setIsOpen_Alert] = useState(false);
   const [isLoading_Btn, setIsLoading_Btn] = useState(false);
+
+  const confirmation = useWaitForTransaction({
+    hash: hash,
+    onSuccess(data) {
+      setIsLoading_Btn(false);
+      message.success("Swap Success!");
+    },
+  });
+
+  //获取inputToken余额
+  const { data: inputTokenBalance } = useBalance({
+    address: address,
+    token: selectedCoin_input == "ETH" ? undefined : currentInputTokenContract, // undefined是查询ETH余额
+  });
+
+  //获取outToken余额
+  const { data: outTokenBalance } = useBalance({
+    address: address,
+    token: selectedCoin_out == "ETH" ? undefined : currentOutTokenContract, // undefined是查询ETH余额
+  });
+
+  // 获取已授权的token数量
+  const getTokenApproved = useContractRead({
+    address: currentInputTokenContract,
+    abi: Mumbai_faucet_abi,
+    functionName: "allowance",
+    args: [address, Mumbai_yexExample_address],
+    watch: true,
+    onSuccess(data) {
+      const amount = ethers.utils.formatUnits(data, "ether");
+      console.log(amount);
+    },
+  });
+
+  // approve token config
+  const { config: approveInputTokenConfig } = usePrepareContractWrite({
+    address: currentInputTokenContract,
+    abi: Mumbai_faucet_abi,
+    functionName: "approve",
+    args: [
+      Mumbai_yexExample_address,
+      ethers.utils.parseEther(inputAmountRef.current?.value || "0"),
+    ],
+  });
+  // approve token action
+  const { writeAsync: approveInputTokenWrite } = useContractWrite({
+    ...approveInputTokenConfig,
+    onError(error) {
+      console.log("Error", error);
+    },
+  });
+  // swap config
+  const { config: poolSwapConfig } = usePrepareContractWrite({
+    address: Mumbai_yexExample_address,
+    abi: Mumbai_yexExample_abi,
+    functionName: "deposit",
+    args: [
+      ethers.utils.parseEther(inputAmountRef.current?.value || "0"),
+      ethers.utils.parseEther("0"),
+    ],
+  });
+  // swap action
+  const { data: swapData, writeAsync: swapWrite } = useContractWrite({
+    ...poolSwapConfig,
+    onError(error) {
+      console.log("Error", error);
+    },
+  });
 
   function openModal_input() {
     setSelectedTokenlist(0);
@@ -28,10 +119,61 @@ export default function SwapCard_Content() {
     setIsOpen(true);
   }
 
-
   function closeModal() {
     setIsOpen(false);
   }
+  const swapClick = () => {
+    if (Number(receiveTokenAmount) >= 0) {
+      setIsLoading_Btn(true);
+      // approveInputTokenWrite?.()
+      //   .then((res) => {
+      //     setHash(res.hash);
+      //   })
+      //   .catch((err) => {
+      //     setIsLoading_Btn(false);
+      //   });
+      swapWrite?.()
+        .then((res) => {
+          setHash(res.hash);
+        })
+        .catch((err) => {
+          setIsLoading_Btn(false);
+        });
+    }
+  };
+  useEffect(() => {
+    if (Number(inputAmountRef.current?.value) == 0) {
+      setReceiveTokenAmount("0.0");
+    }
+  }, [inputAmountRef.current?.value]);
+  useEffect(() => {
+    if (selectedCoin_input == "tokenA") {
+      setCurrentInputTokenContract(Mumbai_tokenA_address);
+    }
+    if (selectedCoin_input == "tokenB") {
+      setCurrentInputTokenContract(Mumbai_tokenB_address);
+    }
+    if (selectedCoin_input == "USDC") {
+      setCurrentInputTokenContract("0x");
+    }
+    if (selectedCoin_input == "WETH") {
+      setCurrentInputTokenContract("0x");
+    }
+  }, [selectedCoin_input]);
+  useEffect(() => {
+    if (selectedCoin_out == "tokenA") {
+      setCurrentOutTokenContract(Mumbai_tokenA_address);
+    }
+    if (selectedCoin_out == "tokenB") {
+      setCurrentOutTokenContract(Mumbai_tokenB_address);
+    }
+    if (selectedCoin_out == "USDC") {
+      setCurrentOutTokenContract("0x");
+    }
+    if (selectedCoin_out == "WETH") {
+      setCurrentOutTokenContract("0x");
+    }
+  }, [selectedCoin_out]);
   return (
     <div className="flex-col mt-8">
       {/* inputcoin */}
@@ -40,9 +182,11 @@ export default function SwapCard_Content() {
           <div className="flex justify-between">
             <div className="text-2xl">
               <input
-                type="text"
+                type="number"
+                step="0.0000001"
                 placeholder="0.0"
                 className="bg-transparent border-none text-3xl outline-none "
+                ref={inputAmountRef}
               />
             </div>
             {/* coinlist */}
@@ -84,7 +228,11 @@ export default function SwapCard_Content() {
                   useGrouping: true,
                 })}
             </div>
-            <div className="">Balance: 0.0</div>
+            <div className="">{`Balance: ${
+              inputTokenBalance
+                ? Number(inputTokenBalance?.formatted).toFixed(6)
+                : "0.0"
+            } `}</div>
           </div>
           {/* 百分比选择 */}
           <div className="flex justify-start gap-7 mt-2 text-sm">
@@ -123,15 +271,16 @@ export default function SwapCard_Content() {
           </svg>
         </div>
       </div>
-      {/* inputcoin */}
+      {/* outcoin */}
       <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative mt-4">
         <div className="flex-col">
           <div className="flex justify-between">
             <div className="text-2xl">
               <input
                 type="text"
-                placeholder="0.0"
-                className="bg-transparent border-none text-3xl outline-none "
+                placeholder={receiveTokenAmount}
+                className="bg-transparent border-none text-3xl outline-none animate-pulse"
+                disabled
               />
             </div>
             {/* coinlist */}
@@ -173,7 +322,11 @@ export default function SwapCard_Content() {
                   useGrouping: true,
                 })}
             </div>
-            <div className="">Balance: 0.0</div>
+            <div className="">{`Balance: ${
+              outTokenBalance
+                ? Number(outTokenBalance?.formatted).toFixed(6)
+                : "0.0"
+            } `}</div>
           </div>
         </div>
       </div>
@@ -203,9 +356,38 @@ export default function SwapCard_Content() {
         </div>
       </div>
       {/* button */}
-      <button className=" text-center w-full mt-5 bg-indigo-400 py-2 rounded-xl ripple-btn text-white">
-        Swap
-      </button>
+      <div
+        className={`flex justify-center items-center text-center font-semibold w-full mt-5 h-12 ${
+          Number(receiveTokenAmount) > 0
+            ? "bg-indigo-400  hover:cursor-pointer"
+            : "bg-white text-gray-500 hover:cursor-default"
+        } py-2 rounded-xl ripple-btn`}
+        onClick={swapClick}
+      >
+        {isLoading_Btn && (
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="animate-spin h-5 w-5 mr-3 text-gray-700"
+            viewBox="0 0 24 24"
+            fill="none"
+          >
+            <circle
+              className="opacity-25"
+              cx="12"
+              cy="12"
+              r="10"
+              stroke="currentColor"
+              stroke-width="4"
+            ></circle>
+            <path
+              className="opacity-75"
+              fill="currentColor"
+              d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+            ></path>
+          </svg>
+        )}
+        {Number(receiveTokenAmount) != 0 ? "Swap" : "Insufficient Liquidity"}
+      </div>
       {/* 代币列表modal */}
       <TokenListModal
         isOpen={isOpen}
@@ -214,7 +396,8 @@ export default function SwapCard_Content() {
         selectedCoin_input={selectedCoin_input}
         setSelectedCoin_input={setSelectedCoin_input}
         selectedCoin_out={selectedCoin_out}
-        setSelectedCoin_out={setSelectedCoin_out}/>
+        setSelectedCoin_out={setSelectedCoin_out}
+      />
     </div>
   );
 }
