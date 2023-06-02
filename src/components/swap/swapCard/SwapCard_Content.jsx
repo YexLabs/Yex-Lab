@@ -33,7 +33,7 @@ export default function SwapCard_Content() {
   const [receiveTokenAmount, setReceiveTokenAmount] = useState("0.0");
   const [inputTokenPriceForOutToken, setInputTokenPriceForOutToken] =
     useState("0.0");
-
+  console.log(inputTokenPriceForOutToken, 'inputTokenPriceForOutToken')
   const [currentInputTokenContract, setCurrentInputTokenContract] =
     useState("0x");
   const [currentOutTokenContract, setCurrentOutTokenContract] = useState("0x");
@@ -228,11 +228,10 @@ export default function SwapCard_Content() {
                   useGrouping: true,
                 })}
             </div>
-            <div className="">{`Balance: ${
-              inputTokenBalance
-                ? Number(inputTokenBalance?.formatted).toFixed(6)
-                : "0.0"
-            } `}</div>
+            <div className="">{`Balance: ${inputTokenBalance
+              ? Number(inputTokenBalance?.formatted).toFixed(6)
+              : "0.0"
+              } `}</div>
           </div>
           {/* 百分比选择 */}
           <div className="flex justify-start gap-7 mt-2 text-sm">
@@ -322,11 +321,10 @@ export default function SwapCard_Content() {
                   useGrouping: true,
                 })}
             </div>
-            <div className="">{`Balance: ${
-              outTokenBalance
-                ? Number(outTokenBalance?.formatted).toFixed(6)
-                : "0.0"
-            } `}</div>
+            <div className="">{`Balance: ${outTokenBalance
+              ? Number(outTokenBalance?.formatted).toFixed(6)
+              : "0.0"
+              } `}</div>
           </div>
         </div>
       </div>
@@ -357,11 +355,10 @@ export default function SwapCard_Content() {
       </div>
       {/* button */}
       <div
-        className={`flex justify-center items-center text-center font-semibold w-full mt-5 h-12 ${
-          Number(receiveTokenAmount) > 0
-            ? "bg-indigo-400  hover:cursor-pointer"
-            : "bg-white text-gray-500 hover:cursor-default"
-        } py-2 rounded-xl ripple-btn`}
+        className={`flex justify-center items-center text-center font-semibold w-full mt-5 h-12 ${Number(receiveTokenAmount) > 0
+          ? "bg-indigo-400  hover:cursor-pointer"
+          : "bg-white text-gray-500 hover:cursor-default"
+          } py-2 rounded-xl ripple-btn`}
         onClick={swapClick}
       >
         {isLoading_Btn && (

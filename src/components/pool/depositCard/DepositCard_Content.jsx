@@ -1,34 +1,242 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from "react";
 import TokenListModal from '../../common/TokenlistModal';
+import {
+    useAccount,
+    useBalance,
+    useContractRead,
+    useContractReads,
+    useContractWrite,
+    usePrepareContractWrite,
+    useWaitForTransaction,
+} from "wagmi";
+import {
+    Mumbai_yexExample_address,
+    Mumbai_tokenA_address,
+    Mumbai_tokenB_address,
+    Mumbai_yexExample_pool2_address
+} from "../../../contracts/addresses";
+import {
+    Mumbai_faucet_abi,
+    Mumbai_yexExample_abi,
+} from "../../../contracts/abis";
+import { ethers } from "ethers";
+import { message } from "antd";
 
 const DepositCard_Content = () => {
+    const [hash, setHash] = useState("0x");
+    const { address } = useAccount();
     const [inputValue, setInputValue] = useState(1781.84);
     const [isOpen, setIsOpen] = useState(false);
+    const [selectedTokenlist, setSelectedTokenlist] = useState(0); // 0 input of tokenlist,1 out of tokenlist
+    const [selectedCoin_input, setSelectedCoin_input] = useState("ETH");
+    const [selectedCoin_out, setSelectedCoin_out] = useState("USDC");
+    const inputAmountRef = useRef(null);
+    const inputBmountRef = useRef(null);
+    const [receiveTokenAmount, setReceiveTokenAmount] = useState("0.0");
+    const [inputTokenPriceForOutToken, setInputTokenPriceForOutToken] =
+        useState("0.0");
 
-    function openModal() {
+    const [tokenAContract, setTokenAContract] = useState("0x");
+    const [tokenBContract, setTokenBContract] = useState("0x");
+
+    const [isOpen_Alert, setIsOpen_Alert] = useState(false);
+    const [isLoading_Btn, setIsLoading_Btn] = useState(false);
+
+    const confirmation = useWaitForTransaction({
+        hash: hash,
+        onSuccess(data) {
+            setIsLoading_Btn(false);
+            message.success("Swap Success!");
+        },
+    });
+
+    //获取tokenA余额
+    const { data: tokenABalance } = useBalance({
+        address: address,
+        token: selectedCoin_input == "ETH" ? undefined : tokenAContract, // undefined是查询ETH余额
+    });
+
+    //获取tokenB余额
+    const { data: tokenBBalance } = useBalance({
+        address: address,
+        token: selectedCoin_out == "ETH" ? undefined : tokenBContract, // undefined是查询ETH余额
+    });
+
+    // // 获取已授权的tokenA数量
+    // const getTokenApproved = useContractRead({
+    //     address: tokenAContract,
+    //     abi: Mumbai_faucet_abi,
+    //     functionName: "allowance",
+    //     args: [address, Mumbai_yexExample_address],
+    //     watch: true,
+    //     onSuccess(data) {
+    //         const amount = ethers.utils.formatUnits(data, "ether");
+    //         console.log(amount);
+    //     },
+    // });
+
+    // // 获取已授权的tokenB数量
+    // const getTokenBpproved = useContractRead({
+    //     address: tokenBContract,
+    //     abi: Mumbai_faucet_abi,
+    //     functionName: "allowance",
+    //     args: [address, Mumbai_yexExample_address],
+    //     watch: true,
+    //     onSuccess(data) {
+    //         const amount = ethers.utils.formatUnits(data, "ether");
+    //         console.log(amount);
+    //     },
+    // });
+
+    // approve tokenA config
+    const { config: approveTokenAConfig } = usePrepareContractWrite({
+        address: tokenAContract,
+        abi: Mumbai_faucet_abi,
+        functionName: "approve",
+        args: [
+            Mumbai_yexExample_address,
+            ethers.utils.parseEther(inputAmountRef.current?.value || "0"),
+        ],
+    });
+    // approve tokenA action
+    const { writeAsync: approveTokenAWrite } = useContractWrite({
+        ...approveTokenAConfig,
+        onError(error) {
+            console.log("Error", error);
+        },
+    });
+
+    // approve tokenB config
+    const { config: approveTokenBConfig } = usePrepareContractWrite({
+        address: tokenBContract,
+        abi: Mumbai_faucet_abi,
+        functionName: "approve",
+        args: [
+            Mumbai_yexExample_address,
+            ethers.utils.parseEther(inputBmountRef.current?.value || "0"),
+        ],
+    });
+    // approve tokenB action
+    const { writeAsync: approveTokenBWrite } = useContractWrite({
+        ...approveTokenBConfig,
+        onError(error) {
+            console.log("Error", error);
+        },
+    });
+
+    // addLiquidity config
+    const { config: addLiquidityConfig } = usePrepareContractWrite({
+        address: Mumbai_yexExample_address,
+        abi: Mumbai_yexExample_abi,
+        functionName: "addLiquidity",
+        args: [
+            ethers.utils.parseEther(inputAmountRef.current?.value || "0"),
+            ethers.utils.parseEther(inputBmountRef.current?.value || "0"),
+        ],
+    });
+
+    // addLiquidity action
+    const { writeAsync: addLiquidityWrite } = useContractWrite({
+        ...addLiquidityConfig,
+        onError(error) {
+            console.log("Error", error);
+        },
+    });
+
+    const addLiquidity = async () => {
+        setIsLoading_Btn(true);
+        try {
+            // Approve token A
+            const approveTokenAResult = await approveTokenAWrite();
+            console.log('Approve Token A Result:', approveTokenAResult);
+
+            // Approve token B
+            const approveTokenBResult = await approveTokenBWrite();
+            console.log('Approve Token B Result:', approveTokenBResult);
+
+            // Send addLiquidity transaction
+            const addLiquidityResult = await addLiquidityWrite();
+            console.log('Add Liquidity Result:', addLiquidityResult);
+
+            setIsLoading_Btn(false);
+        } catch (err) {
+            console.log(err);
+            setIsLoading_Btn(false);
+        }
+    };
+
+    function openModal_input() {
+        setSelectedTokenlist(0);
+        setIsOpen(true);
+    }
+
+    function openModal_out() {
+        setSelectedTokenlist(1);
         setIsOpen(true);
     }
 
     function closeModal() {
         setIsOpen(false);
     }
+    useEffect(() => {
+        if (Number(inputAmountRef.current?.value) == 0) {
+            setReceiveTokenAmount("0.0");
+        }
+
+    }, [inputAmountRef.current?.value]);
+    useEffect(() => {
+        if (Number(inputBmountRef.current?.value) == 0) {
+            setReceiveTokenAmount("0.0");
+        }
+    }, [inputBmountRef.current?.value]);
+
+    useEffect(() => {
+        if (selectedCoin_input == "tokenA") {
+            setTokenAContract(Mumbai_tokenA_address);
+        }
+        if (selectedCoin_input == "tokenB") {
+            setTokenAContract(Mumbai_tokenB_address);
+        }
+        if (selectedCoin_input == "USDC") {
+            setTokenAContract("0x");
+        }
+        if (selectedCoin_input == "WETH") {
+            setTokenAContract("0x");
+        }
+    }, [selectedCoin_input]);
+    useEffect(() => {
+        if (selectedCoin_out == "tokenA") {
+            setTokenBContract(Mumbai_tokenA_address);
+        }
+        if (selectedCoin_out == "tokenB") {
+            setTokenBContract(Mumbai_tokenB_address);
+        }
+        if (selectedCoin_out == "USDC") {
+            setTokenBContract("0x");
+        }
+        if (selectedCoin_out == "WETH") {
+            setTokenBContract("0x");
+        }
+    }, [selectedCoin_out]);
     return (
         <div className="flex-col mt-8">
-            {/* inputcoin */}
+            {/* tokenA */}
             <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative">
                 <div className="flex-col">
                     <div className="flex justify-between">
                         <div className="text-2xl">
                             <input
                                 type="text"
+                                step="0.0000001"
                                 placeholder="0.0"
                                 className="bg-transparent border-none text-3xl outline-none "
+                                ref={inputAmountRef}
                             />
                         </div>
                         {/* coinlist */}
                         <div
                             className="flex bg-white rounded-full shadow-lg items-center px-3 hover:cursor-pointer hover:bg-opacity-0"
-                            onClick={openModal}
+                            onClick={openModal_input}
                         >
                             <div className="w-[24px] h-[24px]">
                                 <img
@@ -64,7 +272,10 @@ const DepositCard_Content = () => {
                                     useGrouping: true,
                                 })}
                         </div>
-                        <div className="">Balance: 0.0</div>
+                        <div className="">{`Balance: ${tokenABalance
+                            ? Number(tokenABalance?.formatted).toFixed(6)
+                            : "0.0"
+                            } `}</div>
                     </div>
                     {/* 百分比选择 */}
                     <div className="flex justify-start gap-7 mt-2 text-sm">
@@ -83,21 +294,23 @@ const DepositCard_Content = () => {
                     </div>
                 </div>
             </div>
-            {/* inputcoin */}
+            {/* tokenB */}
             <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative mt-4">
                 <div className="flex-col">
                     <div className="flex justify-between">
                         <div className="text-2xl">
                             <input
                                 type="text"
+                                step="0.0000001"
                                 placeholder="0.0"
                                 className="bg-transparent border-none text-3xl outline-none "
+                                ref={inputBmountRef}
                             />
                         </div>
                         {/* coinlist */}
                         <div
                             className="flex bg-white rounded-full shadow-lg items-center px-3 hover:cursor-pointer hover:bg-opacity-0"
-                            onClick={openModal}
+                            onClick={openModal_out}
                         >
                             <div className="w-[24px] h-[24px]">
                                 <img
@@ -133,7 +346,10 @@ const DepositCard_Content = () => {
                                     useGrouping: true,
                                 })}
                         </div>
-                        <div className="">Balance: 0.0</div>
+                        <div className="">{`Balance: ${tokenBBalance
+                            ? Number(tokenBBalance?.formatted).toFixed(6)
+                            : "0.0"
+                            } `}</div>
                     </div>
                 </div>
             </div>
@@ -163,11 +379,44 @@ const DepositCard_Content = () => {
                 </div>
             </div>
             {/* button */}
-            <button className=" text-center w-full mt-5 bg-indigo-400 py-2 rounded-xl ripple-btn text-white">
+            <div
+                className="flex justify-center items-center text-center font-semibold w-full mt-5 h-12 bg-indigo-400 text-white hover:cursor-pointer py-2 rounded-xl ripple-btn"
+                onClick={addLiquidity}
+            >
+                {isLoading_Btn && (
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="animate-spin h-5 w-5 mr-3 text-gray-700"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                    >
+                        <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            stroke-width="4"
+                        ></circle>
+                        <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                    </svg>
+                )}
                 Deposit
-            </button>
+            </div>
             {/* 代币列表modal */}
-            <TokenListModal isOpen={isOpen} closeModal={closeModal} />
+            <TokenListModal
+                isOpen={isOpen}
+                closeModal={closeModal}
+                selectedTokenlist={selectedTokenlist}
+                selectedCoin_input={selectedCoin_input}
+                setSelectedCoin_input={setSelectedCoin_input}
+                selectedCoin_out={selectedCoin_out}
+                setSelectedCoin_out={setSelectedCoin_out}
+            />
         </div>
     );
 }
