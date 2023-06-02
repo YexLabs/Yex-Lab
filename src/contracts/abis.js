@@ -1889,6 +1889,30 @@ export const Mumbai_yexExample_abi = [
     type: "function",
   },
   {
+    inputs: [
+      {
+        internalType: "address",
+        name: "token",
+        type: "address",
+      },
+      {
+        internalType: "uint256",
+        name: "amountIn",
+        type: "uint256",
+      },
+    ],
+    name: "getExpectedAmountOut",
+    outputs: [
+      {
+        internalType: "uint256",
+        name: "",
+        type: "uint256",
+      },
+    ],
+    stateMutability: "view",
+    type: "function",
+  },
+  {
     inputs: [],
     name: "getReserves",
     outputs: [
@@ -2135,7 +2159,6 @@ export const Mumbai_yexExample_abi = [
     type: "function",
   },
 ];
-
 export const Mumbai_faucet_abi = [
   {
     inputs: [

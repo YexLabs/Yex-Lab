@@ -9,10 +9,10 @@ export const panel_adress = "0xe95A7847fe13BB6b69cc299Ad057A4D6C28aEC46";
 export const purchase_address = "0xb16d3Eaa4dD2eC8684569bB0aC601E713dD7787E";
 
 export const Mumbai_yexExample_address =
-  "0xD57830050A168207F94AB9cC8151246410E05E25";
+  "0x234311Be5840c0DEb6367e3b429380827D388654";
 export const Mumbai_yexExample_pool2_address =
-  "0x9086b5D836a3BBBC58C09199296C6cE188ebE94d";
+  "0xc52b761a18C259D873Ae3A71296192c96787573b";
 export const Mumbai_tokenA_address =
-  "0x4e87D3b429bac6737315073a7D3DD0696e9AEBac";
+  "0x7D60e8866037866425774bcB035722a780801C9D";
 export const Mumbai_tokenB_address =
-  "0x3c7Ff9d95083d19CB1bE2B6a7A506e72dDbC9A24";
+  "0xE6B25c20E9f8CF3b539766dFEA04b98b391cad1E";
