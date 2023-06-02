@@ -2,7 +2,7 @@
 import React from "react";
 import bg from "../assets/images/intro/bg.png";
 import curve from "../assets/images/intro/curve.png";
-import honypot from "../assets/images/intro/honypot.png";
+import honeypot from "../assets/images/intro/honeypot.png";
 import scroll from "../assets/images/intro/scroll.png";
 import berachain from "../assets/images/intro/bera.png";
 
@@ -95,7 +95,7 @@ export default function Main() {
               <div>
                 {" "}
                 <div class=" grid grid-cols-3 grid-gap-4 grid-flow-row mt-8">
-                  <img src={honypot} className=" mx-4 w-52 h-16" />
+                  <img src={honeypot} className=" mx-4 w-52 h-16" />
                   <img src={scroll} className=" mx-4 w-52 h-16" />{" "}
                   <img src={berachain} className=" mx-4 w-52 h-16" />
                 </div>
