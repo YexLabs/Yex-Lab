@@ -21,7 +21,7 @@ export function BaseRoutes() {
           {/* <Route path="/Exchange" element={<Exchange />} /> */}
           {/* <Route path="/Pools" element={<Pools />} /> */}
           {/* <Route path="/Found" element={<Found />} /> */}
-          <Route path="/Main" element={<Main />} />
+          <Route path="/main" element={<Main />} />
           <Route path="/whitepaper" element={<WhitePaper />} />
           <Route path="/demo1_swap" element={<Demo1_Swap />} />
           <Route path="/demo1_pool" element={<Demo1_Pool />} />
