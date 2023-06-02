@@ -1,6 +1,6 @@
 .card {
   width: 17em;
-  height: 20.5em;
+  height: 20em;
   background: #171717;
   transition: 1s ease-in-out;
   clip-path: polygon(30px 0%, 100% 0, 100% calc(100% - 30px), calc(100% - 30px) 100%, 0 100%, 0% 30px);
@@ -8,6 +8,7 @@
   border-bottom-left-radius: 20px;
   display: flex;
   flex-direction: column;
+  margin: auto;
 }
 
 .card span {

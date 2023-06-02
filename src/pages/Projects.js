@@ -34,8 +34,8 @@ export default function Projects() {
                 <button onClick="location.href='https://honeypot-front-end-ten.vercel.app/'">website</button>
             </div>
             {/* Splatter */}
-            <div class="card">
-                <div class="img"> <img src={honeypot} width="100%" height="100%" /> </div>
+            <div class="card" style="background: #5a9ff7">
+                <div class="img"> <img src={splatter} width="100%" height="100%" /> </div>
                 <span>Splatter Protocol</span>
                 <p class="info"> A native DEX on Scroll.</p>
                 <div class="share">
