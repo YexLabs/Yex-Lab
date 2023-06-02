@@ -35,7 +35,7 @@ export default function Projects() {
 
             </div>
             {/* Splatter */}
-            <div class="card" style={{background: spacing + '#5a9ff7'}}>
+            <div class="card" style={{background: ' #5a9ff7'}}>
                 <div class="img"> <img src={splatter} width="100%" height="100%" alt="" /> </div>
                 <span>Splatter Protocol</span>
                 <p class="info"> A native DEX on Scroll.</p>
