@@ -1,6 +1,6 @@
 //@taki
 import React from "react";
-import honeypot from '../assets/images/projects/honypot.png';
+import honeypot from '../assets/images/projects/honeypot.png';
 import splatter from '../assets/images/projects/splatter.png';
 import '../components/projects.css';
 
