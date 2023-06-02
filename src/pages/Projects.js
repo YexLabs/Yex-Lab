@@ -1,7 +1,7 @@
 //@taki
 import React from "react";
-import honeypot from '../assets/images/projects/honeypot.png';
-import splatter from '../assets/images/projects/splatter.png';
+import honeypot from '../assets/images/projects/honeypot.jpg';
+import splatter from '../assets/images/projects/splatter.jpg';
 import '../components/projects.css';
 
 export default function Projects() {
