@@ -1,4 +1,5 @@
 import React from "react";
+import Faucet_Mumbai from "../../Faucet_Mumbai";
 
 export default function SwapCard_Header() {
   return (
@@ -23,7 +24,8 @@ export default function SwapCard_Header() {
           ></path>
         </svg>
       </div>
-      <div>
+      <div className="flex">
+        <Faucet_Mumbai />
         {/* 下拉设置滑点卡片 */}
         <div className="dropdown dropdown-bottom dropdown-end">
           <div
