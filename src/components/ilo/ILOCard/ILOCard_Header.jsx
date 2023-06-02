@@ -10,9 +10,9 @@ export default function ILOCard_Header() {
             <img alt="" src={ethicon} />
           </div>
           <div className="flex-col ml-2">
-            <div className="text-2xl font-semibold">tToken/ETH</div>
+            <div className="text-2xl font-semibold">Subscribe TokenB using TokenA</div>
             <div className="text-sm flex">
-              <div className="text-indigo-600 mr-1">by</div>
+              <div className="text-indigo-600 mr-1">Contract on</div>
               <div>0x123...456</div>
             </div>
           </div>
@@ -25,15 +25,15 @@ export default function ILOCard_Header() {
       </div>
       <div className="flex mt-6 px-6 gap-12 justify-center">
         <div className="flex-col justify-center items-center text-center">
-          <div className="text-sm text-indigo-600">Soft Cap</div>
+          <div className="text-sm text-indigo-600">Raise Target</div>
           <div className="">5.0</div>
         </div>
         <div className="flex-col justify-center items-center text-center">
-          <div className="text-sm text-indigo-600">Avg Prive</div>
+          <div className="text-sm text-indigo-600">Uniform Price</div>
           <div className="">0.005 </div>
         </div>
         <div className="flex-col justify-center items-center text-center">
-          <div className="text-sm text-indigo-600">Locked tToken</div>
+          <div className="text-sm text-indigo-600">Locked TokenB</div>
           <div className="flex justify-center items-center">
             <div>1.0M</div>
             <div className="w-4 h-4 ml-1">
@@ -42,7 +42,7 @@ export default function ILOCard_Header() {
           </div>
         </div>
         <div className="flex-col justify-center items-center text-center">
-          <div className="text-sm text-indigo-600">Spent ETH</div>
+          <div className="text-sm text-indigo-600">Deposited TokenA</div>
           <div className="flex justify-center items-center">
             <div>100.0</div>
             <div className="w-4 h-4 ml-1">
@@ -51,7 +51,7 @@ export default function ILOCard_Header() {
           </div>
         </div>
         <div className="flex-col justify-center items-center text-center">
-          <div className="text-sm text-indigo-600">Liquidity Percent</div>
+          <div className="text-sm text-indigo-600">LP Shares</div>
           <div className="">50%</div>
         </div>
       </div>
