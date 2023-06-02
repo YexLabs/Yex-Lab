@@ -9,7 +9,7 @@ export default function Projects() {
         <div id="Projects-body" className="h-full justify-center items-center flex">
             {/* Honeypot */}
             <div class="card">
-                <div class="img"> <img src={honeypot} width="100%" height="100%" /> </div>
+                <div class="img"> <img src={honeypot} width="100%" height="100%" alt=""/> </div>
                 <span>Honeypot Finance</span>
                 <p class="info"> A native DEX on BERA.</p>
                 <div class="share">
@@ -35,7 +35,7 @@ export default function Projects() {
             </div>
             {/* Splatter */}
             <div class="card" style="background: #5a9ff7">
-                <div class="img"> <img src={splatter} width="100%" height="100%" /> </div>
+                <div class="img"> <img src={splatter} width="100%" height="100%" alt=""/> </div>
                 <span>Splatter Protocol</span>
                 <p class="info"> A native DEX on Scroll.</p>
                 <div class="share">
