@@ -2,7 +2,7 @@
 import React from "react";
 import honeypot from '../assets/images/projects/honypot.png';
 import splatter from '../assets/images/projects/splatter.png';
-import '../components/Projects.css';
+import '../components/projects.css';
 
 export default function Projects() {
   return (
