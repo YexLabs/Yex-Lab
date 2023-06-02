@@ -8,8 +8,8 @@ import { Found } from "../pages/Found";
 import Main from "../pages/Main";
 import WhitePaper from "../pages/WhitePaper";
 import Demo1_Swap from "../pages/Demo1_Swap";
-import Demo2_Pool from "../pages/Demo2_Pool";
-import Demo3_ILO from "../pages/Demo3_ILO";
+import Demo1_Pool from "../pages/Demo1_Pool";
+import Demo2_ILO from "../pages/Demo2_ILO";
 
 export function BaseRoutes() {
   return (
@@ -23,8 +23,8 @@ export function BaseRoutes() {
           <Route path="/Main" element={<Main />} />
           <Route path="/whitepaper" element={<WhitePaper />} />
           <Route path="/demo1_swap" element={<Demo1_Swap />} />
-          <Route path="/demo2_pool" element={<Demo2_Pool />} />
-          <Route path="/demo3_ilo" element={<Demo3_ILO />} />
+          <Route path="/demo1_pool" element={<Demo1_Pool />} />
+          <Route path="/demo2_ilo" element={<Demo2_ILO />} />
         </Route>
       </Routes>
     </Router>
