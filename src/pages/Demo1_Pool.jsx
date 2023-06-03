@@ -78,9 +78,6 @@ const Demo1_Pool = () => {
     }
   }, [reservesData]);
 
-  console.log(reserve0, '111')
-  console.log(reserve1, '222')
-
   return (
     <div className="flex flex-row gap-2 justify-center items-center mt-20 min-h-screen">
       <div>
