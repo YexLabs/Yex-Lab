@@ -14,7 +14,7 @@ import Footer from "./components/Footer";
 
 const alchemyId = process.env.REACT_APP_ALCHEMY_ID;
 
-const chains = [scrollTestnet, goerli, polygonMumbai];
+const chains = [polygonMumbai, scrollTestnet, goerli];
 
 const client = createClient(
   getDefaultClient({

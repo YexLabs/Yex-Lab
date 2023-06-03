@@ -1,9 +1,12 @@
 import React from "react";
+import Faucet_Mumbai from "../../Faucet_Mumbai";
 
 export default function SwapCard_Header() {
   return (
     <div className="flex justify-between">
-      <div className="p-1 hover:cursor-pointer rounded-xl">
+      <Faucet_Mumbai />
+      {/* chart_icon */}
+      {/* <div className="p-1 hover:cursor-pointer rounded-xl">
         <svg
           className="candleline_icon"
           viewBox="0 0 1026 1024"
@@ -22,8 +25,8 @@ export default function SwapCard_Header() {
             p-id="4110"
           ></path>
         </svg>
-      </div>
-      <div>
+      </div> */}
+      <div className="flex">
         {/* 下拉设置滑点卡片 */}
         <div className="dropdown dropdown-bottom dropdown-end">
           <div
@@ -51,8 +54,8 @@ export default function SwapCard_Header() {
               ></path>
             </svg>
           </div>
-
-          <div
+          {/* 滑点卡片 */}
+          {/* <div
             tabIndex={0}
             className="dropdown-content card card-compact w-64 p-2 shadow bg-indigo-600 text-primary-content"
           >
@@ -77,7 +80,7 @@ export default function SwapCard_Header() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
