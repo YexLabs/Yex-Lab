@@ -107,7 +107,7 @@ const Demo1_Pool = () => {
   }, [reservesPool2Data]);
 
   return (
-    <div className="flex flex-row gap-2 justify-center items-center mt-20 min-h-screen">
+    <div className="flex flex-row gap-2 justify-center mt-20 min-h-screen">
       <div>
         <Sidebar onSelectComponent={setCurrentComponent} />
       </div>
@@ -129,7 +129,10 @@ const Demo1_Pool = () => {
               //     apr={data.apr}
               //   />
               // ))
-              <div className="bg-white bg-opacity-30 rounded-xl shadow-xl flex-col p-4">
+              <div className="bg-white bg-opacity-30 mt-10 rounded-xl shadow-xl flex-col p-4">
+                <div className="p-1 hover:cursor-pointer rounded-xl">
+                  <p>Pool Lists</p>
+                </div>
                 <PoolList
                   tokenAIcon={ethicon}
                   tokenBIcon={ethicon}
@@ -147,8 +150,6 @@ const Demo1_Pool = () => {
                   liquidity={Number(pool2Reserve0) + Number(pool2Reserve1)}
                 />
               </div>
-
-
             }
           </div>
         </div>
