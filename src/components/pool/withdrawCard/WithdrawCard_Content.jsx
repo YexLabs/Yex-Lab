@@ -1,9 +1,55 @@
-import React, { useState } from 'react'
+import React, { useState, useRef } from 'react'
 import ethicon from "../../../assets/images/pools/eth.png";
 import usdcicon from "../../../assets/images/pools/usdc.png";
+import {
+    useContractWrite,
+    usePrepareContractWrite,
+} from "wagmi";
+
+import {
+    Mumbai_yexExample_address,
+} from "../../../contracts/addresses";
+import {
+    Mumbai_yexExample_abi,
+} from "../../../contracts/abis";
+import { ethers } from "ethers";
+
 
 const WithdrawCard_Content = () => {
     const [inputValue, setInputValue] = useState(1781.84);
+    const inputAmountLPRef = useRef(null)
+
+    console.log(ethers.utils.parseEther(inputAmountLPRef.current?.value || "0"), 'fuck')
+
+    // removeLiquidity config
+    const { config: removeLiquidityConfig } = usePrepareContractWrite({
+        address: Mumbai_yexExample_address,
+        abi: Mumbai_yexExample_abi,
+        functionName: "removeLiquidity",
+        args: [
+            ethers.utils.parseEther(inputAmountLPRef.current?.value || "0"), // 流动性代币数量
+            0,  // RemoveBoth
+        ],
+    });
+
+    // removeLiquidity action
+    const { writeAsync: removeLiquidityWrite } = useContractWrite({
+        ...removeLiquidityConfig,
+        onError(error) {
+            console.log("Error", error);
+        },
+    });
+
+    const removeLiquidity = async () => {
+        try {
+            await removeLiquidityWrite();
+            console.log("Liquidity removed successfully");
+        } catch (error) {
+            console.error("Error removing liquidity", error);
+        }
+    };
+
+
     return (
         <div className="flex-col mt-8">
             <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative">
@@ -12,8 +58,10 @@ const WithdrawCard_Content = () => {
                         <div className="text-2xl">
                             <input
                                 type="text"
+                                step="0.0000001"
                                 placeholder="0.0"
                                 className="bg-transparent border-none text-3xl outline-none "
+                                ref={inputAmountLPRef}
                             />
                         </div>
                         <div>
@@ -52,9 +100,10 @@ const WithdrawCard_Content = () => {
             <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative mt-4">
                 <div className="flex-col">
                     <div className='flex flex-row justify-between'>
-                        <button className=" text-center w-full py-2 border border-indigo-500 rounded-xl ripple-btn text-indigo-400">
+                        {/* <button className=" text-center w-full py-2 border border-indigo-500 rounded-xl ripple-btn text-indigo-400">
                             Single
-                        </button><button className=" text-center w-full py-2 border border-indigo-500 rounded-xl ripple-btn text-indigo-400">
+                        </button> */}
+                        <button className=" text-center w-full py-2 border border-indigo-500 rounded-xl ripple-btn text-indigo-400">
                             Balanced
                         </button>
                     </div>
@@ -88,9 +137,34 @@ const WithdrawCard_Content = () => {
                         <p>Slippage</p>
                         <p>0%</p>
                     </div>
-                    <button className=" text-center w-full mt-5 bg-indigo-400 py-2 rounded-xl ripple-btn text-white">
+                    <div
+                        className="flex justify-center items-center text-center font-semibold w-full mt-5 h-12 bg-indigo-400 text-white hover:cursor-pointer py-2 rounded-xl ripple-btn"
+                        onClick={removeLiquidity}
+                    >
+                        {/* {isLoading_Btn && (
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="animate-spin h-5 w-5 mr-3 text-gray-700"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                    >
+                        <circle
+                            className="opacity-25"
+                            cx="12"
+                            cy="12"
+                            r="10"
+                            stroke="currentColor"
+                            stroke-width="4"
+                        ></circle>
+                        <path
+                            className="opacity-75"
+                            fill="currentColor"
+                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                    </svg>
+                )} */}
                         Withdraw
-                    </button>
+                    </div>
                 </div>
             </div>
         </div>

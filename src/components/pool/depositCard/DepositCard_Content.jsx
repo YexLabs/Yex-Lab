@@ -33,14 +33,10 @@ const DepositCard_Content = () => {
     const inputAmountRef = useRef(null);
     const inputBmountRef = useRef(null);
     const [receiveTokenAmount, setReceiveTokenAmount] = useState("0.0");
-    const [inputTokenPriceForOutToken, setInputTokenPriceForOutToken] =
-        useState("0.0");
+    const [inputTokenPriceForOutToken, setInputTokenPriceForOutToken] = useState("0.0");
 
     const [currentInputTokenContract, setCurrentInputTokenContract] = useState("0x");
     const [currentOutTokenContract, setCurrentOutTokenContract] = useState("0x");
-
-    const [tokenAContract, setTokenAContract] = useState("0x");
-    const [tokenBContract, setTokenBContract] = useState("0x");
 
     const [isOpen_Alert, setIsOpen_Alert] = useState(false);
     const [isLoading_Btn, setIsLoading_Btn] = useState(false);
@@ -69,7 +65,7 @@ const DepositCard_Content = () => {
 
     // approve tokenA config
     const { config: approveTokenAConfig } = usePrepareContractWrite({
-        address: tokenAContract,
+        address: currentInputTokenContract,
         abi: Mumbai_faucet_abi,
         functionName: "approve",
         args: [
@@ -87,7 +83,7 @@ const DepositCard_Content = () => {
 
     // approve tokenB config
     const { config: approveTokenBConfig } = usePrepareContractWrite({
-        address: tokenBContract,
+        address: currentOutTokenContract,
         abi: Mumbai_faucet_abi,
         functionName: "approve",
         args: [

@@ -1,10 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PoolList from "../components/pool/PoolList";
 import ethicon from "../assets/images/pools/eth.png";
 import scrollIcon from "../assets/images/scroll.png";
 import DepositCard from "../components/pool/depositCard/DepositCard";
 import Sidebar from "../components/pool/Sidebar";
 import WithdrawCard from "../components/pool/withdrawCard/WithdrawCard";
+
+import { Mumbai_yexExample_address, } from "../contracts/addresses";
+import { useContractRead, } from "wagmi";
+import { Mumbai_yexExample_abi } from "../contracts/abis";
+import { ethers } from "ethers";
 
 const mockData = [
   {
@@ -51,6 +56,30 @@ const mockData = [
 
 const Demo1_Pool = () => {
   const [currentComponent, setCurrentComponent] = useState("PoolList");
+  const [reserve0, setReserve0] = useState(0);
+  const [reserve1, setReserve1] = useState(0);
+
+  // getReserves
+  const { data: reservesData } = useContractRead({
+    address: Mumbai_yexExample_address,
+    abi: Mumbai_yexExample_abi,
+    functionName: "getReserves",
+    args: [],
+    onError: (error) => {
+      console.log("Error", error);
+    },
+  });
+
+  useEffect(() => {
+    if (reservesData) {
+      const reserves = reservesData.map((reserve) => ethers.utils.formatUnits(reserve, "ether"));
+      setReserve0(reserves[0]);
+      setReserve1(reserves[1]);
+    }
+  }, [reservesData]);
+
+  console.log(reserve0, '111')
+  console.log(reserve1, '222')
 
   return (
     <div className="flex flex-row gap-2 justify-center items-center mt-20 min-h-screen">
