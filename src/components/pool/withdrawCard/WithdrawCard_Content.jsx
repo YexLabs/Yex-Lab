@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import ethicon from "../../../assets/images/pools/eth.png";
 import usdcicon from "../../../assets/images/pools/usdc.png";
 import {
@@ -53,16 +53,20 @@ const WithdrawCard_Content = () => {
 
     console.log(userShare, 'userShare')
 
-    //计算预期收到的TokenA和TokenB的数量
-    const expectedTokenA = Number(tokenABalance.data.formatted) * userShare;
-    const expectedTokenB = Number(tokenBBalance.data.formatted) * userShare;
+    const [expectedTokenA, setExpectedTokenA] = useState(0);
+    const [expectedTokenB, setExpectedTokenB] = useState(0);
+    useEffect(() => {
+
+        setExpectedTokenA(Number(tokenABalance.data?.formatted) * userShare);
+        setExpectedTokenB(Number(tokenBBalance.data?.formatted) * userShare);
+    }, [userShare, tokenABalance, tokenBBalance]);
 
     console.log(expectedTokenA, 'Expected TokenA');
     console.log(expectedTokenB, 'Expected TokenB');
 
 
-    console.log(tokenABalance.data.formatted, 'tokenABalance')
-    console.log(tokenBBalance.data.formatted, 'tokenBBalance')
+    console.log(tokenABalance.data?.formatted, 'tokenABalance')
+    console.log(tokenBBalance.data?.formatted, 'tokenBBalance')
 
     const handleInputChange = (event) => {
         setInputAmount(event.target.value);

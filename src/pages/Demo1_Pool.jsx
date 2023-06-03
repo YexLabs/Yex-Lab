@@ -6,7 +6,7 @@ import DepositCard from "../components/pool/depositCard/DepositCard";
 import Sidebar from "../components/pool/Sidebar";
 import WithdrawCard from "../components/pool/withdrawCard/WithdrawCard";
 
-import { Mumbai_yexExample_address, } from "../contracts/addresses";
+import { Mumbai_yexExample_address, Mumbai_yexExample_pool2_address } from "../contracts/addresses";
 import { useContractRead, } from "wagmi";
 import { Mumbai_yexExample_abi } from "../contracts/abis";
 import { ethers } from "ethers";
@@ -56,14 +56,20 @@ const mockData = [
 
 const Demo1_Pool = () => {
   const [currentComponent, setCurrentComponent] = useState("PoolList");
-  const [reserve0, setReserve0] = useState(0);
-  const [reserve1, setReserve1] = useState(0);
+  const [pool1Reserve0, setPool1Reserve0] = useState(0);
+  const [pool1Reserve1, setPool1Reserve1] = useState(0);
 
-  console.log(reserve0, 'reserve0')
-  console.log(reserve1, 'reserve1')
+  const [pool2Reserve0, setPool2Reserve0] = useState(0);
+  const [pool2Reserve1, setPool2Reserve1] = useState(0);
 
-  // getReserves
-  const { data: reservesData } = useContractRead({
+  console.log(pool1Reserve0, 'pool1Reserve0')
+  console.log(pool1Reserve1, 'pool1Reserve1')
+
+  console.log(pool2Reserve0, 'pool2Reserve0')
+  console.log(pool2Reserve1, 'pool2Reserve1')
+
+  // get pool1 Reserves
+  const { data: reservesPool1Data } = useContractRead({
     address: Mumbai_yexExample_address,
     abi: Mumbai_yexExample_abi,
     functionName: "getReserves",
@@ -73,13 +79,32 @@ const Demo1_Pool = () => {
     },
   });
 
+  // get pool2 Reserves
+  const { data: reservesPool2Data } = useContractRead({
+    address: Mumbai_yexExample_pool2_address,
+    abi: Mumbai_yexExample_abi,
+    functionName: "getReserves",
+    args: [],
+    onError: (error) => {
+      console.log("Error", error);
+    },
+  });
+
   useEffect(() => {
-    if (reservesData) {
-      const reserves = reservesData.map((reserve) => ethers.utils.formatUnits(reserve, "ether"));
-      setReserve0(reserves[0]);
-      setReserve1(reserves[1]);
+    if (reservesPool1Data) {
+      const reserves = reservesPool1Data.map((reserve) => ethers.utils.formatUnits(reserve, "ether"));
+      setPool1Reserve0(reserves[0]);
+      setPool1Reserve1(reserves[1]);
     }
-  }, [reservesData]);
+  }, [reservesPool1Data]);
+
+  useEffect(() => {
+    if (reservesPool2Data) {
+      const reserves = reservesPool2Data.map((reserve) => ethers.utils.formatUnits(reserve, "ether"));
+      setPool2Reserve0(reserves[0]);
+      setPool2Reserve1(reserves[1]);
+    }
+  }, [reservesPool2Data]);
 
   return (
     <div className="flex flex-row gap-2 justify-center items-center mt-20 min-h-screen">
@@ -91,19 +116,40 @@ const Demo1_Pool = () => {
         <div>
           <div className="justify-center items-center flex flex-col">
             {currentComponent === "PoolList" &&
-              mockData.map((data, index) => (
+              // mockData.map((data, index) => (
+              //   <PoolList
+              //     key={index}
+              //     tokenAIcon={data.tokenAIcon}
+              //     tokenBIcon={data.tokenBIcon}
+              //     statusIcon={data.statusIcon}
+              //     tokenAName={data.tokenAName}
+              //     tokenBName={data.tokenBName}
+              //     status={data.status}
+              //     liquidity={data.liquidity}
+              //     apr={data.apr}
+              //   />
+              // ))
+              <div>
                 <PoolList
-                  key={index}
-                  tokenAIcon={data.tokenAIcon}
-                  tokenBIcon={data.tokenBIcon}
-                  statusIcon={data.statusIcon}
-                  tokenAName={data.tokenAName}
-                  tokenBName={data.tokenBName}
-                  status={data.status}
-                  liquidity={data.liquidity}
-                  apr={data.apr}
+                  tokenAIcon={ethicon}
+                  tokenBIcon={ethicon}
+                  tokenAName={'TokenA'}
+                  tokenBName={'TokenB'}
+                  status={'Openning'}
+                  liquidity={Number(pool1Reserve0) + Number(pool1Reserve1)}
                 />
-              ))}
+                <PoolList
+                  tokenAIcon={ethicon}
+                  tokenBIcon={ethicon}
+                  tokenAName={'TokenA'}
+                  tokenBName={'TokenB'}
+                  status={'Openning'}
+                  liquidity={Number(pool2Reserve0) + Number(pool2Reserve1)}
+                />
+              </div>
+
+
+            }
           </div>
         </div>
         <div>{currentComponent === "WithdrawCard" && <WithdrawCard />}</div>
