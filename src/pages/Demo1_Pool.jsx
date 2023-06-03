@@ -129,7 +129,7 @@ const Demo1_Pool = () => {
               //     apr={data.apr}
               //   />
               // ))
-              <div>
+              <div className="bg-white bg-opacity-30 rounded-xl shadow-xl flex-col p-4">
                 <PoolList
                   tokenAIcon={ethicon}
                   tokenBIcon={ethicon}

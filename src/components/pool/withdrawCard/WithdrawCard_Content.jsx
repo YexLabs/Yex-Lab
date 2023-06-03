@@ -24,6 +24,7 @@ const WithdrawCard_Content = () => {
     const inputAmountLPRef = useRef(null)
     const [inputAmount, setInputAmount] = useState("");
     const { address } = useAccount();
+    const [isLoading_Btn, setIsLoading_Btn] = useState(false);
 
     // LP balance
     const LPBalance = useBalance({
@@ -128,12 +129,16 @@ const WithdrawCard_Content = () => {
     const { writeAsync: removeLiquidityWrite } = removeLiquidityWriteResult;
 
     const removeLiquidity = async () => {
+        setIsLoading_Btn(true);
         try {
             await approve();
             console.log("Approved successfully, now removing liquidity");
             await removeLiquidityWrite();
             console.log("Liquidity removed successfully");
+
+            setIsLoading_Btn(false);
         } catch (error) {
+            setIsLoading_Btn(false);
             console.error("Error removing liquidity", error);
         }
     };
@@ -233,28 +238,28 @@ const WithdrawCard_Content = () => {
                         className="flex justify-center items-center text-center font-semibold w-full mt-5 h-12 bg-indigo-400 text-white hover:cursor-pointer py-2 rounded-xl ripple-btn"
                         onClick={removeLiquidity}
                     >
-                        {/* {isLoading_Btn && (
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        className="animate-spin h-5 w-5 mr-3 text-gray-700"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                    >
-                        <circle
-                            className="opacity-25"
-                            cx="12"
-                            cy="12"
-                            r="10"
-                            stroke="currentColor"
-                            stroke-width="4"
-                        ></circle>
-                        <path
-                            className="opacity-75"
-                            fill="currentColor"
-                            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                    </svg>
-                )} */}
+                        {isLoading_Btn && (
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                className="animate-spin h-5 w-5 mr-3 text-gray-700"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                            >
+                                <circle
+                                    className="opacity-25"
+                                    cx="12"
+                                    cy="12"
+                                    r="10"
+                                    stroke="currentColor"
+                                    stroke-width="4"
+                                ></circle>
+                                <path
+                                    className="opacity-75"
+                                    fill="currentColor"
+                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                                ></path>
+                            </svg>
+                        )}
                         Withdraw
                     </div>
                 </div>
