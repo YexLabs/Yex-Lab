@@ -75,7 +75,13 @@ const DepositCard_Content = () => {
     });
     // approve tokenA action
     const { writeAsync: approveTokenAWrite } = useContractWrite({
-        ...approveTokenAConfig,
+        address: currentInputTokenContract,
+        abi: Mumbai_faucet_abi,
+        functionName: "approve",
+        args: [
+            Mumbai_yexExample_address,
+            ethers.utils.parseEther(inputAmountRef.current?.value || "0"),
+        ],
         onError(error) {
             console.log("Error", error);
         },
@@ -93,7 +99,13 @@ const DepositCard_Content = () => {
     });
     // approve tokenB action
     const { writeAsync: approveTokenBWrite } = useContractWrite({
-        ...approveTokenBConfig,
+        address: currentOutTokenContract,
+        abi: Mumbai_faucet_abi,
+        functionName: "approve",
+        args: [
+            Mumbai_yexExample_address,
+            ethers.utils.parseEther(inputBmountRef.current?.value || "0"),
+        ],
         onError(error) {
             console.log("Error", error);
         },
