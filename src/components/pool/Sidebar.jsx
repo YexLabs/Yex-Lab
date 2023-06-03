@@ -16,7 +16,7 @@ const Sidebar = ({ onSelectComponent }) => {
     }
 
     return (
-        <div className="h-screen text-gray-600 mt-20">
+        <div className="h-screen text-gray-600 mt-10">
             {componentConfig.map((config) => (
                 <button
                     key={config.name}
