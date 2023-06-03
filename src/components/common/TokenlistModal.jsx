@@ -28,7 +28,7 @@ export default function TokenListModal(props) {
   const changeSelectedCoin_input = (coinname) => {
     if (coinname == props.selectedCoin_out) {
       let t = props.selectedCoin_input;
-      console.log(t, "input");
+
       props.setSelectedCoin_input(props.selectedCoin_out);
       props.setSelectedCoin_out(t);
     } else {
@@ -39,9 +39,9 @@ export default function TokenListModal(props) {
   };
 
   const changeSelectedCoin_out = (coinname) => {
-    if (coinname == props.selectedCoin_intput) {
+    if (coinname == props.selectedCoin_input) {
       let t = props.selectedCoin_out;
-      console.log(t, "output");
+      console.log(t + "111111111111");
       props.setSelectedCoin_out(props.selectedCoin_input);
       props.setSelectedCoin_input(t);
     } else {
@@ -127,15 +127,16 @@ export default function TokenListModal(props) {
                 </div>
                 {/* 推荐代币 */}
                 <div className="flex gap-1 items-center mt-3">
-                  <div
-                    className={`flex items-center bg-white ${props.selectedTokenlist == 0
-                      ? props.selectedCoin_input == "ETH"
-                        ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
-                        : " hover:cursor-pointer"
-                      : props.selectedCoin_out == "ETH"
+                  {/* <div
+                    className={`flex items-center bg-white ${
+                      props.selectedTokenlist == 0
+                        ? props.selectedCoin_input == "ETH"
+                          ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
+                          : " hover:cursor-pointer"
+                        : props.selectedCoin_out == "ETH"
                         ? "bg-slate-100 text-gray-500 opacity-50 "
                         : " hover:cursor-pointer"
-                      }  rounded-lg px-2 py-1 `}
+                    }  rounded-lg px-2 py-1 `}
                     onClick={() => {
                       // eslint-disable-next-line no-unused-expressions
                       props.selectedTokenlist == 0
@@ -143,8 +144,8 @@ export default function TokenListModal(props) {
                           ? changeSelectedCoin_input("ETH")
                           : ""
                         : props.selectedCoin_out != "ETH"
-                          ? changeSelectedCoin_out("ETH")
-                          : "";
+                        ? changeSelectedCoin_out("ETH")
+                        : "";
                     }}
                   >
                     <div className="w-[20px] h-[20px]">
@@ -154,7 +155,7 @@ export default function TokenListModal(props) {
                       />
                     </div>
                     <div className="ml-1 text-sm">ETH</div>
-                  </div>
+                  </div> */}
                   {/* <div
                     className={`flex items-center bg-white ${
                       props.selectedTokenlist == 0
@@ -209,22 +210,23 @@ export default function TokenListModal(props) {
                   </div> */}
                   <div
                     className={`flex items-center bg-white ${props.selectedTokenlist == 0
-                      ? props.selectedCoin_input == "tokenA"
-                        ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
-                        : " hover:cursor-pointer"
-                      : props.selectedCoin_out == "tokenA"
-                        ? "bg-slate-100 text-gray-500 opacity-50 "
-                        : " hover:cursor-pointer"
+                        ? props.selectedCoin_input == "tokenA"
+                          ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
+                          : " hover:cursor-pointer"
+                        : props.selectedCoin_out == "tokenA"
+                          ? "bg-slate-100 text-gray-500 opacity-50 "
+                          : " hover:cursor-pointer"
                       }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                      // eslint-disable-next-line no-unused-expressions
-                      props.selectedTokenlist == 0
-                        ? props.selectedCoin_input != "tokenA"
-                          ? changeSelectedCoin_input("tokenA")
-                          : ""
-                        : props.selectedCoin_out != "tokenA"
-                          ? changeSelectedCoin_out("tokenA")
-                          : "";
+                      if (props.selectedTokenlist == 0) {
+                        if (props.selectedCoin_input !== "tokenA") {
+                          changeSelectedCoin_input("tokenA");
+                        }
+                      } else {
+                        if (props.selectedCoin_out !== "tokenA") {
+                          changeSelectedCoin_out("tokenA");
+                        }
+                      }
                     }}
                   >
                     <div className="w-[20px] h-[20px]">
@@ -237,22 +239,23 @@ export default function TokenListModal(props) {
                   </div>
                   <div
                     className={`flex items-center bg-white ${props.selectedTokenlist == 0
-                      ? props.selectedCoin_input == "tokenB"
-                        ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
-                        : " hover:cursor-pointer"
-                      : props.selectedCoin_out == "tokenB"
-                        ? "bg-slate-100 text-gray-500 opacity-50 "
-                        : " hover:cursor-pointer"
+                        ? props.selectedCoin_input == "tokenB"
+                          ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
+                          : " hover:cursor-pointer"
+                        : props.selectedCoin_out == "tokenB"
+                          ? "bg-slate-100 text-gray-500 opacity-50 "
+                          : " hover:cursor-pointer"
                       }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                      // eslint-disable-next-line no-unused-expressions
-                      props.selectedTokenlist == 0
-                        ? props.selectedCoin_input != "tokenB"
-                          ? changeSelectedCoin_input("tokenB")
-                          : ""
-                        : props.selectedCoin_out != "tokenB"
-                          ? changeSelectedCoin_out("tokenB")
-                          : "";
+                      if (props.selectedTokenlist == 0) {
+                        if (props.selectedCoin_input !== "tokenB") {
+                          changeSelectedCoin_input("tokenB");
+                        }
+                      } else {
+                        if (props.selectedCoin_out !== "tokenB") {
+                          changeSelectedCoin_out("tokenB");
+                        }
+                      }
                     }}
                   >
                     <div className="w-[20px] h-[20px]">
@@ -269,15 +272,16 @@ export default function TokenListModal(props) {
               <hr className="mt-0 w-full border-gray-200" />
               {/* 代币列表 */}
               <div className="p-3">
-                <div
-                  className={`${props.selectedTokenlist == 0
-                    ? props.selectedCoin_input == "ETH"
+                {/* <div
+                  className={`${
+                    props.selectedTokenlist == 0
+                      ? props.selectedCoin_input == "ETH"
+                        ? "opacity-50"
+                        : "hover:bg-slate-100 hover:cursor-pointer"
+                      : props.selectedCoin_out == "ETH"
                       ? "opacity-50"
                       : "hover:bg-slate-100 hover:cursor-pointer"
-                    : props.selectedCoin_out == "ETH"
-                      ? "opacity-50"
-                      : "hover:bg-slate-100 hover:cursor-pointer"
-                    }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
+                  }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
                   onClick={() =>
                     props.selectedTokenlist == 0
                       ? changeSelectedCoin_input("ETH")
@@ -294,7 +298,7 @@ export default function TokenListModal(props) {
                     <div className="font-normal">ETH</div>
                     <div className="text-xs text-slate-600">Ethereum</div>
                   </div>
-                </div>
+                </div> */}
                 {/* <div
                   className={`${
                     props.selectedTokenlist == 0
@@ -347,18 +351,24 @@ export default function TokenListModal(props) {
                 </div> */}
                 <div
                   className={`${props.selectedTokenlist == 0
-                    ? props.selectedCoin_input == "tokenA"
-                      ? "opacity-50"
-                      : "hover:bg-slate-100 hover:cursor-pointer"
-                    : props.selectedCoin_out == "tokenA"
-                      ? "opacity-50"
-                      : "hover:bg-slate-100 hover:cursor-pointer"
+                      ? props.selectedCoin_input == "tokenA"
+                        ? "opacity-50"
+                        : "hover:bg-slate-100 hover:cursor-pointer"
+                      : props.selectedCoin_out == "tokenA"
+                        ? "opacity-50"
+                        : "hover:bg-slate-100 hover:cursor-pointer"
                     }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
-                  onClick={() =>
-                    props.selectedTokenlist == 0
-                      ? changeSelectedCoin_input("tokenA")
-                      : changeSelectedCoin_out("tokenA")
-                  }
+                  onClick={() => {
+                    if (props.selectedTokenlist == 0) {
+                      if (props.selectedCoin_input !== "tokenA") {
+                        changeSelectedCoin_input("tokenA");
+                      }
+                    } else {
+                      if (props.selectedCoin_out !== "tokenA") {
+                        changeSelectedCoin_out("tokenA");
+                      }
+                    }
+                  }}
                 >
                   <div className="w-[26px] h-[26px]">
                     <img
@@ -373,18 +383,24 @@ export default function TokenListModal(props) {
                 </div>
                 <div
                   className={`${props.selectedTokenlist == 0
-                    ? props.selectedCoin_input == "tokenB"
-                      ? "opacity-50"
-                      : "hover:bg-slate-100 hover:cursor-pointer"
-                    : props.selectedCoin_out == "tokenB"
-                      ? "opacity-50"
-                      : "hover:bg-slate-100 hover:cursor-pointer"
+                      ? props.selectedCoin_input == "tokenB"
+                        ? "opacity-50"
+                        : "hover:bg-slate-100 hover:cursor-pointer"
+                      : props.selectedCoin_out == "tokenB"
+                        ? "opacity-50"
+                        : "hover:bg-slate-100 hover:cursor-pointer"
                     }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
-                  onClick={() =>
-                    props.selectedTokenlist == 0
-                      ? changeSelectedCoin_input("tokenB")
-                      : changeSelectedCoin_out("tokenB")
-                  }
+                  onClick={() => {
+                    if (props.selectedTokenlist == 0) {
+                      if (props.selectedCoin_input !== "tokenB") {
+                        changeSelectedCoin_input("tokenB");
+                      }
+                    } else {
+                      if (props.selectedCoin_out !== "tokenB") {
+                        changeSelectedCoin_out("tokenB");
+                      }
+                    }
+                  }}
                 >
                   <div className="w-[26px] h-[26px]">
                     <img
