@@ -112,9 +112,19 @@ const DepositCard_Content = () => {
 
     // addLiquidity action
     const { writeAsync: addLiquidityWrite } = useContractWrite({
-        ...addLiquidityConfig,
+        address: Mumbai_yexExample_address,
+        abi: Mumbai_yexExample_abi,
+        functionName: "addLiquidity",
+        account: address,
+        args: [
+            ethers.utils.parseEther(inputAmountRef.current?.value || "0"),
+            ethers.utils.parseEther(inputBmountRef.current?.value || "0"),
+        ],
+        onMutate({ args, overrides }) {
+            console.log('Mutate', { args, overrides })
+        },
         onError(error) {
-            console.log("Error", error);
+            console.log('Error', error)
         },
     });
 
@@ -193,6 +203,7 @@ const DepositCard_Content = () => {
             setCurrentOutTokenContract("0x");
         }
     }, [selectedCoin_out]);
+
     return (
         <div className="flex-col mt-8">
             {/* tokenA */}

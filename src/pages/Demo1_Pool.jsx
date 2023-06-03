@@ -59,6 +59,9 @@ const Demo1_Pool = () => {
   const [reserve0, setReserve0] = useState(0);
   const [reserve1, setReserve1] = useState(0);
 
+  console.log(reserve0, 'reserve0')
+  console.log(reserve1, 'reserve1')
+
   // getReserves
   const { data: reservesData } = useContractRead({
     address: Mumbai_yexExample_address,

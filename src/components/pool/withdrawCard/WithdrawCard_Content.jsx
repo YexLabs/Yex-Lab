@@ -4,10 +4,14 @@ import usdcicon from "../../../assets/images/pools/usdc.png";
 import {
     useContractWrite,
     usePrepareContractWrite,
+    useBalance,
+    useAccount
 } from "wagmi";
 
 import {
     Mumbai_yexExample_address,
+    Mumbai_tokenA_address,
+    Mumbai_tokenB_address
 } from "../../../contracts/addresses";
 import {
     Mumbai_yexExample_abi,
@@ -18,8 +22,79 @@ import { ethers } from "ethers";
 const WithdrawCard_Content = () => {
     const [inputValue, setInputValue] = useState(1781.84);
     const inputAmountLPRef = useRef(null)
+    const [inputAmount, setInputAmount] = useState("");
+    const { address } = useAccount();
 
-    console.log(ethers.utils.parseEther(inputAmountLPRef.current?.value || "0"), 'fuck')
+    // LP balance
+    const LPBalance = useBalance({
+        address: address,
+        token: Mumbai_yexExample_address,
+        watch: true,
+    });
+
+    console.log(LPBalance.data.formatted, 'LPBalance')
+
+    //获取tokenA储备
+    const tokenABalance = useBalance({
+        address: Mumbai_yexExample_address,
+        token: Mumbai_tokenA_address,
+        watch: true,
+    });
+
+    //获取tokenB储备
+    const tokenBBalance = useBalance({
+        address: Mumbai_yexExample_address,
+        token: Mumbai_tokenB_address,
+        watch: true,
+    });
+
+    //计算用户在流动性池中的份额
+    const userShare = Number(inputAmount) / Number(LPBalance.data.formatted);
+
+    console.log(userShare, 'userShare')
+
+    //计算预期收到的TokenA和TokenB的数量
+    const expectedTokenA = Number(tokenABalance.data.formatted) * userShare;
+    const expectedTokenB = Number(tokenBBalance.data.formatted) * userShare;
+
+    console.log(expectedTokenA, 'Expected TokenA');
+    console.log(expectedTokenB, 'Expected TokenB');
+
+
+    console.log(tokenABalance.data.formatted, 'tokenABalance')
+    console.log(tokenBBalance.data.formatted, 'tokenBBalance')
+
+    const handleInputChange = (event) => {
+        setInputAmount(event.target.value);
+    };
+
+    const { config: approveConfig } = usePrepareContractWrite({
+        address: Mumbai_yexExample_address,
+        abi: Mumbai_yexExample_abi,
+        functionName: "approve",
+        args: [
+            address,
+            ethers.utils.parseEther(inputAmount || "0"),
+        ],
+    });
+
+    const approveWriteResult = useContractWrite({
+        ...approveConfig,
+        onError(error) {
+            console.log("Approve Error", error);
+        },
+    });
+
+    const { writeAsync: approveWrite } = approveWriteResult;
+
+    const approve = async () => {
+        try {
+            await approveWrite();
+            console.log("Approved successfully");
+        } catch (error) {
+            console.error("Error approving", error);
+        }
+    };
 
     // removeLiquidity config
     const { config: removeLiquidityConfig } = usePrepareContractWrite({
@@ -27,21 +102,31 @@ const WithdrawCard_Content = () => {
         abi: Mumbai_yexExample_abi,
         functionName: "removeLiquidity",
         args: [
-            ethers.utils.parseEther(inputAmountLPRef.current?.value || "0"), // 流动性代币数量
+            ethers.utils.parseEther(inputAmount || "0"), // 流动性代币数量
             0,  // RemoveBoth
         ],
     });
 
+    // 2. 打印配置信息来验证它是否正确
+    console.log(removeLiquidityConfig, 'removeLiquidityConfig');
+
     // removeLiquidity action
-    const { writeAsync: removeLiquidityWrite } = useContractWrite({
+    const removeLiquidityWriteResult = useContractWrite({
         ...removeLiquidityConfig,
         onError(error) {
             console.log("Error", error);
         },
     });
 
+    // 3. 打印整个结果来看是否有 writeAsync 函数
+    console.log(removeLiquidityWriteResult, 'removeLiquidityWriteResult');
+
+    const { writeAsync: removeLiquidityWrite } = removeLiquidityWriteResult;
+
     const removeLiquidity = async () => {
         try {
+            await approve();
+            console.log("Approved successfully, now removing liquidity");
             await removeLiquidityWrite();
             console.log("Liquidity removed successfully");
         } catch (error) {
@@ -49,10 +134,9 @@ const WithdrawCard_Content = () => {
         }
     };
 
-
     return (
         <div className="flex-col mt-8">
-            <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative">
+            <div className="bg-white  bg-opacity-50 rounded-xl p-4 relative">
                 <div className="flex-col">
                     <div className="flex justify-between">
                         <div className="text-2xl">
@@ -62,6 +146,7 @@ const WithdrawCard_Content = () => {
                                 placeholder="0.0"
                                 className="bg-transparent border-none text-3xl outline-none "
                                 ref={inputAmountLPRef}
+                                onChange={handleInputChange}
                             />
                         </div>
                         <div>
@@ -71,14 +156,17 @@ const WithdrawCard_Content = () => {
                     {/* Available */}
                     <div className="flex justify-between mt-3 text-gray-600 text-sm">
                         <div>
-                            {"$" +
+                            {/* {"$" +
                                 inputValue.toLocaleString("en-US", {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2,
                                     useGrouping: true,
-                                })}
+                                })} */}
                         </div>
-                        <div className="">Available: 0.0</div>
+                        <div className="">{`Balance: ${LPBalance
+                            ? Number(LPBalance?.data.formatted).toFixed(6)
+                            : "0.0"
+                            } `}</div>
                     </div>
                     {/* 百分比选择 */}
                     <div className="flex justify-start gap-7 mt-2 text-sm">
@@ -115,18 +203,18 @@ const WithdrawCard_Content = () => {
                                 <div className='w-10 h-10 p-2'>
                                     <img src={ethicon} alt="" />
                                 </div>
-                                <p className='p-2'>ETH</p>
+                                <p className='p-2'>TokenA</p>
                             </div>
-                            <p>0</p>
+                            <p>{expectedTokenA}</p>
                         </div>
                         <div className='flex flex-row justify-between'>
                             <div className='flex flex-row'>
                                 <div className='w-10 h-10 p-2'>
-                                    <img src={usdcicon} alt="" />
+                                    <img src={ethicon} alt="" />
                                 </div>
-                                <p className='p-2'>USDC</p>
+                                <p className='p-2'>TokenB</p>
                             </div>
-                            <p>0</p>
+                            <p>{expectedTokenB}</p>
                         </div>
                     </div>
                 </div>
