@@ -46,6 +46,7 @@ export default function AppHeader() {
                   </div>
                 </div>
               </div>
+              {/* Main */}
               <div className="flex items-center space-x-4 md:space-x-6 mb-[2px]">
                 <div className="relative">
                   <div>

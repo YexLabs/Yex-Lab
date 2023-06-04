@@ -44,6 +44,7 @@
 }
 
 .card a {
+  padding: 0.2em 0.2em;
   color: white;
   transition: .4s ease-in-out;
 }
@@ -53,7 +54,7 @@
 }
 
 .card button {
-  padding: 0.8em 1.7em;
+  padding: 0.6em 1.7em;
   display: block;
   margin: auto;
   border-radius: 25px;
