@@ -308,10 +308,11 @@ export default function SwapCard_Content() {
                   useGrouping: true,
                 })}
             </div> */}
-            <div className="">{`Balance: ${inputTokenBalance
-              ? Number(inputTokenBalance?.formatted).toFixed(6)
-              : "0.0"
-              } `}</div>
+            <div className="">{`Balance: ${
+              inputTokenBalance
+                ? Number(inputTokenBalance?.formatted).toFixed(6)
+                : "0.0"
+            } `}</div>
           </div>
           {/* 百分比选择 */}
           <div className="flex justify-start gap-7 mt-2 text-sm">
@@ -351,7 +352,7 @@ export default function SwapCard_Content() {
         </div>
       </div>
       {/* icon */}
-      <div className="absolute inset-x-0 mx-auto top-1/2 -mt-14 w-8 h-8 bg-white flex justify-center items-center rounded-full">
+      <div className=" inset-x-0 mx-auto top-1/2  w-8 h-8 bg-white flex justify-center items-center rounded-full">
         <div className="p-0 bg-gray-500 bg-opacity-0 rounded-full">
           <svg
             className="swap_icon"
@@ -371,7 +372,7 @@ export default function SwapCard_Content() {
         </div>
       </div>
       {/* outcoin */}
-      <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative mt-6">
+      <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative mt-0">
         <div className="flex-col">
           <div className="flex justify-between">
             <div className="text-2xl">
@@ -422,10 +423,11 @@ export default function SwapCard_Content() {
                   useGrouping: true,
                 })}
             </div> */}
-            <div className="">{`Balance: ${outTokenBalance
-              ? Number(outTokenBalance?.formatted).toFixed(6)
-              : "0.0"
-              } `}</div>
+            <div className="">{`Balance: ${
+              outTokenBalance
+                ? Number(outTokenBalance?.formatted).toFixed(6)
+                : "0.0"
+            } `}</div>
           </div>
         </div>
       </div>
@@ -456,12 +458,13 @@ export default function SwapCard_Content() {
       </div> */}
       {/* button */}
       <div
-        className={`flex justify-center items-center text-center font-semibold w-full mt-5 h-12 ${Number(receiveTokenAmount) > 0
-          ? inputTokenBalance?.formatted >= inputAmountRef.current?.value
-            ? "bg-indigo-400  hover:cursor-pointer"
+        className={`flex justify-center items-center text-center font-semibold w-full mt-5 h-12 ${
+          Number(receiveTokenAmount) > 0
+            ? inputTokenBalance?.formatted >= inputAmountRef.current?.value
+              ? "bg-indigo-400  hover:cursor-pointer"
+              : "bg-white text-gray-500 hover:cursor-default"
             : "bg-white text-gray-500 hover:cursor-default"
-          : "bg-white text-gray-500 hover:cursor-default"
-          } py-2 rounded-xl ripple-btn`}
+        } py-2 rounded-xl ripple-btn`}
         onClick={swapClick}
       >
         {isLoading_Btn && (
