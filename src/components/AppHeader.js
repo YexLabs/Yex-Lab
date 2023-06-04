@@ -253,7 +253,7 @@ export default function AppHeader() {
                             </div>
                             <div className="flex flex-col ml-0">
                               <p>ILO</p>
-                              <p className=" text-xs">Demo2 test</p>
+                              <p className=" text-xs">Demo2 Test</p>
                             </div>
                           </div>
                         </li>
