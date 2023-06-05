@@ -5,7 +5,9 @@ import {
     useContractWrite,
     usePrepareContractWrite,
     useBalance,
-    useAccount
+    useAccount,
+    useWaitForTransaction,
+    useContractRead
 } from "wagmi";
 
 import {
@@ -17,23 +19,43 @@ import {
     Mumbai_yexExample_abi,
 } from "../../../contracts/abis";
 import { ethers } from "ethers";
+import { message } from "antd";
 
 
 const WithdrawCard_Content = () => {
-    const [inputValue, setInputValue] = useState(1781.84);
+    const [hash, setHash] = useState("0x");
     const inputAmountLPRef = useRef(null)
     const [inputAmount, setInputAmount] = useState("");
     const { address } = useAccount();
     const [isLoading_Btn, setIsLoading_Btn] = useState(false);
 
-    // LP balance
+    // withdraw success message
+    const confirmation = useWaitForTransaction({
+        hash: hash,
+        onSuccess(data) {
+            setIsLoading_Btn(false);
+            message.success({
+                content: "Withdraw Success!",
+                duration: 1,
+                className: "mt-3",
+            });
+        },
+    });
+
+    // User LP balance
     const LPBalance = useBalance({
         address: address,
         token: Mumbai_yexExample_address,
         watch: true,
     });
 
-    console.log(LPBalance.data?.formatted, 'LPBalance')
+    // get totalSupply LP
+    const { data } = useContractRead({
+        address: Mumbai_yexExample_address,
+        abi: Mumbai_yexExample_abi,
+        functionName: 'totalSupply',
+    })
+    const totalSupplyLp = data ? ethers.utils.formatUnits(data, 'ether') : 1
 
     //获取tokenA储备
     const tokenABalance = useBalance({
@@ -49,29 +71,17 @@ const WithdrawCard_Content = () => {
         watch: true,
     });
 
-    //计算用户在流动性池中的份额
-    const userShare = Number(inputAmount) / Number(LPBalance.data?.formatted);
-
-    console.log(userShare, 'userShare')
-
-    const [expectedTokenA, setExpectedTokenA] = useState(0);
-    const [expectedTokenB, setExpectedTokenB] = useState(0);
-    useEffect(() => {
-        setExpectedTokenA(expectedTokenA ? Number(tokenABalance.data?.formatted) * userShare : 0);
-        setExpectedTokenB(expectedTokenB ? Number(tokenBBalance.data?.formatted) * userShare : 0);
-    }, [userShare, tokenABalance, tokenBBalance]);
-
+    // 计算预期的tokenA和tokenB数量
+    const expectedTokenA = inputAmount / totalSupplyLp * tokenABalance.data?.formatted;
+    const expectedTokenB = inputAmount / totalSupplyLp * tokenBBalance.data?.formatted;
     console.log(expectedTokenA, 'Expected TokenA');
     console.log(expectedTokenB, 'Expected TokenB');
-
-
-    console.log(tokenABalance.data?.formatted, 'tokenABalance')
-    console.log(tokenBBalance.data?.formatted, 'tokenBBalance')
 
     const handleInputChange = (event) => {
         setInputAmount(event.target.value);
     };
 
+    // prepare approve
     const { config: approveConfig } = usePrepareContractWrite({
         address: Mumbai_yexExample_address,
         abi: Mumbai_yexExample_abi,
@@ -106,12 +116,11 @@ const WithdrawCard_Content = () => {
         abi: Mumbai_yexExample_abi,
         functionName: "removeLiquidity",
         args: [
-            ethers.utils.parseEther(inputAmount || "0"), // 流动性代币数量
+            ethers.utils.parseEther(inputAmount || "0"),
             0,  // RemoveBoth
         ],
     });
 
-    // 2. 打印配置信息来验证它是否正确
     console.log(removeLiquidityConfig, 'removeLiquidityConfig');
 
     // removeLiquidity action
@@ -122,7 +131,6 @@ const WithdrawCard_Content = () => {
         },
     });
 
-    // 3. 打印整个结果来看是否有 writeAsync 函数
     console.log(removeLiquidityWriteResult, 'removeLiquidityWriteResult');
 
     const { writeAsync: removeLiquidityWrite } = removeLiquidityWriteResult;
@@ -132,9 +140,10 @@ const WithdrawCard_Content = () => {
         try {
             await approve();
             console.log("Approved successfully, now removing liquidity");
-            await removeLiquidityWrite();
+            await removeLiquidityWrite().then(res => {
+                setHash(res.hash)
+            });
             console.log("Liquidity removed successfully");
-
             setIsLoading_Btn(false);
         } catch (error) {
             setIsLoading_Btn(false);
@@ -174,7 +183,8 @@ const WithdrawCard_Content = () => {
                         <div className="">{`Balance: ${LPBalance.data
                             ? Number(LPBalance?.data?.formatted).toFixed(6)
                             : "0.0"
-                            } `}</div>
+                            } `}
+                        </div>
                     </div>
                     {/* 百分比选择 */}
                     <div className="flex justify-start gap-7 mt-2 text-sm">
@@ -199,9 +209,9 @@ const WithdrawCard_Content = () => {
                         {/* <button className=" text-center w-full py-2 border border-indigo-500 rounded-xl ripple-btn text-indigo-400">
                             Single
                         </button> */}
-                        <button className=" text-center w-full py-2 border border-indigo-500 rounded-xl ripple-btn text-indigo-400">
+                        {/* <button className=" text-center w-full py-2 border border-indigo-500 rounded-xl ripple-btn text-indigo-400">
                             Balanced
-                        </button>
+                        </button> */}
                     </div>
                     <hr className='mt-4' />
                     <div className='flex flex-col'>
@@ -213,7 +223,11 @@ const WithdrawCard_Content = () => {
                                 </div>
                                 <p className='p-2'>TokenA</p>
                             </div>
-                            <p>{expectedTokenA}</p>
+                            <p>{`${expectedTokenA
+                                ? Number(expectedTokenA).toFixed(6)
+                                : "0.0"
+                                } `}
+                            </p>
                         </div>
                         <div className='flex flex-row justify-between'>
                             <div className='flex flex-row'>
@@ -222,7 +236,11 @@ const WithdrawCard_Content = () => {
                                 </div>
                                 <p className='p-2'>TokenB</p>
                             </div>
-                            <p>{expectedTokenB}</p>
+                            <p>{`${expectedTokenB
+                                ? Number(expectedTokenB).toFixed(6)
+                                : "0.0"
+                                } `}
+                            </p>
                         </div>
                     </div>
                 </div>

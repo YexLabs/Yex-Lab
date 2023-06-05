@@ -45,7 +45,11 @@ const DepositCard_Content = () => {
         hash: hash,
         onSuccess(data) {
             setIsLoading_Btn(false);
-            message.success("Swap Success!");
+            message.success({
+                content: "Deposit Success!",
+                duration: 1,
+                className: "mt-3",
+            });
         },
     });
 
@@ -152,7 +156,7 @@ const DepositCard_Content = () => {
             console.log('Approve Token B Result:', approveTokenBResult);
 
             // Send addLiquidity transaction
-            const addLiquidityResult = await addLiquidityWrite();
+            const addLiquidityResult = await addLiquidityWrite().then(res => { setHash(res.hash) });
             console.log('Add Liquidity Result:', addLiquidityResult);
 
             setIsLoading_Btn(false);
