@@ -33,7 +33,7 @@ const WithdrawCard_Content = () => {
         watch: true,
     });
 
-    console.log(LPBalance.data.formatted, 'LPBalance')
+    console.log(LPBalance.data?.formatted, 'LPBalance')
 
     //获取tokenA储备
     const tokenABalance = useBalance({
@@ -50,16 +50,15 @@ const WithdrawCard_Content = () => {
     });
 
     //计算用户在流动性池中的份额
-    const userShare = Number(inputAmount) / Number(LPBalance.data.formatted);
+    const userShare = Number(inputAmount) / Number(LPBalance.data?.formatted);
 
     console.log(userShare, 'userShare')
 
     const [expectedTokenA, setExpectedTokenA] = useState(0);
     const [expectedTokenB, setExpectedTokenB] = useState(0);
     useEffect(() => {
-
-        setExpectedTokenA(Number(tokenABalance.data?.formatted) * userShare);
-        setExpectedTokenB(Number(tokenBBalance.data?.formatted) * userShare);
+        setExpectedTokenA(expectedTokenA ? Number(tokenABalance.data?.formatted) * userShare : 0);
+        setExpectedTokenB(expectedTokenB ? Number(tokenBBalance.data?.formatted) * userShare : 0);
     }, [userShare, tokenABalance, tokenBBalance]);
 
     console.log(expectedTokenA, 'Expected TokenA');
@@ -172,8 +171,8 @@ const WithdrawCard_Content = () => {
                                     useGrouping: true,
                                 })} */}
                         </div>
-                        <div className="">{`Balance: ${LPBalance
-                            ? Number(LPBalance?.data.formatted).toFixed(6)
+                        <div className="">{`Balance: ${LPBalance.data
+                            ? Number(LPBalance?.data?.formatted).toFixed(6)
                             : "0.0"
                             } `}</div>
                     </div>
