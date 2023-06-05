@@ -151,6 +151,11 @@ const WithdrawCard_Content = () => {
         }
     };
 
+    const inputTokenPercentSelect = (value) => {
+        inputAmountLPRef.current.value = LPBalance.data ? (LPBalance?.data?.formatted * value / 100).toFixed(6) : "0.0";
+        setInputAmount(LPBalance.data ? ((LPBalance?.data?.formatted * value) / 100).toString() : "0.0");
+    }
+
     return (
         <div className="flex-col mt-8">
             <div className="bg-white  bg-opacity-50 rounded-xl p-4 relative">
@@ -188,16 +193,32 @@ const WithdrawCard_Content = () => {
                     </div>
                     {/* 百分比选择 */}
                     <div className="flex justify-start gap-7 mt-2 text-sm">
-                        <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600">
+                        <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600"
+                            onClick={() => {
+                                inputTokenPercentSelect(25);
+                            }}
+                        >
                             25%
                         </div>
-                        <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600">
+                        <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600"
+                            onClick={() => {
+                                inputTokenPercentSelect(50);
+                            }}
+                        >
                             50%
                         </div>
-                        <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600">
+                        <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600"
+                            onClick={() => {
+                                inputTokenPercentSelect(75);
+                            }}
+                        >
                             75%
                         </div>
-                        <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600">
+                        <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600"
+                            onClick={() => {
+                                inputTokenPercentSelect(100);
+                            }}
+                        >
                             100%
                         </div>
                     </div>
