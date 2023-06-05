@@ -108,8 +108,17 @@ export default function Faucet_Mumbai() {
     onSuccess(data) {
       setIsFaucted_A(data[0]);
       setIsFaucted_B(data[1]);
-      setTokenABalance(ethers.utils.formatUnits(data[2], "ether"));
-      setTokenBBalance(ethers.utils.formatUnits(data[3], "ether"));
+      setTokenABalance(
+        Number(ethers.utils.formatUnits(data[2], "ether"))
+          .toFixed(6)
+          .replace(/\.?0+$/, "")
+      );
+
+      setTokenBBalance(
+        Number(ethers.utils.formatUnits(data[3], "ether"))
+          .toFixed(6)
+          .replace(/\.?0+$/, "")
+      );
     },
   });
 

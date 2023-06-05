@@ -6,6 +6,7 @@ import Faucet from "./Faucet";
 import { useState } from "react";
 import { useNetwork } from "wagmi";
 import Faucet_Mumbai from "./Faucet_Mumbai";
+import { useNavigate } from "react-router-dom";
 
 export default function AppHeader() {
   const { chain } = useNetwork();
@@ -13,9 +14,13 @@ export default function AppHeader() {
   const handleMouseEnter = () => {
     setIsPoolHovered(true);
   };
+  const navigate = useNavigate();
 
   const handleMouseLeave = () => {
     setIsPoolHovered(false);
+  };
+  const handleHackathonClick = (demoName) => {
+    navigate("/" + demoName);
   };
 
   return (
@@ -46,6 +51,7 @@ export default function AppHeader() {
                   </div>
                 </div>
               </div>
+              {/* Main */}
               <div className="flex items-center space-x-4 md:space-x-6 mb-[2px]">
                 <div className="relative">
                   <div>
@@ -159,6 +165,102 @@ export default function AppHeader() {
                     </a>
                   </div>
                 </div> */}
+                {/* Hacker Demo */}
+                <div className="relative">
+                  <div>
+                    <div
+                      onMouseEnter={handleMouseEnter}
+                      onMouseLeave={handleMouseLeave}
+                      class="dropdown dropdown-hover"
+                    >
+                      <div
+                        tabindex="0"
+                        class="flex items-center gap-1 md:gap-1 py-2 cursor-pointer flex-row"
+                      >
+                        <div class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
+                          Hackathon
+                        </div>
+                        <div class="mt-1">
+                          <svg
+                            width="8"
+                            height="8"
+                            viewBox="0 0 8 8"
+                            xmlns="http://www.w3.org/2000/svg"
+                            class={isPoolHovered ? "rotate-180" : "rotate-0"}
+                          >
+                            <path
+                              fill="#5155a6"
+                              fill-rule="nonzero"
+                              d="M4.036 6.571.5 3.036l.786-.786L4.037 5l2.748-2.75.786.786z"
+                            ></path>
+                          </svg>
+                        </div>
+                      </div>
+                      <ul
+                        tabindex="0"
+                        class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-80 mt-0"
+                      >
+                        <li>
+                          <div
+                            class="flex"
+                            onClick={() => {
+                              handleHackathonClick("demo1_swap");
+                            }}
+                          >
+                            <div className="flex items-center">
+                              <img
+                                src={logo}
+                                className="h-[24px] w-[24px] z-1"
+                              />
+                            </div>
+                            <div className="flex flex-col ml-0">
+                              <p>Swap</p>
+                              <p className=" text-xs">Demo1 Test</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div
+                            class="flex"
+                            onClick={() => {
+                              handleHackathonClick("demo1_pool");
+                            }}
+                          >
+                            <div className="flex items-center">
+                              <img
+                                src={logo}
+                                className="h-[24px] w-[24px] z-1"
+                              />
+                            </div>
+                            <div className="flex flex-col ml-0">
+                              <p>Pool</p>
+                              <p className=" text-xs">Demo1 Test</p>
+                            </div>
+                          </div>
+                        </li>
+                        <li>
+                          <div
+                            class="flex"
+                            onClick={() => {
+                              handleHackathonClick("demo2_ilo");
+                            }}
+                          >
+                            <div className="flex items-center">
+                              <img
+                                src={logo}
+                                className="h-[24px] w-[24px] z-1"
+                              />
+                            </div>
+                            <div className="flex flex-col ml-0">
+                              <p>ILO</p>
+                              <p className=" text-xs">Demo2 Test</p>
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
                 {/* <div className="relative">
                   <div>
                     <a
