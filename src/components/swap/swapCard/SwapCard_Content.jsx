@@ -19,7 +19,6 @@ import {
   Mumbai_yexExample_abi,
 } from "../../../contracts/abis";
 import { ethers } from "ethers";
-import { message } from "antd";
 
 export default function SwapCard_Content() {
   const [hash, setHash] = useState("0x");
@@ -48,7 +47,10 @@ export default function SwapCard_Content() {
     hash: hash,
     onSuccess(data) {
       setIsLoading_Btn(false);
-      message.success("Swap Success!");
+      setIsOpen_Alert(true);
+      setTimeout(() => {
+        setIsOpen_Alert(false);
+      }, 5000);
     },
   });
 
@@ -255,16 +257,52 @@ export default function SwapCard_Content() {
   }, [selectedCoin_out]);
   return (
     <div className="flex-col mt-8">
+      {/* 提示框 */}
+      <div
+        className={`absolute w-1/2 top-20 pr-8 transform transition duration-500 ease-in-out ${
+          isOpen_Alert
+            ? "-translate-y-0 opacity-100"
+            : "-translate-y-full opacity-0"
+        }`}
+      >
+        <div className="alert shadow-lg w-full">
+          <div>
+            {/* 加载指示器 */}
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="stroke-current flex-shrink-0 h-6 w-6"
+              fill="none"
+              viewBox="0 0 24 24"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <div>
+              <h3 className="font-bold">New Transaction!</h3>
+              <div className="text-xs">You have 1 confirmed transaction</div>
+            </div>
+          </div>
+          <div className="flex-none">
+            <a href={`https://blockscout.scroll.io/tx/${hash}`} target="_blank">
+              <button className="btn btn-sm">See</button>
+            </a>
+          </div>
+        </div>
+      </div>
       {/* inputcoin */}
       <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative">
         <div className="flex-col">
           <div className="flex justify-between">
-            <div className="text-2xl">
+            <div className="text-2xl w-[calc(100%-130px)]">
               <input
                 type="number"
                 step="0.0000001"
                 placeholder="0.0"
-                className="bg-transparent border-none text-3xl outline-none "
+                className="bg-transparent border-none text-3xl outline-none  w-full"
                 ref={inputAmountRef}
               />
             </div>
@@ -375,11 +413,11 @@ export default function SwapCard_Content() {
       <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative mt-0">
         <div className="flex-col">
           <div className="flex justify-between">
-            <div className="text-2xl">
+            <div className="text-2xl w-[calc(100%-130px)]">
               <input
                 type="text"
                 placeholder={receiveTokenAmount}
-                className="bg-transparent border-none text-3xl outline-none animate-pulse"
+                className="bg-transparent border-none text-3xl outline-none animate-pulse w-full "
                 disabled
               />
             </div>
