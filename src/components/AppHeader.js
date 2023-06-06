@@ -9,7 +9,7 @@ import Faucet_Mumbai from "./Faucet_Mumbai";
 import { useNavigate } from "react-router-dom";
 
 export default function AppHeader() {
-  const { chain, _ } = useNetwork();
+  const { chain, chains } = useNetwork();
   const [isPoolHovered, setIsPoolHovered] = useState(false);
   const handleMouseEnter = () => {
     setIsPoolHovered(true);
@@ -29,7 +29,7 @@ export default function AppHeader() {
         <div class="mx-auto py-[2px] ">
           <p class="m-0 font-inter font-normal leading-5 text-xs text-white">
             {/* Scroll's Alpha Testnet is now live. */}
-            {chain.name} is now live.
+            {chain?.name} is now live.
           </p>
         </div>
       </div>
