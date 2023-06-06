@@ -9,7 +9,7 @@ import Faucet_Mumbai from "./Faucet_Mumbai";
 import { useNavigate } from "react-router-dom";
 
 export default function AppHeader() {
-  const { chain } = useNetwork();
+  const { chain, _ } = useNetwork();
   const [isPoolHovered, setIsPoolHovered] = useState(false);
   const handleMouseEnter = () => {
     setIsPoolHovered(true);
