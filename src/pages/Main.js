@@ -40,15 +40,13 @@ export default function Main() {
               </div>
               <div className="flex flex-col fade-in  gap-1">
                 <p className="text-lg font-medium z-40">
-                  Committed to Contract 3.0, to a truly democratic DAO
-                  and to complete decentralization.
+                  y=e<sup>x</sup> Lab leads people to a democratic and decentralized Web 3.0 world.
                 </p>
                 <p className=" w-1/2 text-left text-gray-500 mt-2 z-40">
-                  We firmly believe that the future of Web 3.0
-                  is a community-centric world. The community chooses
-                  their development team, their front-end,
-                  and their smart contracts to realize their product.
-                  Instead of letting users hunt for products.
+                We firmly believe that decentralization is community-centric. 
+                The community chooses their development team, their front-end, 
+                and their smart contracts to realize the products they want. 
+                Instead of letting users hunt for products made by companies.
                 </p>
               </div>
             </div>
@@ -58,8 +56,9 @@ export default function Main() {
             <div className="flex flex-col gap-6 items-center">
               <p className=" text-4xl font-semibold z-40">Our Mission</p>
               <p className=" w-5/6 text-center z-40">
-                y=e<sup>x</sup> Lab leads people to an easier and safer way to
-                the Web 3.0 world.
+                Committed to Contract 3.0, to a truly democratic DAO
+                and to complete decentralization.
+                See the projects we are contributing to below.
               </p>
               {/* white paper */}
               {/* <a href="/whitepaper">
