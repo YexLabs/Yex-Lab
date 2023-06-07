@@ -25,9 +25,9 @@ export default function AppHeader() {
 
   return (
     <header className="box-border fixed flex flex-col top-0 left-0 w-full h-[80px] z-30 border-b-0">
-      <div class="flex fade-in bg-blue-500 backdrop-blur-md items-center">
-        <div class="mx-auto py-[2px] ">
-          <p class="m-0 font-inter font-normal leading-5 text-xs text-white">
+      <div className="flex fade-in bg-blue-500 backdrop-blur-md items-center">
+        <div className="mx-auto py-[2px] ">
+          <p className="m-0 font-inter font-normal leading-5 text-xs text-white">
             {/* Scroll's Alpha Testnet is now live. */}
             {chain?.name} is now live.
           </p>
@@ -36,8 +36,8 @@ export default function AppHeader() {
 
       <div className="relative">
         <div className="box-border px-3 py-2 pl- absolute w-full backdrop-blur-md ">
-          <div class="row2 flex flex-row justify-between items-center flex-wrap gap-y-10 max-w-full">
-            <div class="flex flex-row items-center gap-6">
+          <div className="row2 flex flex-row justify-between items-center flex-wrap gap-y-10 max-w-full">
+            <div className="flex flex-row items-center gap-6">
               <div className="mb-[2px]">
                 <div className=" relative">
                   <div>
@@ -58,10 +58,10 @@ export default function AppHeader() {
                   <div>
                     <a
                       href="main"
-                      class="no-underline text-current cursor-default"
+                      className="no-underline text-current cursor-default"
                     >
-                      <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
-                        <p class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
+                      <div className="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
+                        <p className="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
                           Main
                         </p>
                       </div>
@@ -97,7 +97,7 @@ export default function AppHeader() {
                             >
                               <path
                                 fill="#5155a6"
-                                fill-rule="nonzero"
+                                fillRule="nonzero"
                                 d="M4.036 6.571.5 3.036l.786-.786L4.037 5l2.748-2.75.786.786z"
                               ></path>
                             </svg>
@@ -172,38 +172,40 @@ export default function AppHeader() {
                     <div
                       onMouseEnter={handleMouseEnter}
                       onMouseLeave={handleMouseLeave}
-                      class="dropdown dropdown-hover"
+                      className="dropdown dropdown-hover"
                     >
                       <div
-                        tabindex="0"
-                        class="flex items-center gap-1 md:gap-1 py-2 cursor-pointer flex-row"
+                        tabIndex="0"
+                        className="flex items-center gap-1 md:gap-1 py-2 cursor-pointer flex-row"
                       >
-                        <div class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
+                        <div className="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
                           Hackathon
                         </div>
-                        <div class="mt-1">
+                        <div className="mt-1">
                           <svg
                             width="8"
                             height="8"
                             viewBox="0 0 8 8"
                             xmlns="http://www.w3.org/2000/svg"
-                            class={isPoolHovered ? "rotate-180" : "rotate-0"}
+                            className={
+                              isPoolHovered ? "rotate-180" : "rotate-0"
+                            }
                           >
                             <path
                               fill="#5155a6"
-                              fill-rule="nonzero"
+                              fillRule="nonzero"
                               d="M4.036 6.571.5 3.036l.786-.786L4.037 5l2.748-2.75.786.786z"
                             ></path>
                           </svg>
                         </div>
                       </div>
                       <ul
-                        tabindex="0"
-                        class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-80 mt-0"
+                        tabIndex="0"
+                        className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-80 mt-0"
                       >
                         <li>
                           <div
-                            class="flex"
+                            className="flex"
                             onClick={() => {
                               handleHackathonClick("demo1_swap");
                             }}
@@ -222,7 +224,7 @@ export default function AppHeader() {
                         </li>
                         <li>
                           <div
-                            class="flex"
+                            className="flex"
                             onClick={() => {
                               handleHackathonClick("demo1_pool");
                             }}
@@ -241,7 +243,7 @@ export default function AppHeader() {
                         </li>
                         <li>
                           <div
-                            class="flex"
+                            className="flex"
                             onClick={() => {
                               handleHackathonClick("demo2_ilo");
                             }}
@@ -335,13 +337,11 @@ export default function AppHeader() {
                 </div> */}
               </div>
             </div>
-            <div class="flex flex-row items-center gap-3">
+            <div className="flex flex-row items-center gap-3">
               {/* {chain?.id != 80001 ? "" : <Faucet_Mumbai />} */}
               <div className=" relative">
                 <div className="">
-                  <ConnectKitProvider>
-                    <ConnectKitButton />
-                  </ConnectKitProvider>
+                  <ConnectKitButton />
                 </div>
               </div>
             </div>

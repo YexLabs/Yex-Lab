@@ -15,6 +15,7 @@ export default function Network() {
           href="https://blockscout.scroll.io/block/1181353"
           target="_blank"
           className={`flex items-center ${isSuccess ? "" : "hidden"} `}
+          rel="noreferrer"
         >
           <span className=" fade-in">
             <p className="text-sm">{data || ""}</p>

@@ -20,6 +20,8 @@ export default function Faucet_Mumbai() {
   const { address } = useAccount();
   const [isFaucted_A, setIsFaucted_A] = React.useState(false);
   const [isFaucted_B, setIsFaucted_B] = React.useState(false);
+  const [ableFaucted_A, setAbleFaucted_A] = React.useState(false);
+  const [ableFaucted_B, setAbleFaucted_B] = React.useState(false);
   const [isLoading_A, setIsLoading_A] = React.useState(false);
   const [isLoading_B, setIsLoading_B] = React.useState(false);
   const [tokenA_balance, setTokenABalance] = React.useState(0);
@@ -108,6 +110,8 @@ export default function Faucet_Mumbai() {
     onSuccess(data) {
       setIsFaucted_A(data[0]);
       setIsFaucted_B(data[1]);
+      setAbleFaucted_A(!data[0]);
+      setAbleFaucted_B(!data[1]);
       setTokenABalance(
         Number(ethers.utils.formatUnits(data[2], "ether"))
           .toFixed(6)
@@ -142,6 +146,7 @@ export default function Faucet_Mumbai() {
     functionName: "faucet",
     args: [],
     account: address,
+    enabled: ableFaucted_A,
   });
   // Faucet
   const {
@@ -162,6 +167,7 @@ export default function Faucet_Mumbai() {
     functionName: "faucet",
     args: [],
     account: address,
+    enabled: ableFaucted_B,
   });
   // Faucet
   const { writeAsync: faucetBConfigWrite } = useContractWrite({
