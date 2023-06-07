@@ -196,6 +196,12 @@ export default function SwapCard_Content() {
   function closeModal() {
     setIsOpen(false);
   }
+
+  // 阻止默认事件
+  const handleWheel = (event) => {
+    event.preventDefault();
+  };
+
   const swapClick = () => {
     if (Number(receiveTokenAmount) >= 0) {
       if (inputTokenBalance?.formatted >= inputAmountRef.current?.value) {
@@ -240,6 +246,11 @@ export default function SwapCard_Content() {
     if (selectedCoin_input == "WETH") {
       setCurrentInputTokenContract("0x");
     }
+    // 将 passive 选项设置为 false，以将事件监听器更改为主动事件监听器，保证阻止input框滚动默认事件
+    if (inputAmountRef.current)
+      inputAmountRef.current.addEventListener("wheel", handleWheel, {
+        passive: false,
+      });
   }, [selectedCoin_input]);
   useEffect(() => {
     if (selectedCoin_out == "tokenA") {
