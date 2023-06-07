@@ -21,7 +21,7 @@ import {
 import { ethers } from "ethers";
 
 export default function SwapCard_Content() {
-  const [hash, setHash] = useState("0x");
+  const [hash, setHash] = useState();
   const { address } = useAccount();
   const [inputValue, setInputValue] = useState(1781.84);
   const [isOpen, setIsOpen] = useState(false);
@@ -112,10 +112,14 @@ export default function SwapCard_Content() {
       },
     ],
     watch: true,
-    enabled: true,
+    enabled:
+      address &&
+      inputAmountRef.current &&
+      Number(inputAmountRef.current.value) != 0,
     onSuccess(data) {
+      console.log(data);
       const allowancedAmount = ethers.utils.formatUnits(data[0], "ether");
-      console.log(allowancedAmount);
+
       const receiveAmount = Number(ethers.utils.formatUnits(data[1], "ether"))
         .toFixed(6)
         .replace(/\.?0+$/, "");
@@ -286,9 +290,9 @@ export default function SwapCard_Content() {
               viewBox="0 0 24 24"
             >
               <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth="2"
                 d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
               />
             </svg>
@@ -339,7 +343,7 @@ export default function SwapCard_Content() {
                 >
                   <path
                     fill="#5155a6"
-                    fill-rule="nonzero"
+                    fillRule="nonzero"
                     d="M4.036 6.571.5 3.036l.786-.786L4.037 5l2.748-2.75.786.786z"
                   ></path>
                 </svg>
@@ -454,7 +458,7 @@ export default function SwapCard_Content() {
                 >
                   <path
                     fill="#5155a6"
-                    fill-rule="nonzero"
+                    fillRule="nonzero"
                     d="M4.036 6.571.5 3.036l.786-.786L4.037 5l2.748-2.75.786.786z"
                   ></path>
                 </svg>
@@ -529,7 +533,7 @@ export default function SwapCard_Content() {
               cy="12"
               r="10"
               stroke="currentColor"
-              stroke-width="4"
+              strokeWidth="4"
             ></circle>
             <path
               className="opacity-75"
