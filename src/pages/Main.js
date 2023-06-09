@@ -5,7 +5,8 @@ import stars from "../assets/images/intro/stars.png";
 import honeypot_banner from "../assets/images/intro/honeypot.png";
 import scroll_banner from "../assets/images/intro/scroll.png";
 import berachain_banner from "../assets/images/intro/bera.png";
-import splatter_banner from "../assets/images/intro/splatter.jpeg";
+import splatter_banner from "../assets/images/intro/splatter.png";
+import chainlink_banner from "../assets/images/intro/chainlink.png";
 import honeypot_logo from '../assets/images/projects/honeypot.jpg';
 import splatter_logo from '../assets/images/projects/splatter.jpg';
 import "../components/Projects.css";
@@ -157,10 +158,11 @@ export default function Main() {
               <div>
                 {" "}
                 <div class=" grid grid-cols-3 grid-gap-4 grid-flow-row mt-8">
+                  <img src={chainlink_banner} className=" mx-4 w-52 h-16" />
+                  <img src={berachain_banner} className=" mx-4 w-52 h-16" />
+                  <img src={scroll_banner} className=" mx-4 w-52 h-16" />
                   <img src={honeypot_banner} className=" mx-4 w-52 h-16" />
                   <img src={splatter_banner} className=" mx-4 w-52 h-16" />{" "}
-                  <img src={berachain_banner} className=" mx-4 w-52 h-16" />
-                  <img src={scroll_banner} className=" mx-4 w-52 h-16" />{" "}
                 </div>
               </div>
             </div>
