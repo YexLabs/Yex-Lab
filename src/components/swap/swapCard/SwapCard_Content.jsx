@@ -8,6 +8,7 @@ import {
   useContractWrite,
   usePrepareContractWrite,
   useWaitForTransaction,
+  useNetwork,
 } from "wagmi";
 import {
   Mumbai_yexExample_address,
@@ -21,6 +22,7 @@ import {
 import { ethers } from "ethers";
 
 export default function SwapCard_Content() {
+  const { chain } = useNetwork();
   const [hash, setHash] = useState();
   const { address } = useAccount();
   const [inputValue, setInputValue] = useState(1781.84);
@@ -302,7 +304,10 @@ export default function SwapCard_Content() {
             </div>
           </div>
           <div className="flex-none">
-            <a href={`https://blockscout.scroll.io/tx/${hash}`} target="_blank">
+            <a
+              href={`${chain?.blockExplorers.default.url}/tx/${hash}`}
+              target="_blank"
+            >
               <button className="btn btn-sm">See</button>
             </a>
           </div>
@@ -548,7 +553,7 @@ export default function SwapCard_Content() {
               ? "Swap"
               : "Approve"
             : "Insufficient Balance"
-          : "Insufficient Liquidity"}
+          : "Insufficient Amount"}
       </div>
       {/* 代币列表modal */}
       <TokenListModal
