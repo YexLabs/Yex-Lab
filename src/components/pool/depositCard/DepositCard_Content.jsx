@@ -272,7 +272,7 @@ const DepositCard_Content = () => {
                 >
                   <path
                     fill="#5155a6"
-                    fill-rule="nonzero"
+                    fillRule="nonzero"
                     d="M4.036 6.571.5 3.036l.786-.786L4.037 5l2.748-2.75.786.786z"
                   ></path>
                 </svg>
@@ -367,7 +367,7 @@ const DepositCard_Content = () => {
                 >
                   <path
                     fill="#5155a6"
-                    fill-rule="nonzero"
+                    fillRule="nonzero"
                     d="M4.036 6.571.5 3.036l.786-.786L4.037 5l2.748-2.75.786.786z"
                   ></path>
                 </svg>
