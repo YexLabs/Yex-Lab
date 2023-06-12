@@ -2,8 +2,18 @@ import React from "react";
 import ethicon from "../../../assets/images/pools/eth.png";
 import { ILO_ADDRESS } from "../../../contracts/addresses";
 import { truncateAddress } from "../../../utils";
+import { useILOContract } from "../../../hooks";
+import { toast } from "react-toastify";
 
 export default function ILOCard_Header() {
+  const { performUpKeepWrite } = useILOContract();
+  const performUpKeep = async () => {
+    try {
+      await performUpKeepWrite();
+    } catch (e) {
+      toast.error(e?.reason);
+    }
+  };
   return (
     <div>
       <div className="flex justify-between mt-4 items-center">
@@ -22,7 +32,10 @@ export default function ILOCard_Header() {
           </div>
         </div>
         <div>
-          <div className=" rounded-lg bg-indigo-600 text-white p-2  animate-bounce">
+          <div
+            className=" rounded-lg bg-indigo-600 text-white p-2  animate-bounce"
+            onClick={performUpKeep}
+          >
             LIVE
           </div>
         </div>

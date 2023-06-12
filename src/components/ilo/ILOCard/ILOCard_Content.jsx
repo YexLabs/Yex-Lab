@@ -13,7 +13,7 @@ export default function ILOCard_Content() {
   const [tokenAddress, setTokenAddress] = useState(MUMBAI_ILO_TOKENA_ADDRESS);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTokenlist, setSelectedTokenlist] = useState(0); // 0 input of tokenlist,1 out of tokenlist
-  const [selectedCoin_input, setSelectedCoin_input] = useState("ETH");
+  const [selectedCoin_input, setSelectedCoin_input] = useState("TTA");
   const [selectedCoin_out, setSelectedCoin_out] = useState("USDC");
 
   const { data: balanceData } = useBalance({
@@ -27,25 +27,16 @@ export default function ILOCard_Content() {
     approveTokenAWrite,
     approveTokenBWrite,
     depositWrite,
-    performUpKeepWrite,
     checkUpKeep,
     totalSupply,
   } = useILOContract();
 
-  const addLiquidity = async () => {
+  const deposit = async () => {
     try {
       await approveTokenAWrite();
       await approveTokenBWrite();
       await depositWrite();
       await addLiquidityWrite();
-    } catch (e) {
-      toast.error(e?.reason);
-    }
-  };
-
-  const performUpKeep = async () => {
-    try {
-      await performUpKeepWrite();
     } catch (e) {
       toast.error(e?.reason);
     }
@@ -171,7 +162,7 @@ export default function ILOCard_Content() {
       {/* button */}
       <button
         className=" text-center w-full mt-5 bg-indigo-400 py-2 rounded-xl ripple-btn text-white"
-        onClick={performUpKeep}
+        onClick={deposit}
         disabled={!amount}
       >
         Deposit
