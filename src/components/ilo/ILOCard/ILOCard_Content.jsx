@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import TokenListModal from "./TokenlistModal";
+import useILOContract from "../../../hooks/useILOContract";
 
 export default function ILOCard_Content() {
   const [inputValue, setInputValue] = useState(1781.84);
@@ -8,24 +9,38 @@ export default function ILOCard_Content() {
   const [selectedCoin_input, setSelectedCoin_input] = useState("ETH");
   const [selectedCoin_out, setSelectedCoin_out] = useState("USDC");
   const inputAmountRef = useRef(null);
-  const [receiveTokenAmount, setReceiveTokenAmount] = useState("0.0");
-  const [inputTokenPriceForOutToken, setInputTokenPriceForOutToken] =
-    useState("0.0");
 
-  const [currentInputTokenContract, setCurrentInputTokenContract] =
-    useState("0x");
-  const [currentOutTokenContract, setCurrentOutTokenContract] = useState("0x");
+  const {
+    addLiquidityWrite,
+    approveTokenAWrite,
+    approveTokenBWrite,
+    depositWrite,
+    performUpKeepWrite,
+    checkUpKeep,
+    totalSupply,
+  } = useILOContract();
 
-  const [isOpen_Alert, setIsOpen_Alert] = useState(false);
-  const [isLoading_Btn, setIsLoading_Btn] = useState(false);
+  const addLiquidity = async () => {
+    try {
+      await approveTokenAWrite();
+      await approveTokenBWrite();
+      await depositWrite();
+      const data = await addLiquidityWrite();
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
+  const performUpKeep = async () => {
+    try {
+      await performUpKeepWrite();
+    } catch (e) {
+      console.log(e);
+    }
+  };
   function openModal_input() {
     setSelectedTokenlist(0);
-    setIsOpen(true);
-  }
-
-  function openModal_out() {
-    setSelectedTokenlist(1);
     setIsOpen(true);
   }
 
@@ -67,7 +82,7 @@ export default function ILOCard_Content() {
                 >
                   <path
                     fill="#5155a6"
-                    fill-rule="nonzero"
+                    fillRule="nonzero"
                     d="M4.036 6.571.5 3.036l.786-.786L4.037 5l2.748-2.75.786.786z"
                   ></path>
                 </svg>
@@ -123,7 +138,10 @@ export default function ILOCard_Content() {
         </div>
       </div>
       {/* button */}
-      <button className=" text-center w-full mt-5 bg-indigo-400 py-2 rounded-xl ripple-btn text-white">
+      <button
+        className=" text-center w-full mt-5 bg-indigo-400 py-2 rounded-xl ripple-btn text-white"
+        onClick={performUpKeep}
+      >
         Deposit
       </button>
       {/* 代币列表modal */}

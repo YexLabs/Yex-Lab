@@ -10,7 +10,9 @@ export default function ILOCard_Header() {
             <img alt="" src={ethicon} />
           </div>
           <div className="flex-col ml-2">
-            <div className="text-2xl font-semibold">Subscribe TokenB using TokenA</div>
+            <div className="text-2xl font-semibold">
+              Subscribe TokenB using TokenA
+            </div>
             <div className="text-sm flex">
               <div className="text-indigo-600 mr-1">Contract on</div>
               <div>0x123...456</div>
