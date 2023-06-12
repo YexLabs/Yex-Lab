@@ -6,8 +6,11 @@ import DepositCard from "../components/pool/depositCard/DepositCard";
 import Sidebar from "../components/pool/Sidebar";
 import WithdrawCard from "../components/pool/withdrawCard/WithdrawCard";
 
-import { Mumbai_yexExample_address, Mumbai_yexExample_pool2_address } from "../contracts/addresses";
-import { useContractRead, } from "wagmi";
+import {
+  Mumbai_yexExample_address,
+  Mumbai_yexExample_pool2_address,
+} from "../contracts/addresses";
+import { useContractRead } from "wagmi";
 import { Mumbai_yexExample_abi } from "../contracts/abis";
 import { ethers } from "ethers";
 
@@ -62,11 +65,11 @@ const Demo1_Pool = () => {
   const [pool2Reserve0, setPool2Reserve0] = useState(0);
   const [pool2Reserve1, setPool2Reserve1] = useState(0);
 
-  console.log(pool1Reserve0, 'pool1Reserve0')
-  console.log(pool1Reserve1, 'pool1Reserve1')
+  console.log(pool1Reserve0, "pool1Reserve0");
+  console.log(pool1Reserve1, "pool1Reserve1");
 
-  console.log(pool2Reserve0, 'pool2Reserve0')
-  console.log(pool2Reserve1, 'pool2Reserve1')
+  console.log(pool2Reserve0, "pool2Reserve0");
+  console.log(pool2Reserve1, "pool2Reserve1");
 
   // get pool1 Reserves
   const { data: reservesPool1Data } = useContractRead({
@@ -92,7 +95,9 @@ const Demo1_Pool = () => {
 
   useEffect(() => {
     if (reservesPool1Data) {
-      const reserves = reservesPool1Data.map((reserve) => ethers.utils.formatUnits(reserve, "ether"));
+      const reserves = reservesPool1Data.map((reserve) =>
+        ethers.utils.formatUnits(reserve, "ether")
+      );
       setPool1Reserve0(reserves[0]);
       setPool1Reserve1(reserves[1]);
     }
@@ -100,7 +105,9 @@ const Demo1_Pool = () => {
 
   useEffect(() => {
     if (reservesPool2Data) {
-      const reserves = reservesPool2Data.map((reserve) => ethers.utils.formatUnits(reserve, "ether"));
+      const reserves = reservesPool2Data.map((reserve) =>
+        ethers.utils.formatUnits(reserve, "ether")
+      );
       setPool2Reserve0(reserves[0]);
       setPool2Reserve1(reserves[1]);
     }
@@ -115,7 +122,7 @@ const Demo1_Pool = () => {
         <div>{currentComponent === "DepositCard" && <DepositCard />}</div>
         <div>
           <div className="justify-center items-center flex flex-col">
-            {currentComponent === "PoolList" &&
+            {currentComponent === "PoolList" && (
               // mockData.map((data, index) => (
               //   <PoolList
               //     key={index}
@@ -136,21 +143,21 @@ const Demo1_Pool = () => {
                 <PoolList
                   tokenAIcon={ethicon}
                   tokenBIcon={ethicon}
-                  tokenAName={'TokenA'}
-                  tokenBName={'TokenB'}
-                  status={'Openning'}
+                  tokenAName={"TokenA"}
+                  tokenBName={"TokenB"}
+                  status={"Openning"}
                   liquidity={Number(pool1Reserve0) + Number(pool1Reserve1)}
                 />
                 <PoolList
                   tokenAIcon={ethicon}
                   tokenBIcon={ethicon}
-                  tokenAName={'TokenA'}
-                  tokenBName={'TokenB'}
-                  status={'Openning'}
+                  tokenAName={"TokenA"}
+                  tokenBName={"TokenB"}
+                  status={"Openning"}
                   liquidity={Number(pool2Reserve0) + Number(pool2Reserve1)}
                 />
               </div>
-            }
+            )}
           </div>
         </div>
         <div>{currentComponent === "WithdrawCard" && <WithdrawCard />}</div>

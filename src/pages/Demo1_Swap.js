@@ -13,6 +13,7 @@ export default function Demo1_Swap() {
     if (chain?.id !== 80001 && switchNetwork) {
       switchNetwork();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [switchNetwork]);
   return (
     <div className="mt-16 min-h-screen md:min-h-auto md:h-auto">

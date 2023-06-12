@@ -1,7 +1,19 @@
 import React from "react";
 import ethicon from "../../../assets/images/pools/eth.png";
+import { ILO_ADDRESS } from "../../../contracts/addresses";
+import { truncateAddress } from "../../../utils";
+import { useILOContract } from "../../../hooks";
+import { toast } from "react-toastify";
 
 export default function ILOCard_Header() {
+  const { performUpKeepWrite } = useILOContract();
+  const performUpKeep = async () => {
+    try {
+      await performUpKeepWrite();
+    } catch (e) {
+      toast.error(e?.reason);
+    }
+  };
   return (
     <div>
       <div className="flex justify-between mt-4 items-center">
@@ -10,15 +22,20 @@ export default function ILOCard_Header() {
             <img alt="" src={ethicon} />
           </div>
           <div className="flex-col ml-2">
-            <div className="text-2xl font-semibold">Subscribe TokenB using TokenA</div>
+            <div className="text-2xl font-semibold">
+              Subscribe TokenB using TokenA
+            </div>
             <div className="text-sm flex">
               <div className="text-indigo-600 mr-1">Contract on</div>
-              <div>0x123...456</div>
+              <div>{truncateAddress(ILO_ADDRESS)}</div>
             </div>
           </div>
         </div>
         <div>
-          <div className=" rounded-lg bg-indigo-600 text-white p-2  animate-bounce">
+          <div
+            className=" rounded-lg bg-indigo-600 text-white p-2  animate-bounce"
+            onClick={performUpKeep}
+          >
             LIVE
           </div>
         </div>

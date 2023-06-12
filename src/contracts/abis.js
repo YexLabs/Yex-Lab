@@ -1,3 +1,4 @@
+import YexILOExample from "./abis/YexILOExample.json";
 export const tokenD_abi = [
   {
     anonymous: false,
@@ -2473,3 +2474,5 @@ export const Mumbai_faucet_abi = [
     type: "function",
   },
 ];
+
+export const MUMBAI_YEX_ILO_EXAMPLE_ABI = YexILOExample;
