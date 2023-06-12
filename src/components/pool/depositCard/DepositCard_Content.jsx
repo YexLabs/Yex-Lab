@@ -58,14 +58,14 @@ const DepositCard_Content = () => {
   //获取tokenA余额
   const { data: tokenABalance } = useBalance({
     address: address,
-    token: selectedCoin_input == "ETH" ? undefined : currentInputTokenContract, // undefined是查询ETH余额
+    token: selectedCoin_input === "ETH" ? undefined : currentInputTokenContract, // undefined是查询ETH余额
     watch: true,
   });
 
   //获取tokenB余额
   const { data: tokenBBalance } = useBalance({
     address: address,
-    token: selectedCoin_out == "ETH" ? undefined : currentOutTokenContract, // undefined是查询ETH余额
+    token: selectedCoin_out === "ETH" ? undefined : currentOutTokenContract, // undefined是查询ETH余额
     watch: true,
   });
 
@@ -184,41 +184,41 @@ const DepositCard_Content = () => {
     setIsOpen(false);
   }
   useEffect(() => {
-    if (Number(inputAmountRef.current?.value) == 0) {
+    if (Number(inputAmountRef.current?.value) === 0) {
       setReceiveTokenAmount("0.0");
     }
   }, [inputAmountRef.current?.value]);
   useEffect(() => {
-    if (Number(inputBmountRef.current?.value) == 0) {
+    if (Number(inputBmountRef.current?.value) === 0) {
       setReceiveTokenAmount("0.0");
     }
   }, [inputBmountRef.current?.value]);
 
   useEffect(() => {
-    if (selectedCoin_input == "tokenA") {
+    if (selectedCoin_input === "tokenA") {
       setCurrentInputTokenContract(Mumbai_tokenA_address);
     }
-    if (selectedCoin_input == "tokenB") {
+    if (selectedCoin_input === "tokenB") {
       setCurrentInputTokenContract(Mumbai_tokenB_address);
     }
-    if (selectedCoin_input == "USDC") {
+    if (selectedCoin_input === "USDC") {
       setCurrentInputTokenContract("0x");
     }
-    if (selectedCoin_input == "WETH") {
+    if (selectedCoin_input === "WETH") {
       setCurrentInputTokenContract("0x");
     }
   }, [selectedCoin_input]);
   useEffect(() => {
-    if (selectedCoin_out == "tokenA") {
+    if (selectedCoin_out === "tokenA") {
       setCurrentOutTokenContract(Mumbai_tokenA_address);
     }
-    if (selectedCoin_out == "tokenB") {
+    if (selectedCoin_out === "tokenB") {
       setCurrentOutTokenContract(Mumbai_tokenB_address);
     }
-    if (selectedCoin_out == "USDC") {
+    if (selectedCoin_out === "USDC") {
       setCurrentOutTokenContract("0x");
     }
-    if (selectedCoin_out == "WETH") {
+    if (selectedCoin_out === "WETH") {
       setCurrentOutTokenContract("0x");
     }
   }, [selectedCoin_out]);

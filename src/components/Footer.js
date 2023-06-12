@@ -11,7 +11,11 @@ export default function Footer() {
           <p className=" text-gray-500">Community</p>
 
           <div className="flex flex-col gap-2 text-sm">
-            <a href="https://discord.gg/93fkRv5DgB" target="_blank">
+            <a
+              href="https://discord.gg/93fkRv5DgB"
+              target="_blank"
+              rel="noreferrer"
+            >
               <p>Discord</p>
             </a>
             <p></p>
@@ -21,7 +25,11 @@ export default function Footer() {
         <div className="flex flex-col gap-4">
           <p className=" text-gray-500">News</p>
           <div className="flex flex-col gap-2 text-sm">
-            <a href="https://twitter.com/yex_lab" target="_blank">
+            <a
+              href="https://twitter.com/yex_lab"
+              target="_blank"
+              rel="noreferrer"
+            >
               <p>Twitter</p>
             </a>
             <a href="#">
@@ -35,7 +43,11 @@ export default function Footer() {
             <a href="/whitepaper" target="_blank">
               <p>Docs</p>
             </a>
-            <a href="https://github.com/yexlab" target="_blank">
+            <a
+              href="https://github.com/yexlab"
+              target="_blank"
+              rel="noreferrer"
+            >
               <p>Github</p>
             </a>
           </div>
@@ -43,10 +55,18 @@ export default function Footer() {
         <div className="flex flex-col gap-4">
           <p className=" text-gray-500">Links</p>
           <div className="flex flex-col gap-2 text-sm">
-            <a href="https://scroll.io/alpha/bridge" target="_blank">
+            <a
+              href="https://scroll.io/alpha/bridge"
+              target="_blank"
+              rel="noreferrer"
+            >
               <p>Bridge</p>
             </a>
-            <a href="https://blockscout.scroll.io/" target="_blank">
+            <a
+              href="https://blockscout.scroll.io/"
+              target="_blank"
+              rel="noreferrer"
+            >
               <p>Explorer</p>
             </a>
           </div>

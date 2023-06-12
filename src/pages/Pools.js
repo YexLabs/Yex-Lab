@@ -180,8 +180,9 @@ export function Pools() {
             </div>
           </div>
           <div id="boxs" className="flex flex-row mt-20 justify-start w-[100%]">
-            {FundsData.map((onepool) => (
+            {FundsData.map((onepool, index) => (
               <div
+                key={index}
                 id="box1"
                 className={`bg-white rounded-lg ${onepool.set} h-[40%] w-[20%] absolute`}
               >

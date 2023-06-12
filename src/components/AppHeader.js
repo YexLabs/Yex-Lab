@@ -338,7 +338,7 @@ export default function AppHeader() {
               </div>
             </div>
             <div className="flex flex-row items-center gap-3">
-              {/* {chain?.id != 80001 ? "" : <Faucet_Mumbai />} */}
+              {/* {chain?.id !== 80001 ? "" : <Faucet_Mumbai />} */}
               <div className=" relative">
                 <div className="">
                   <ConnectKitButton />

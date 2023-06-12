@@ -1,8 +1,5 @@
 import { WagmiConfig, createClient } from "wagmi";
-import {
-  ConnectKitProvider,
-  getDefaultClient,
-} from "connectkit";
+import { ConnectKitProvider, getDefaultClient } from "connectkit";
 import { goerli, scrollTestnet, polygonMumbai } from "@wagmi/chains";
 import { Outlet, useNavigate, useLocation } from "react-router-dom";
 import "./App.css";
@@ -11,7 +8,7 @@ import AppHeader from "./components/AppHeader";
 import Network from "./components/Network";
 import Footer from "./components/Footer";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
+import "react-toastify/dist/ReactToastify.css";
 
 const alchemyId = process.env.REACT_APP_ALCHEMY_ID;
 
@@ -47,6 +44,7 @@ const App = () => {
     if (location.pathname === "/") {
       navigate("/main");
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

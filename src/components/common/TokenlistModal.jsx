@@ -26,7 +26,7 @@ export default function TokenListModal(props) {
   };
 
   const changeSelectedCoin_input = (coinname) => {
-    if (coinname == props.selectedCoin_out) {
+    if (coinname === props.selectedCoin_out) {
       let t = props.selectedCoin_input;
 
       props.setSelectedCoin_input(props.selectedCoin_out);
@@ -39,7 +39,7 @@ export default function TokenListModal(props) {
   };
 
   const changeSelectedCoin_out = (coinname) => {
-    if (coinname == props.selectedCoin_input) {
+    if (coinname === props.selectedCoin_input) {
       let t = props.selectedCoin_out;
       console.log(t + "111111111111");
       props.setSelectedCoin_out(props.selectedCoin_input);
@@ -130,21 +130,21 @@ export default function TokenListModal(props) {
                 <div className="flex gap-1 items-center mt-3">
                   {/* <div
                     className={`flex items-center bg-white ${
-                      props.selectedTokenlist == 0
-                        ? props.selectedCoin_input == "ETH"
+                      props.selectedTokenlist === 0
+                        ? props.selectedCoin_input === "ETH"
                           ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
                           : " hover:cursor-pointer"
-                        : props.selectedCoin_out == "ETH"
+                        : props.selectedCoin_out === "ETH"
                         ? "bg-slate-100 text-gray-500 opacity-50 "
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
                       // eslint-disable-next-line no-unused-expressions
-                      props.selectedTokenlist == 0
-                        ? props.selectedCoin_input != "ETH"
+                      props.selectedTokenlist === 0
+                        ? props.selectedCoin_input !== "ETH"
                           ? changeSelectedCoin_input("ETH")
                           : ""
-                        : props.selectedCoin_out != "ETH"
+                        : props.selectedCoin_out !== "ETH"
                         ? changeSelectedCoin_out("ETH")
                         : "";
                     }}
@@ -159,21 +159,21 @@ export default function TokenListModal(props) {
                   </div> */}
                   {/* <div
                     className={`flex items-center bg-white ${
-                      props.selectedTokenlist == 0
-                        ? props.selectedCoin_input == "WETH"
+                      props.selectedTokenlist === 0
+                        ? props.selectedCoin_input === "WETH"
                           ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
                           : " hover:cursor-pointer"
-                        : props.selectedCoin_out == "WETH"
+                        : props.selectedCoin_out === "WETH"
                         ? "bg-slate-100 text-gray-500 opacity-50 "
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
                       // eslint-disable-next-line no-unused-expressions
-                      props.selectedTokenlist == 0
-                        ? props.selectedCoin_input != "WETH"
+                      props.selectedTokenlist === 0
+                        ? props.selectedCoin_input !== "WETH"
                           ? changeSelectedCoin_input("WETH")
                           : ""
-                        : props.selectedCoin_out != "WETH"
+                        : props.selectedCoin_out !== "WETH"
                         ? changeSelectedCoin_out("WETH")
                         : "";
                     }}
@@ -185,21 +185,21 @@ export default function TokenListModal(props) {
                   </div> */}
                   {/* <div
                     className={`flex items-center bg-white ${
-                      props.selectedTokenlist == 0
-                        ? props.selectedCoin_input == "USDC"
+                      props.selectedTokenlist === 0
+                        ? props.selectedCoin_input === "USDC"
                           ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
                           : " hover:cursor-pointer"
-                        : props.selectedCoin_out == "USDC"
+                        : props.selectedCoin_out === "USDC"
                         ? "bg-slate-100 text-gray-500 opacity-50 "
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
                       // eslint-disable-next-line no-unused-expressions
-                      props.selectedTokenlist == 0
-                        ? props.selectedCoin_input != "USDC"
+                      props.selectedTokenlist === 0
+                        ? props.selectedCoin_input !== "USDC"
                           ? changeSelectedCoin_input("USDC")
                           : ""
-                        : props.selectedCoin_out != "USDC"
+                        : props.selectedCoin_out !== "USDC"
                         ? changeSelectedCoin_out("USDC")
                         : "";
                     }}
@@ -211,16 +211,16 @@ export default function TokenListModal(props) {
                   </div> */}
                   <div
                     className={`flex items-center bg-white ${
-                      props.selectedTokenlist == 0
-                        ? props.selectedCoin_input == "tokenA"
+                      props.selectedTokenlist === 0
+                        ? props.selectedCoin_input === "tokenA"
                           ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
                           : " hover:cursor-pointer"
-                        : props.selectedCoin_out == "tokenA"
+                        : props.selectedCoin_out === "tokenA"
                         ? "bg-slate-100 text-gray-500 opacity-50 "
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                      if (props.selectedTokenlist == 0) {
+                      if (props.selectedTokenlist === 0) {
                         if (props.selectedCoin_input !== "tokenA") {
                           changeSelectedCoin_input("tokenA");
                         }
@@ -241,16 +241,16 @@ export default function TokenListModal(props) {
                   </div>
                   <div
                     className={`flex items-center bg-white ${
-                      props.selectedTokenlist == 0
-                        ? props.selectedCoin_input == "tokenB"
+                      props.selectedTokenlist === 0
+                        ? props.selectedCoin_input === "tokenB"
                           ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
                           : " hover:cursor-pointer"
-                        : props.selectedCoin_out == "tokenB"
+                        : props.selectedCoin_out === "tokenB"
                         ? "bg-slate-100 text-gray-500 opacity-50 "
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                      if (props.selectedTokenlist == 0) {
+                      if (props.selectedTokenlist === 0) {
                         if (props.selectedCoin_input !== "tokenB") {
                           changeSelectedCoin_input("tokenB");
                         }
@@ -277,16 +277,16 @@ export default function TokenListModal(props) {
               <div className="p-3">
                 {/* <div
                   className={`${
-                    props.selectedTokenlist == 0
-                      ? props.selectedCoin_input == "ETH"
+                    props.selectedTokenlist === 0
+                      ? props.selectedCoin_input === "ETH"
                         ? "opacity-50"
                         : "hover:bg-slate-100 hover:cursor-pointer"
-                      : props.selectedCoin_out == "ETH"
+                      : props.selectedCoin_out === "ETH"
                       ? "opacity-50"
                       : "hover:bg-slate-100 hover:cursor-pointer"
                   }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
                   onClick={() =>
-                    props.selectedTokenlist == 0
+                    props.selectedTokenlist === 0
                       ? changeSelectedCoin_input("ETH")
                       : changeSelectedCoin_out("ETH")
                   }
@@ -304,16 +304,16 @@ export default function TokenListModal(props) {
                 </div> */}
                 {/* <div
                   className={`${
-                    props.selectedTokenlist == 0
-                      ? props.selectedCoin_input == "WETH"
+                    props.selectedTokenlist === 0
+                      ? props.selectedCoin_input === "WETH"
                         ? "opacity-50"
                         : "hover:bg-slate-100 hover:cursor-pointer"
-                      : props.selectedCoin_out == "WETH"
+                      : props.selectedCoin_out === "WETH"
                       ? "opacity-50"
                       : "hover:bg-slate-100 hover:cursor-pointer"
                   }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
                   onClick={() =>
-                    props.selectedTokenlist == 0
+                    props.selectedTokenlist === 0
                       ? changeSelectedCoin_input("WETH")
                       : changeSelectedCoin_out("WETH")
                   }
@@ -330,16 +330,16 @@ export default function TokenListModal(props) {
                 </div> */}
                 {/* <div
                   className={`${
-                    props.selectedTokenlist == 0
-                      ? props.selectedCoin_input == "USDC"
+                    props.selectedTokenlist === 0
+                      ? props.selectedCoin_input === "USDC"
                         ? "opacity-50"
                         : "hover:bg-slate-100 hover:cursor-pointer"
-                      : props.selectedCoin_out == "USDC"
+                      : props.selectedCoin_out === "USDC"
                       ? "opacity-50"
                       : "hover:bg-slate-100 hover:cursor-pointer"
                   }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
                   onClick={() =>
-                    props.selectedTokenlist == 0
+                    props.selectedTokenlist === 0
                       ? changeSelectedCoin_input("USDC")
                       : changeSelectedCoin_out("USDC")
                   }
@@ -354,16 +354,16 @@ export default function TokenListModal(props) {
                 </div> */}
                 <div
                   className={`${
-                    props.selectedTokenlist == 0
-                      ? props.selectedCoin_input == "tokenA"
+                    props.selectedTokenlist === 0
+                      ? props.selectedCoin_input === "tokenA"
                         ? "opacity-50"
                         : "hover:bg-slate-100 hover:cursor-pointer"
-                      : props.selectedCoin_out == "tokenA"
+                      : props.selectedCoin_out === "tokenA"
                       ? "opacity-50"
                       : "hover:bg-slate-100 hover:cursor-pointer"
                   }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
                   onClick={() => {
-                    if (props.selectedTokenlist == 0) {
+                    if (props.selectedTokenlist === 0) {
                       if (props.selectedCoin_input !== "tokenA") {
                         changeSelectedCoin_input("tokenA");
                       }
@@ -387,16 +387,16 @@ export default function TokenListModal(props) {
                 </div>
                 <div
                   className={`${
-                    props.selectedTokenlist == 0
-                      ? props.selectedCoin_input == "tokenB"
+                    props.selectedTokenlist === 0
+                      ? props.selectedCoin_input === "tokenB"
                         ? "opacity-50"
                         : "hover:bg-slate-100 hover:cursor-pointer"
-                      : props.selectedCoin_out == "tokenB"
+                      : props.selectedCoin_out === "tokenB"
                       ? "opacity-50"
                       : "hover:bg-slate-100 hover:cursor-pointer"
                   }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
                   onClick={() => {
-                    if (props.selectedTokenlist == 0) {
+                    if (props.selectedTokenlist === 0) {
                       if (props.selectedCoin_input !== "tokenB") {
                         changeSelectedCoin_input("tokenB");
                       }

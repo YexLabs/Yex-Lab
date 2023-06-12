@@ -3,29 +3,25 @@ import {
   MUMBAI_ILO_TOKENB_ADDRESS,
   ILO_ADDRESS,
 } from "../contracts/addresses";
-import {
-  MUMBAI_YEX_ILO_EXAMPLE_ABI,
-} from "../contracts/abis";
-import {
-  useAccount,
-  useContractRead,
-  useContractWrite,
-} from "wagmi";
+import { MUMBAI_YEX_ILO_EXAMPLE_ABI } from "../contracts/abis";
+import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { ethers } from "ethers";
 
 export default function useILOContract() {
   const address = useAccount();
-  const { data: totalSupply, isLoading: isTotalSupplyLoading } = useContractRead({
-    address: ILO_ADDRESS,
-    abi: MUMBAI_YEX_ILO_EXAMPLE_ABI,
-    functionName: "totalSupply",
-  })
-  const { data: checkUpKeep, isLoading: isCheckUpKeepLoading } = useContractRead({
-    address: ILO_ADDRESS,
-    abi: MUMBAI_YEX_ILO_EXAMPLE_ABI,
-    functionName: "checkUpkeep",
-    args: ["0x"],
-  })
+  const { data: totalSupply, isLoading: isTotalSupplyLoading } =
+    useContractRead({
+      address: ILO_ADDRESS,
+      abi: MUMBAI_YEX_ILO_EXAMPLE_ABI,
+      functionName: "totalSupply",
+    });
+  const { data: checkUpKeep, isLoading: isCheckUpKeepLoading } =
+    useContractRead({
+      address: ILO_ADDRESS,
+      abi: MUMBAI_YEX_ILO_EXAMPLE_ABI,
+      functionName: "checkUpkeep",
+      args: ["0x"],
+    });
 
   const { writeAsync: addLiquidityWrite } = useContractWrite({
     address: ILO_ADDRESS,
@@ -85,6 +81,6 @@ export default function useILOContract() {
     performUpKeepWrite,
     totalSupply,
     checkUpKeep,
-    isLoading: isTotalSupplyLoading || isCheckUpKeepLoading
-  }
+    isLoading: isTotalSupplyLoading || isCheckUpKeepLoading,
+  };
 }

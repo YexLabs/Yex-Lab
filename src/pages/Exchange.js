@@ -131,7 +131,7 @@ export function Exchange() {
 
   const approveTokenDClick = () => {
     setIsLoading(true);
-    if (selectValueFrom == tokenD_address) {
+    if (selectValueFrom === tokenD_address) {
       // tokenD - F
       if (approvedAmount < Number(amountInRef.current?.value)) {
         approveTokenDWrite?.()
@@ -163,7 +163,7 @@ export function Exchange() {
   // 默认选中
   let [focusedElement, setFocusedElement] = useState(null);
   useEffect(() => {
-    if (focusedElement != null) {
+    if (focusedElement !== null) {
       if (focusedElement.id === "ChangeFrom") {
         document.getElementById("ClickTo").style.outline = "none";
         document.getElementById("ClickFrom").style.outlineStyle = "solid";

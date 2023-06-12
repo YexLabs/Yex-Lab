@@ -1,1 +1,1 @@
-export {default as useILOContract} from './useILOContract'
+export { default as useILOContract } from "./useILOContract";

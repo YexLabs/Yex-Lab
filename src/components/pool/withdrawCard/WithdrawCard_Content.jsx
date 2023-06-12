@@ -265,11 +265,9 @@ const WithdrawCard_Content = () => {
                 </div>
                 <p className="p-2">TokenA</p>
               </div>
-              <p>
-                {`${
-                  expectedTokenA ? Number(expectedTokenA).toFixed(6) : "0.0"
-                } `}
-              </p>
+              <p>{`${
+                expectedTokenA ? Number(expectedTokenA).toFixed(6) : "0.0"
+              } `}</p>
             </div>
             <div className="flex flex-row justify-between">
               <div className="flex flex-row">
@@ -278,11 +276,9 @@ const WithdrawCard_Content = () => {
                 </div>
                 <p className="p-2">TokenB</p>
               </div>
-              <p>
-                {`${
-                  expectedTokenB ? Number(expectedTokenB).toFixed(6) : "0.0"
-                } `}
-              </p>
+              <p>{`${
+                expectedTokenB ? Number(expectedTokenB).toFixed(6) : "0.0"
+              } `}</p>
             </div>
           </div>
         </div>
