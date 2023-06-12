@@ -1,14 +1,26 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useMemo } from "react";
 import TokenListModal from "./TokenlistModal";
-import useILOContract from "../../../hooks/useILOContract";
+import { useILOContract } from "../../../hooks";
+import { MUMBAI_ILO_TOKENA_ADDRESS } from "../../../contracts/addresses";
+import { useAccount, useBalance } from "wagmi";
+import { toast } from "react-toastify";
 
 export default function ILOCard_Content() {
+  const { address } = useAccount();
+
+  const [amount, setAmount] = useState(0);
   const [inputValue, setInputValue] = useState(1781.84);
+  const [tokenAddress, setTokenAddress] = useState(MUMBAI_ILO_TOKENA_ADDRESS);
   const [isOpen, setIsOpen] = useState(false);
   const [selectedTokenlist, setSelectedTokenlist] = useState(0); // 0 input of tokenlist,1 out of tokenlist
   const [selectedCoin_input, setSelectedCoin_input] = useState("ETH");
   const [selectedCoin_out, setSelectedCoin_out] = useState("USDC");
-  const inputAmountRef = useRef(null);
+
+  const { data: balanceData } = useBalance({
+    token: tokenAddress,
+    address,
+  });
+  const balance = useMemo(() => balanceData?.formatted, [balanceData]);
 
   const {
     addLiquidityWrite,
@@ -25,10 +37,9 @@ export default function ILOCard_Content() {
       await approveTokenAWrite();
       await approveTokenBWrite();
       await depositWrite();
-      const data = await addLiquidityWrite();
-      console.log(data);
+      await addLiquidityWrite();
     } catch (e) {
-      console.log(e);
+      toast.error(e?.reason);
     }
   };
 
@@ -36,7 +47,7 @@ export default function ILOCard_Content() {
     try {
       await performUpKeepWrite();
     } catch (e) {
-      console.log(e);
+      toast.error(e?.reason);
     }
   };
   function openModal_input() {
@@ -47,6 +58,12 @@ export default function ILOCard_Content() {
   function closeModal() {
     setIsOpen(false);
   }
+
+  const onSetPercent = (percent) => {
+    if (!balance) return;
+    setAmount((Number(balance) * percent) / 100);
+  };
+
   return (
     <div className="flex-col mt-8">
       {/* inputcoin */}
@@ -57,6 +74,8 @@ export default function ILOCard_Content() {
               <input
                 type="text"
                 placeholder="0.0"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
                 className="bg-transparent border-none text-3xl outline-none "
               />
             </div>
@@ -99,20 +118,32 @@ export default function ILOCard_Content() {
                   useGrouping: true,
                 })}
             </div>
-            <div className="">Balance: 0.0</div>
+            <div className="">Balance: {balance || "0.0"}</div>
           </div>
           {/* 百分比选择 */}
           <div className="flex justify-start gap-7 mt-2 text-sm">
-            <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600">
+            <div
+              onClick={() => onSetPercent(25)}
+              className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600"
+            >
               25%
             </div>
-            <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600">
+            <div
+              onClick={() => onSetPercent(50)}
+              className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600"
+            >
               50%
             </div>
-            <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600">
+            <div
+              onClick={() => onSetPercent(75)}
+              className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600"
+            >
               75%
             </div>
-            <div className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600">
+            <div
+              onClick={() => onSetPercent(100)}
+              className="w-1/5 border-slate-200 border  rounded-xl text-center py-1 hover:cursor-pointer hover:border-slate-400 ripple-btn active:border-slate-600"
+            >
               100%
             </div>
           </div>
@@ -141,6 +172,7 @@ export default function ILOCard_Content() {
       <button
         className=" text-center w-full mt-5 bg-indigo-400 py-2 rounded-xl ripple-btn text-white"
         onClick={performUpKeep}
+        disabled={!amount}
       >
         Deposit
       </button>

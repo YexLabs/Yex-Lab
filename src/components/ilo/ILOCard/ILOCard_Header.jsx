@@ -1,5 +1,7 @@
 import React from "react";
 import ethicon from "../../../assets/images/pools/eth.png";
+import { ILO_ADDRESS } from "../../../contracts/addresses";
+import { truncateAddress } from "../../../utils";
 
 export default function ILOCard_Header() {
   return (
@@ -15,7 +17,7 @@ export default function ILOCard_Header() {
             </div>
             <div className="text-sm flex">
               <div className="text-indigo-600 mr-1">Contract on</div>
-              <div>0x123...456</div>
+              <div>{truncateAddress(ILO_ADDRESS)}</div>
             </div>
           </div>
         </div>
