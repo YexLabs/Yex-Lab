@@ -86,9 +86,9 @@ export default function TokenListModal(props) {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#6f7183"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -140,12 +140,12 @@ export default function TokenListModal(props) {
                     onClick={() => {
                       // eslint-disable-next-line no-unused-expressions
                       props.selectedTokenlist == 0
-                        ? (props.selectedCoin_input != "ETH"
+                        ? props.selectedCoin_input != "ETH"
                           ? changeSelectedCoin_input("ETH")
-                          : "")
-                        : (props.selectedCoin_out != "ETH"
+                          : ""
+                        : props.selectedCoin_out != "ETH"
                         ? changeSelectedCoin_out("ETH")
-                        : "");
+                        : "";
                     }}
                   >
                     <div className="w-[20px] h-[20px]">
@@ -167,7 +167,7 @@ export default function TokenListModal(props) {
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                         // eslint-disable-next-line no-unused-expressions
+                      // eslint-disable-next-line no-unused-expressions
                       props.selectedTokenlist == 0
                         ? props.selectedCoin_input != "WETH"
                           ? changeSelectedCoin_input("WETH")
@@ -193,7 +193,7 @@ export default function TokenListModal(props) {
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                         // eslint-disable-next-line no-unused-expressions
+                      // eslint-disable-next-line no-unused-expressions
                       props.selectedTokenlist == 0
                         ? props.selectedCoin_input != "USDC"
                           ? changeSelectedCoin_input("USDC")
@@ -219,7 +219,7 @@ export default function TokenListModal(props) {
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                         // eslint-disable-next-line no-unused-expressions
+                      // eslint-disable-next-line no-unused-expressions
                       props.selectedTokenlist == 0
                         ? props.selectedCoin_input != "tToken"
                           ? changeSelectedCoin_input("tToken")
@@ -248,7 +248,7 @@ export default function TokenListModal(props) {
                         : " hover:cursor-pointer"
                     }  rounded-lg px-2 py-1 `}
                     onClick={() => {
-                         // eslint-disable-next-line no-unused-expressions
+                      // eslint-disable-next-line no-unused-expressions
                       props.selectedTokenlist == 0
                         ? props.selectedCoin_input != "vToken"
                           ? changeSelectedCoin_input("vToken")

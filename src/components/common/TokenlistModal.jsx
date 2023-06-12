@@ -87,9 +87,9 @@ export default function TokenListModal(props) {
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="#6f7183"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
                   >
                     <line x1="18" y1="6" x2="6" y2="18"></line>
                     <line x1="6" y1="6" x2="18" y2="18"></line>
@@ -100,8 +100,9 @@ export default function TokenListModal(props) {
               <div className="bg-white px-4 pb-3">
                 {/* 搜索栏 */}
                 <div
-                  className={`flex mb-1 px-3 py-2 border-gray-300 focus:ring-slate-500 focus:border-slate-500 ${isSearchHovered ? "border-slate-500" : ""
-                    } border  w-full rounded-2xl sm:text-sm items-center`}
+                  className={`flex mb-1 px-3 py-2 border-gray-300 focus:ring-slate-500 focus:border-slate-500 ${
+                    isSearchHovered ? "border-slate-500" : ""
+                  } border  w-full rounded-2xl sm:text-sm items-center`}
                   onClick={handleMouseEnter}
                   onBlur={handleMouseLeave}
                 >
@@ -209,14 +210,15 @@ export default function TokenListModal(props) {
                     <div className="ml-1 text-sm">USDC</div>
                   </div> */}
                   <div
-                    className={`flex items-center bg-white ${props.selectedTokenlist == 0
+                    className={`flex items-center bg-white ${
+                      props.selectedTokenlist == 0
                         ? props.selectedCoin_input == "tokenA"
                           ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
                           : " hover:cursor-pointer"
                         : props.selectedCoin_out == "tokenA"
-                          ? "bg-slate-100 text-gray-500 opacity-50 "
-                          : " hover:cursor-pointer"
-                      }  rounded-lg px-2 py-1 `}
+                        ? "bg-slate-100 text-gray-500 opacity-50 "
+                        : " hover:cursor-pointer"
+                    }  rounded-lg px-2 py-1 `}
                     onClick={() => {
                       if (props.selectedTokenlist == 0) {
                         if (props.selectedCoin_input !== "tokenA") {
@@ -238,14 +240,15 @@ export default function TokenListModal(props) {
                     <div className="ml-1 text-sm">tokenA</div>
                   </div>
                   <div
-                    className={`flex items-center bg-white ${props.selectedTokenlist == 0
+                    className={`flex items-center bg-white ${
+                      props.selectedTokenlist == 0
                         ? props.selectedCoin_input == "tokenB"
                           ? "bg-slate-100  text-gray-500 opacity-50 hover:cursor-default"
                           : " hover:cursor-pointer"
                         : props.selectedCoin_out == "tokenB"
-                          ? "bg-slate-100 text-gray-500 opacity-50 "
-                          : " hover:cursor-pointer"
-                      }  rounded-lg px-2 py-1 `}
+                        ? "bg-slate-100 text-gray-500 opacity-50 "
+                        : " hover:cursor-pointer"
+                    }  rounded-lg px-2 py-1 `}
                     onClick={() => {
                       if (props.selectedTokenlist == 0) {
                         if (props.selectedCoin_input !== "tokenB") {
@@ -350,14 +353,15 @@ export default function TokenListModal(props) {
                   </div>
                 </div> */}
                 <div
-                  className={`${props.selectedTokenlist == 0
+                  className={`${
+                    props.selectedTokenlist == 0
                       ? props.selectedCoin_input == "tokenA"
                         ? "opacity-50"
                         : "hover:bg-slate-100 hover:cursor-pointer"
                       : props.selectedCoin_out == "tokenA"
-                        ? "opacity-50"
-                        : "hover:bg-slate-100 hover:cursor-pointer"
-                    }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
+                      ? "opacity-50"
+                      : "hover:bg-slate-100 hover:cursor-pointer"
+                  }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
                   onClick={() => {
                     if (props.selectedTokenlist == 0) {
                       if (props.selectedCoin_input !== "tokenA") {
@@ -382,14 +386,15 @@ export default function TokenListModal(props) {
                   </div>
                 </div>
                 <div
-                  className={`${props.selectedTokenlist == 0
+                  className={`${
+                    props.selectedTokenlist == 0
                       ? props.selectedCoin_input == "tokenB"
                         ? "opacity-50"
                         : "hover:bg-slate-100 hover:cursor-pointer"
                       : props.selectedCoin_out == "tokenB"
-                        ? "opacity-50"
-                        : "hover:bg-slate-100 hover:cursor-pointer"
-                    }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
+                      ? "opacity-50"
+                      : "hover:bg-slate-100 hover:cursor-pointer"
+                  }    px-4 py-2 rounded-lg mb-2 flex items-center gap-3`}
                   onClick={() => {
                     if (props.selectedTokenlist == 0) {
                       if (props.selectedCoin_input !== "tokenB") {
