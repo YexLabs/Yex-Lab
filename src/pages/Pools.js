@@ -216,7 +216,7 @@ export function Pools() {
                       <a href="#" className="font-bold hover:underline">
                         Click to exit
                       </a>
-                      <i class="fa-solid fa-arrow-right"></i>
+                      <i className="fa-solid fa-arrow-right"></i>
                     </div>
                   </div>
                 </div>

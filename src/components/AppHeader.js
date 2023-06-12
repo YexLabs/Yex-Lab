@@ -73,27 +73,27 @@ export default function AppHeader() {
                   <div>
                     <a
                       href="#"
-                      class="no-underline text-current cursor-default"
+                      className="no-underline text-current cursor-default"
                     >
                       <div
                         onMouseEnter={handleMouseEnter}
                         onMouseLeave={handleMouseLeave}
-                        class="dropdown dropdown-hover"
+                        className="dropdown dropdown-hover"
                       >
                         <div
                           tabindex="0"
-                          class="flex items-center gap-1 md:gap-1 py-2 cursor-pointer flex-row"
+                          className="flex items-center gap-1 md:gap-1 py-2 cursor-pointer flex-row"
                         >
-                          <div class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
+                          <div className="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
                             Pool
                           </div>
-                          <div class="mt-1">
+                          <div className="mt-1">
                             <svg
                               width="8"
                               height="8"
                               viewBox="0 0 8 8"
                               xmlns="http://www.w3.org/2000/svg"
-                              class={isPoolHovered ? "rotate-180" : "rotate-0"}
+                              className={isPoolHovered ? "rotate-180" : "rotate-0"}
                             >
                               <path
                                 fill="#5155a6"
@@ -105,11 +105,11 @@ export default function AppHeader() {
                         </div>
                         <ul
                           tabindex="0"
-                          class="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-80 mt-0"
+                          className="menu dropdown-content p-2 shadow bg-base-100 rounded-box w-80 mt-0"
                         >
                           <li>
                             <a href="PoolLists">
-                              <div class="flex">
+                              <div className="flex">
                                 <div className="flex items-center">
                                   <img
                                     src={logo}
@@ -127,7 +127,7 @@ export default function AppHeader() {
                           </li>
                           <li>
                             <a>
-                              <div class="flex">
+                              <div className="flex">
                                 <div className="flex items-center">
                                   <img
                                     src={logo}
@@ -145,7 +145,7 @@ export default function AppHeader() {
                           </li>
                           <li>
                             <a>
-                              <div class="flex">
+                              <div className="flex">
                                 <div className="flex items-center">
                                   <img
                                     src={logo}
@@ -268,10 +268,10 @@ export default function AppHeader() {
                   <div>
                     <a
                       href="#"
-                      class="no-underline text-current cursor-default"
+                      className="no-underline text-current cursor-default"
                     >
-                      <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
-                        <p class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
+                      <div className="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
+                        <p className="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
                           Otc
                         </p>
                       </div>
@@ -282,10 +282,10 @@ export default function AppHeader() {
                   <div>
                     <a
                       href="#"
-                      class="no-underline text-current cursor-default"
+                      className="no-underline text-current cursor-default"
                     >
-                      <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
-                        <p class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
+                      <div className="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
+                        <p className="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
                           Pool
                         </p>
                       </div>
@@ -296,10 +296,10 @@ export default function AppHeader() {
                   <div>
                     <a
                       href="#"
-                      class="no-underline text-current cursor-default"
+                      className="no-underline text-current cursor-default"
                     >
-                      <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
-                        <p class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
+                      <div className="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
+                        <p className="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
                           Launch
                         </p>
                       </div>
@@ -310,10 +310,10 @@ export default function AppHeader() {
                   <div>
                     <a
                       href="#"
-                      class="no-underline text-current cursor-default"
+                      className="no-underline text-current cursor-default"
                     >
-                      <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
-                        <p class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
+                      <div className="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
+                        <p className="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
                           Protfolio
                         </p>
                       </div>
@@ -324,11 +324,11 @@ export default function AppHeader() {
                   <div>
                     <a
                       href="https://scroll.io/alpha/bridge"
-                      class="no-underline text-current cursor-default"
+                      className="no-underline text-current cursor-default"
                       target="_blank"
                     >
-                      <div class="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
-                        <p class="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
+                      <div className="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
+                        <p className="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
                           Bridge
                         </p>
                       </div>

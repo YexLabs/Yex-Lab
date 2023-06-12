@@ -10,7 +10,7 @@ export default function Network() {
     <div className=" fixed flex justify-between w-full bg-none bottom-0 z-10 px-5 pb-5">
       <span></span>
       <div className="flex items-center">
-        <div className></div>
+        <div></div>
         <a
           href="https://blockscout.scroll.io/block/1181353"
           target="_blank"

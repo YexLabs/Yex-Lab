@@ -246,8 +246,8 @@ export function Exchange() {
         <img src={moon} alt="" id="moon" />
         <img src={m_behind} alt="" id="mountain_behind" />
         <div className="flex  content-center  justify-center h-full">
-          <div id="exchange" class="card w-96 h-96 bg-base-100 shadow-xl">
-            <div class="card-body p-7">
+          <div id="exchange" className="card w-96 h-96 bg-base-100 shadow-xl">
+            <div className="card-body p-7">
               <div className="bg-[#3d4451] border-black rounded-lg w-24 h-9 mb-2 text-xl font-sans text-white justify-center items-center flex">
                 Convert
               </div>
