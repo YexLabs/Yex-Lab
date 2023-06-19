@@ -180,8 +180,9 @@ export function Pools() {
             </div>
           </div>
           <div id="boxs" className="flex flex-row mt-20 justify-start w-[100%]">
-            {FundsData.map((onepool) => (
+            {FundsData.map((onepool, index) => (
               <div
+                key={index}
                 id="box1"
                 className={`bg-white rounded-lg ${onepool.set} h-[40%] w-[20%] absolute`}
               >
@@ -216,7 +217,7 @@ export function Pools() {
                       <a href="#" className="font-bold hover:underline">
                         Click to exit
                       </a>
-                      <i class="fa-solid fa-arrow-right"></i>
+                      <i className="fa-solid fa-arrow-right"></i>
                     </div>
                   </div>
                 </div>

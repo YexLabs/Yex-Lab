@@ -72,14 +72,14 @@ export default function SwapCard_Content() {
   //获取inputToken余额
   const { data: inputTokenBalance } = useBalance({
     address: address,
-    token: selectedCoin_input == "ETH" ? undefined : currentInputTokenContract, // undefined是查询ETH余额
+    token: selectedCoin_input === "ETH" ? undefined : currentInputTokenContract, // undefined是查询ETH余额
     watch: true,
   });
 
   //获取outToken余额
   const { data: outTokenBalance } = useBalance({
     address: address,
-    token: selectedCoin_out == "ETH" ? undefined : currentOutTokenContract, // undefined是查询ETH余额
+    token: selectedCoin_out === "ETH" ? undefined : currentOutTokenContract, // undefined是查询ETH余额
     watch: true,
   });
 
@@ -117,7 +117,7 @@ export default function SwapCard_Content() {
     enabled:
       address &&
       inputAmountRef.current &&
-      Number(inputAmountRef.current.value) != 0,
+      Number(inputAmountRef.current.value) !== 0,
     onSuccess(data) {
       console.log(data);
       const allowancedAmount = ethers.utils.formatUnits(data[0], "ether");
@@ -126,7 +126,7 @@ export default function SwapCard_Content() {
         .toFixed(6)
         .replace(/\.?0+$/, "");
 
-      if (Number(receiveAmount) != 0) {
+      if (Number(receiveAmount) !== 0) {
         setReceiveTokenAmount(receiveAmount);
         setCurrentInputTokenAllowance(allowancedAmount);
       }
@@ -175,11 +175,11 @@ export default function SwapCard_Content() {
     abi: Mumbai_yexExample_abi,
     functionName: "deposit",
     args: [
-      selectedCoin_input == "tokenA"
+      selectedCoin_input === "tokenA"
         ? ethers.utils.parseEther(inputAmountRef.current?.value || "0")
         : "0",
 
-      selectedCoin_input == "tokenB"
+      selectedCoin_input === "tokenB"
         ? ethers.utils.parseEther(inputAmountRef.current?.value || "0")
         : "0",
     ],
@@ -235,21 +235,21 @@ export default function SwapCard_Content() {
     }
   };
   useEffect(() => {
-    if (Number(inputAmountRef.current?.value) == 0) {
+    if (Number(inputAmountRef.current?.value) === 0) {
       setReceiveTokenAmount("0.0");
     }
   }, [inputAmountRef.current?.value]);
   useEffect(() => {
-    if (selectedCoin_input == "tokenA") {
+    if (selectedCoin_input === "tokenA") {
       setCurrentInputTokenContract(Mumbai_tokenA_address);
     }
-    if (selectedCoin_input == "tokenB") {
+    if (selectedCoin_input === "tokenB") {
       setCurrentInputTokenContract(Mumbai_tokenB_address);
     }
-    if (selectedCoin_input == "USDC") {
+    if (selectedCoin_input === "USDC") {
       setCurrentInputTokenContract("0x");
     }
-    if (selectedCoin_input == "WETH") {
+    if (selectedCoin_input === "WETH") {
       setCurrentInputTokenContract("0x");
     }
     // 将 passive 选项设置为 false，以将事件监听器更改为主动事件监听器，保证阻止input框滚动默认事件
@@ -259,16 +259,16 @@ export default function SwapCard_Content() {
       });
   }, [selectedCoin_input]);
   useEffect(() => {
-    if (selectedCoin_out == "tokenA") {
+    if (selectedCoin_out === "tokenA") {
       setCurrentOutTokenContract(Mumbai_tokenA_address);
     }
-    if (selectedCoin_out == "tokenB") {
+    if (selectedCoin_out === "tokenB") {
       setCurrentOutTokenContract(Mumbai_tokenB_address);
     }
-    if (selectedCoin_out == "USDC") {
+    if (selectedCoin_out === "USDC") {
       setCurrentOutTokenContract("0x");
     }
-    if (selectedCoin_out == "WETH") {
+    if (selectedCoin_out === "WETH") {
       setCurrentOutTokenContract("0x");
     }
   }, [selectedCoin_out]);
@@ -307,6 +307,7 @@ export default function SwapCard_Content() {
             <a
               href={`${chain?.blockExplorers.default.url}/tx/${hash}`}
               target="_blank"
+              rel="noreferrer"
             >
               <button className="btn btn-sm">See</button>
             </a>
@@ -417,14 +418,12 @@ export default function SwapCard_Content() {
             viewBox="0 0 1024 1024"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
-            p-id="6224"
             width="24"
             height="24"
           >
             <path
               d="M554.666667 712.533333V106.666667h-85.333334v601.6l-132.266666-132.266667L277.333333 640l234.666667 234.666667 234.666667-234.666667-59.733334-59.733333-132.266666 132.266666z"
               fill="#bfbfbf"
-              p-id="6225"
             ></path>
           </svg>
         </div>
@@ -547,7 +546,7 @@ export default function SwapCard_Content() {
             ></path>
           </svg>
         )}
-        {Number(receiveTokenAmount) != 0
+        {Number(receiveTokenAmount) !== 0
           ? inputTokenBalance?.formatted >= inputAmountRef.current?.value
             ? currentInputTokenAllowance >= inputAmountRef.current?.value
               ? "Swap"

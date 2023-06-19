@@ -11,7 +11,7 @@ import "../components/Projects.css";
 
 export default function Main() {
   return (
-    <div class="box-border mx-auto mb-7 min-h-screen md:min-h-auto md:h-auto md:pt-7">
+    <div className="box-border mx-auto mb-7 min-h-screen md:min-h-auto md:h-auto md:pt-7">
       <div className="mb-[100px] relative">
         <img
           className="absolute flex justify-center  w-full top-20 z-0 mt-48"
@@ -39,7 +39,8 @@ export default function Main() {
               </div>
               <div className="flex flex-col fade-in  gap-1">
                 <p className="text-lg font-medium z-40">
-                  y=e<sup>x</sup> Lab leads people to a democratic and decentralized Web 3.0 world.
+                  y=e<sup>x</sup> Lab leads people to a democratic and
+                  decentralized Web 3.0 world.
                 </p>
                 <p className=" w-1/2 text-left text-gray-500 mt-2 z-40">
                   We firmly believe that decentralization is community-centric.
@@ -65,7 +66,7 @@ export default function Main() {
               </p>
               <div>
                 {" "}
-                <div class=" grid grid-cols-3 grid-gap-4 grid-flow-row mt-8">
+                <div className=" grid grid-cols-3 grid-gap-4 grid-flow-row mt-8">
                   <img src={chainlink_banner} className=" mx-4 w-52 h-16" />
                   <img src={berachain_banner} className=" mx-4 w-52 h-16" />
                   <img src={scroll_banner} className=" mx-4 w-52 h-16" />
