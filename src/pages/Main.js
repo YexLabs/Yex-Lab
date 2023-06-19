@@ -6,7 +6,7 @@ import honeypot_banner from "../assets/images/intro/honeypot.png";
 import scroll_banner from "../assets/images/intro/scroll.png";
 import berachain_banner from "../assets/images/intro/bera.png";
 import splatter_banner from "../assets/images/intro/splatter.png";
-import chainlink_banner from "../assets/images/intro/chainlink.png";
+import chainlink_banner from "../assets/images/intro/chainlink.svg";
 import "../components/Projects.css";
 
 export default function Main() {
@@ -66,7 +66,7 @@ export default function Main() {
               </p>
               <div>
                 {" "}
-                <div className=" grid grid-cols-3 grid-gap-4 grid-flow-row mt-8">
+                <div className=" grid grid-cols-5 gap-6 grid-flow-row mt-8">
                   <img src={chainlink_banner} className=" mx-4 w-52 h-16" />
                   <img src={berachain_banner} className=" mx-4 w-52 h-16" />
                   <img src={scroll_banner} className=" mx-4 w-52 h-16" />
