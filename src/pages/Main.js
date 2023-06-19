@@ -24,12 +24,12 @@ export default function Main() {
             <div className="flex flex-col ml-24 text-left m-2 gap-8">
               <div className="flex flex-col max-w-1/2">
                 <div>
-                  <p class="font-medium text-4xl z-40">
+                  <p className="font-medium text-4xl z-40">
                     A research based Core Contracts development team{" "}
                   </p>
                 </div>
                 <div>
-                  <p class="font-medium text-4xl z-40">
+                  <p className="font-medium text-4xl z-40">
                     Working for{" "}
                     <span className="scrollTextGradient z-40">
                       innovation in Web 3.0
