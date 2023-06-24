@@ -4,6 +4,7 @@ import { ILO_ADDRESS } from "../../../contracts/addresses";
 import { truncateAddress } from "../../../utils";
 import { useILOContract } from "../../../hooks";
 import { toast } from "react-toastify";
+import ILO_Faucet from "./ILO_Faucet";
 import { ethers } from "ethers";
 
 export default function ILOCard_Header() {
@@ -19,6 +20,7 @@ export default function ILOCard_Header() {
   };
   return (
     <div>
+      <ILO_Faucet />
       <div className="flex justify-between mt-4 items-center">
         <div className="flex">
           <div className="w-14 h-14">
@@ -35,12 +37,18 @@ export default function ILOCard_Header() {
           </div>
         </div>
         <div>
-          <div
-            className=" rounded-lg bg-indigo-600 text-white p-2  animate-bounce"
-            onClick={rasingPaused}
-          >
-            LIVE
-          </div>
+          {!isPaused ? (
+            <div
+              className="rounded-lg bg-indigo-600 animate-bounce text-white p-2"
+              onClick={rasingPaused}
+            >
+              LIVE
+            </div>
+          ) : (
+            <div className="rounded-lg bg-gray-400 opacity-50 cursor-not-allowed text-white p-2">
+              Paused
+            </div>
+          )}
         </div>
       </div>
       <div className="flex mt-6 px-6 gap-24 justify-center">

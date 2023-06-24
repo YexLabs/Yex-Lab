@@ -8,10 +8,12 @@ import { MUMBAI_YEX_ILO_EXAMPLE_ABI } from "../contracts/abis";
 import YEX_ILO_ABI from "../contracts/abis/YexILOExample.json";
 import { useAccount, useContractRead, useContractWrite } from "wagmi";
 import { ethers } from "ethers";
+import { message } from "antd";
 
 export default function useILOContract() {
   const address = useAccount();
   const [amountA, setAmountA] = useState("0");
+  const [depositLoading, setDepositLoading] = useState(false);
   const { data: totalSupply, isLoading: isTotalSupplyLoading } =
     useContractRead({
       address: ILO_ADDRESS,
@@ -40,7 +42,15 @@ export default function useILOContract() {
     functionName: "approve",
     args: [ILO_ADDRESS, ethers.utils.parseEther("100")],
     onError(error) {
+      setDepositLoading(false);
       console.log("Error", error);
+    },
+    onSuccess() {
+      message.success({
+        content: "Approve TTA Success!",
+        duration: 1,
+        className: "mt-3",
+      });
     },
   });
 
@@ -61,7 +71,16 @@ export default function useILOContract() {
     account: address,
     args: [ethers.utils.parseEther(amountA), ethers.utils.parseEther("0")],
     onError(error) {
+      setDepositLoading(false);
       console.log("Error", error);
+    },
+    onSuccess() {
+      setDepositLoading(false);
+      message.success({
+        content: "Deposit Success!",
+        duration: 1,
+        className: "mt-3",
+      });
     },
   });
 
@@ -82,6 +101,14 @@ export default function useILOContract() {
     functionName: "setRasingPaused",
     onError(error) {
       console.log("Error", error);
+    },
+    onSuccess() {
+      setDepositLoading(false);
+      message.success({
+        content: "LP allocated Success!",
+        duration: 1,
+        className: "mt-3",
+      });
     },
   });
 
@@ -111,6 +138,8 @@ export default function useILOContract() {
     addLiquidityWrite,
     performUpKeepWrite,
     setRasingPaused,
+    setDepositLoading,
+    depositLoading,
     isPaused,
     lockedTokenB,
     depositedTokenA,

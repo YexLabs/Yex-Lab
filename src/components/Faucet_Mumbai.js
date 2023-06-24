@@ -255,15 +255,14 @@ export default function Faucet_Mumbai() {
       >
         {"Faucet" + " : " + tokenB_balance + " " + "$B"}
       </button>
-
-      <button
+      {/* <button
         className={`btn btn-outline ml-2 btn-ghost btn-sm fade-in ${
           address ? "" : "hidden"
         } ${isLoading_ILOA ? " loading" : ""} `}
         onClick={faucetClick_ILOA}
       >
         {"Faucet" + " : " + tokenILOA_balance + " " + "$TTA"}
-      </button>
+      </button> */}
     </div>
   );
 }
