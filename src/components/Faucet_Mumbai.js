@@ -11,6 +11,7 @@ import {
 import {
   Mumbai_tokenA_address,
   Mumbai_tokenB_address,
+  MUMBAI_ILO_TOKENA_ADDRESS,
 } from "../contracts/addresses";
 import { Mumbai_faucet_abi } from "../contracts/abis";
 import { message } from "antd";
@@ -20,12 +21,16 @@ export default function Faucet_Mumbai() {
   const { address } = useAccount();
   const [isFaucted_A, setIsFaucted_A] = React.useState(false);
   const [isFaucted_B, setIsFaucted_B] = React.useState(false);
+  const [isFaucted_ILOA, setIsFaucted_ILOA] = React.useState(false);
   const [ableFaucted_A, setAbleFaucted_A] = React.useState(false);
   const [ableFaucted_B, setAbleFaucted_B] = React.useState(false);
+  const [ableILOFaucted_A, setAbleILOFaucted_A] = React.useState(false);
   const [isLoading_A, setIsLoading_A] = React.useState(false);
   const [isLoading_B, setIsLoading_B] = React.useState(false);
+  const [isLoading_ILOA, setIsLoading_ILOA] = React.useState(false);
   const [tokenA_balance, setTokenABalance] = React.useState(0);
   const [tokenB_balance, setTokenBBalance] = React.useState(0);
+  const [tokenILOA_balance, settokenILOA_balance] = React.useState(0);
   const [hash, setHash] = React.useState("");
   const faucetClick_A = () => {
     if (isFaucted_A) {
@@ -57,6 +62,21 @@ export default function Faucet_Mumbai() {
         });
     }
   };
+  const faucetClick_ILOA = () => {
+    if (isFaucted_ILOA) {
+      message.error("You have already got tokenB");
+    } else {
+      setIsLoading_ILOA(true);
+      faucetILOAConfigWrite?.()
+        .then((res) => {
+          console.log(res);
+          setHash(res.hash);
+        })
+        .catch((err) => {
+          setIsLoading_ILOA(false);
+        });
+    }
+  };
 
   // confirmation
   const confirmation = useWaitForTransaction({
@@ -81,6 +101,13 @@ export default function Faucet_Mumbai() {
     address: Mumbai_tokenB_address,
     abi: Mumbai_faucet_abi,
   };
+
+  // ILO TokenA
+  const faucetILOTokenA_Config = {
+    address: MUMBAI_ILO_TOKENA_ADDRESS,
+    abi: Mumbai_faucet_abi,
+  };
+
   // 获取两种测试币的状态
   const getRouterInfo = useContractReads({
     contracts: [
@@ -95,6 +122,11 @@ export default function Faucet_Mumbai() {
         args: [address],
       },
       {
+        ...faucetILOTokenA_Config,
+        functionName: "faucetedList",
+        args: [address],
+      },
+      {
         ...faucetTokenA_Config,
         functionName: "balanceOf",
         args: [address],
@@ -104,22 +136,33 @@ export default function Faucet_Mumbai() {
         functionName: "balanceOf",
         args: [address],
       },
+      {
+        ...faucetILOTokenA_Config,
+        functionName: "balanceOf",
+        args: [address],
+      },
     ],
     watch: true,
     enabled: true,
     onSuccess(data) {
       setIsFaucted_A(data[0]);
       setIsFaucted_B(data[1]);
+      setIsFaucted_ILOA(data[2]);
       setAbleFaucted_A(!data[0]);
       setAbleFaucted_B(!data[1]);
+      setAbleILOFaucted_A(!data[2]);
       setTokenABalance(
-        Number(ethers.utils.formatUnits(data[2], "ether"))
+        Number(ethers.utils.formatUnits(data[3], "ether"))
           .toFixed(6)
           .replace(/\.?0+$/, "")
       );
-
       setTokenBBalance(
-        Number(ethers.utils.formatUnits(data[3], "ether"))
+        Number(ethers.utils.formatUnits(data[4], "ether"))
+          .toFixed(6)
+          .replace(/\.?0+$/, "")
+      );
+      settokenILOA_balance(
+        Number(ethers.utils.formatUnits(data[5], "ether"))
           .toFixed(6)
           .replace(/\.?0+$/, "")
       );
@@ -177,6 +220,23 @@ export default function Faucet_Mumbai() {
     },
   });
 
+  // ILO Faucet config
+  const { config: faucetILOAConfig } = usePrepareContractWrite({
+    address: MUMBAI_ILO_TOKENA_ADDRESS,
+    abi: Mumbai_faucet_abi,
+    functionName: "faucet",
+    args: [],
+    account: address,
+    enabled: ableILOFaucted_A,
+  });
+  // ILO Faucet
+  const { writeAsync: faucetILOAConfigWrite } = useContractWrite({
+    ...faucetILOAConfig,
+    onError(error) {
+      console.log("Error", error);
+    },
+  });
+
   return (
     <div>
       <button
@@ -194,6 +254,15 @@ export default function Faucet_Mumbai() {
         onClick={faucetClick_B}
       >
         {"Faucet" + " : " + tokenB_balance + " " + "$B"}
+      </button>
+
+      <button
+        className={`btn btn-outline ml-2 btn-ghost btn-sm fade-in ${
+          address ? "" : "hidden"
+        } ${isLoading_ILOA ? " loading" : ""} `}
+        onClick={faucetClick_ILOA}
+      >
+        {"Faucet" + " : " + tokenILOA_balance + " " + "$TTA"}
       </button>
     </div>
   );

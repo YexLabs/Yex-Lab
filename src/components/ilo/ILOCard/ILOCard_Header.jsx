@@ -4,12 +4,15 @@ import { ILO_ADDRESS } from "../../../contracts/addresses";
 import { truncateAddress } from "../../../utils";
 import { useILOContract } from "../../../hooks";
 import { toast } from "react-toastify";
+import { ethers } from "ethers";
 
 export default function ILOCard_Header() {
-  const { performUpKeepWrite } = useILOContract();
-  const performUpKeep = async () => {
+  const { depositedTokenA, lockedTokenB, setRasingPaused, isPaused } =
+    useILOContract();
+
+  const rasingPaused = async () => {
     try {
-      await performUpKeepWrite();
+      await setRasingPaused();
     } catch (e) {
       toast.error(e?.reason);
     }
@@ -34,25 +37,30 @@ export default function ILOCard_Header() {
         <div>
           <div
             className=" rounded-lg bg-indigo-600 text-white p-2  animate-bounce"
-            onClick={performUpKeep}
+            onClick={rasingPaused}
           >
             LIVE
           </div>
         </div>
       </div>
-      <div className="flex mt-6 px-6 gap-12 justify-center">
-        <div className="flex-col justify-center items-center text-center">
-          <div className="text-sm text-indigo-600">Raise Target</div>
-          <div className="">5.0</div>
-        </div>
+      <div className="flex mt-6 px-6 gap-24 justify-center">
         <div className="flex-col justify-center items-center text-center">
           <div className="text-sm text-indigo-600">Uniform Price</div>
-          <div className="">0.005 </div>
+          <div className="">
+            {lockedTokenB
+              ? ethers.utils.formatUnits(depositedTokenA, 18) /
+                ethers.utils.formatUnits(lockedTokenB, 18)
+              : "0.0"}
+          </div>
         </div>
         <div className="flex-col justify-center items-center text-center">
           <div className="text-sm text-indigo-600">Locked TokenB</div>
           <div className="flex justify-center items-center">
-            <div>1.0M</div>
+            <div>
+              {lockedTokenB
+                ? ethers.utils.formatUnits(lockedTokenB, 18)
+                : "0.0"}
+            </div>
             <div className="w-4 h-4 ml-1">
               <img alt="" src={ethicon} />
             </div>
@@ -61,15 +69,15 @@ export default function ILOCard_Header() {
         <div className="flex-col justify-center items-center text-center">
           <div className="text-sm text-indigo-600">Deposited TokenA</div>
           <div className="flex justify-center items-center">
-            <div>100.0</div>
+            <div>
+              {depositedTokenA
+                ? ethers.utils.formatUnits(depositedTokenA, 18)
+                : "0.0"}
+            </div>
             <div className="w-4 h-4 ml-1">
               <img alt="" src={ethicon} />
             </div>
           </div>
-        </div>
-        <div className="flex-col justify-center items-center text-center">
-          <div className="text-sm text-indigo-600">LP Shares</div>
-          <div className="">50%</div>
         </div>
       </div>
     </div>
