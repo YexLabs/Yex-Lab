@@ -27,9 +27,7 @@ export default function ILOCard_Header() {
             <img alt="" src={ethicon} />
           </div>
           <div className="flex-col ml-2">
-            <div className="text-2xl font-semibold">
-              Subscribe TokenB using TokenA
-            </div>
+            <div className="text-2xl font-semibold">Token B ILO</div>
             <div className="text-sm flex">
               <div className="text-indigo-600 mr-1">Contract on</div>
               <div>{truncateAddress(ILO_ADDRESS)}</div>
@@ -46,7 +44,9 @@ export default function ILOCard_Header() {
             </div>
           ) : (
             <div className="rounded-lg bg-gray-400 opacity-50 cursor-not-allowed text-white p-2">
-              Paused
+              {ethers.utils.formatUnits(depositedTokenA, 18) > 0
+                ? "SUCCESS"
+                : "FAILED"}
             </div>
           )}
         </div>
@@ -62,7 +62,7 @@ export default function ILOCard_Header() {
           </div>
         </div>
         <div className="flex-col justify-center items-center text-center">
-          <div className="text-sm text-indigo-600">Locked TokenB</div>
+          <div className="text-sm text-indigo-600">Total Sale Token B</div>
           <div className="flex justify-center items-center">
             <div>
               {lockedTokenB
@@ -75,7 +75,7 @@ export default function ILOCard_Header() {
           </div>
         </div>
         <div className="flex-col justify-center items-center text-center">
-          <div className="text-sm text-indigo-600">Deposited TokenA</div>
+          <div className="text-sm text-indigo-600">User Deposited Token</div>
           <div className="flex justify-center items-center">
             <div>
               {depositedTokenA

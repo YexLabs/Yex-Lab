@@ -66,7 +66,7 @@ export default function ILOCard_Content() {
       <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative">
         <div className="flex-col">
           <div className="flex justify-between">
-            <div className="text-2xl">
+            <div className="text-2xl w-[calc(100%-130px)]">
               <input
                 type="text"
                 placeholder="0.0"
