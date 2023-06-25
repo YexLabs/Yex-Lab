@@ -12,7 +12,33 @@ import "react-toastify/dist/ReactToastify.css";
 
 const alchemyId = process.env.REACT_APP_ALCHEMY_ID;
 
-const chains = [polygonMumbai, scrollTestnet, goerli];
+// polygonMumbai rpc for wagmi is bad, so we use this one
+const polygonMumbai_1 = {
+  id: 80001,
+  name: "Polygon Mumbai",
+  network: "maticmum",
+  nativeCurrency: {
+    decimals: 18,
+    name: "MATIC",
+    symbol: "MATIC",
+  },
+  rpcUrls: {
+    public: { http: ["https://rpc-mumbai.maticvigil.com"] },
+    default: { http: ["https://rpc-mumbai.maticvigil.com"] },
+  },
+  blockExplorers: {
+    etherscan: { name: "PolygonScan", url: "https://mumbai.polygonscan.com" },
+    default: { name: "PolygonScan", url: "https://mumbai.polygonscan.com" },
+  },
+  contracts: {
+    multicall3: {
+      address: "0xca11bde05977b3631167028862be2a173976ca11",
+      blockCreated: 25770160,
+    },
+  },
+};
+
+const chains = [polygonMumbai_1, scrollTestnet, goerli];
 
 const client = createClient(
   getDefaultClient({
