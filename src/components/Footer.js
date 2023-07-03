@@ -1,10 +1,24 @@
 //@xiaochen
-import React from "react";
+import React, { useState } from "react";
 import logo from "../assets/images/yexlab.png";
 
 export default function Footer() {
+  const [isDocsHovered, setIsDocsHovered] = useState(false);
+
+  const docsList = [
+    { name: "WhitePaper", link: "/whitePaper" },
+    { name: "Splatter", link: "/" },
+  ];
+
+  const handleMouseEnter = () => {
+    setIsDocsHovered(true);
+  };
+  const handleMouseLeave = () => {
+    setIsDocsHovered(false);
+  };
+
   return (
-    <div className="px-32 pb-16">
+    <div className="px-32 mt-16 h-[180px]">
       <div className="grid grid-cols-5 gap-8">
         <img src={logo} className="w-14 h-14" />
         <div className="flex flex-col gap-4">
@@ -40,9 +54,51 @@ export default function Footer() {
         <div className="flex flex-col gap-4">
           <p className=" text-gray-500">Resources</p>
           <div className="flex flex-col gap-2 text-sm">
-            <a href="/whitepaper" target="_blank">
-              <p>Docs</p>
-            </a>
+            <div
+              onMouseEnter={handleMouseEnter}
+              onMouseLeave={handleMouseLeave}
+              className="flex flex-col gap-2 text-sm"
+            >
+              <div className="flex items-center">
+                <div className=" hover:cursor-pointer">Docs</div>
+                <div className="mt-1">
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 8 8"
+                    xmlns="http://www.w3.org/2000/svg"
+                    className={isDocsHovered ? "rotate-180" : "rotate-0"}
+                  >
+                    <path
+                      fill="#5155a6"
+                      fillRule="nonzero"
+                      d="M4.036 6.571.5 3.036l.786-.786L4.037 5l2.748-2.75.786.786z"
+                    ></path>
+                  </svg>
+                </div>
+              </div>
+
+              <div
+                className={`flex flex-col gap-2 text-sm ${
+                  !isDocsHovered ? "hidden" : ""
+                }`}
+              >
+                {docsList &&
+                  docsList.map((item) => (
+                    <div key={item.name}>
+                      <a
+                        href={item.link}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="ml-4"
+                      >
+                        {item.name}
+                      </a>
+                    </div>
+                  ))}
+              </div>
+            </div>
+
             <a
               href="https://github.com/yexlab"
               target="_blank"
