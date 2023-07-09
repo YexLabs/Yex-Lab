@@ -21,6 +21,7 @@ import {
 } from "../../../contracts/abis";
 import { ethers } from "ethers";
 import { message } from "antd";
+import { flare } from "@wagmi/chains";
 
 const DepositCard_Content = () => {
   const [hash, setHash] = useState("0x");
@@ -43,6 +44,8 @@ const DepositCard_Content = () => {
   const [isOpen_Alert, setIsOpen_Alert] = useState(false);
   const [isLoading_Btn, setIsLoading_Btn] = useState(false);
 
+  const [poolSelected, setPoolSelected] = useState("pool1");
+
   const confirmation = useWaitForTransaction({
     hash: hash,
     onSuccess(data) {
@@ -54,6 +57,10 @@ const DepositCard_Content = () => {
       });
     },
   });
+
+  const updatePool1Selected = (pool) => {
+    setPool1Selected(pool);
+  };
 
   //获取tokenA余额
   const { data: tokenABalance } = useBalance({
@@ -75,7 +82,9 @@ const DepositCard_Content = () => {
     abi: Mumbai_faucet_abi,
     functionName: "approve",
     args: [
-      Mumbai_yexExample_address,
+      poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
       ethers.utils.parseEther(inputAmountRef.current?.value || "0"),
     ],
   });
@@ -85,7 +94,9 @@ const DepositCard_Content = () => {
     abi: Mumbai_faucet_abi,
     functionName: "approve",
     args: [
-      Mumbai_yexExample_address,
+      poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
       ethers.utils.parseEther(inputAmountRef.current?.value || "0"),
     ],
     onError(error) {
@@ -99,7 +110,9 @@ const DepositCard_Content = () => {
     abi: Mumbai_faucet_abi,
     functionName: "approve",
     args: [
-      Mumbai_yexExample_address,
+      poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
       ethers.utils.parseEther(inputBmountRef.current?.value || "0"),
     ],
   });
@@ -109,7 +122,9 @@ const DepositCard_Content = () => {
     abi: Mumbai_faucet_abi,
     functionName: "approve",
     args: [
-      Mumbai_yexExample_address,
+      poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
       ethers.utils.parseEther(inputBmountRef.current?.value || "0"),
     ],
     onError(error) {
@@ -119,7 +134,10 @@ const DepositCard_Content = () => {
 
   // addLiquidity config
   const { config: addLiquidityConfig } = usePrepareContractWrite({
-    address: Mumbai_yexExample_address,
+    address:
+      poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
     abi: Mumbai_yexExample_abi,
     functionName: "addLiquidity",
     args: [
@@ -130,7 +148,10 @@ const DepositCard_Content = () => {
 
   // addLiquidity action
   const { writeAsync: addLiquidityWrite } = useContractWrite({
-    address: Mumbai_yexExample_address,
+    address:
+      poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
     abi: Mumbai_yexExample_abi,
     functionName: "addLiquidity",
     account: address,
@@ -238,6 +259,36 @@ const DepositCard_Content = () => {
   return (
     <div className="flex-col mt-8">
       {/* tokenA */}
+      <div className="flex">
+        <div className="form-control">
+          <label className="label cursor-pointer">
+            <span className="label-text">Pool1</span>
+            <input
+              type="radio"
+              name="radio-10"
+              className="radio checked:bg-blue-500 ml-1"
+              checked={poolSelected === "pool1" ? true : false}
+              onClick={() => {
+                setPoolSelected("pool1");
+              }}
+            />
+          </label>
+        </div>
+        <div className="form-control">
+          <label className="label cursor-pointer">
+            <span className="label-text">Pool2</span>
+            <input
+              type="radio"
+              name="radio-10"
+              className="radio checked:bg-blue-500 ml-1"
+              checked={poolSelected === "pool2" ? true : false}
+              onClick={() => {
+                setPoolSelected("pool2");
+              }}
+            />
+          </label>
+        </div>
+      </div>
       <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative">
         <div className="flex-col">
           <div className="flex justify-between">
