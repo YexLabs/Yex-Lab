@@ -218,7 +218,7 @@ export default function AppHeader() {
                             </div>
                             <div className="flex flex-col ml-0">
                               <p>Swap</p>
-                              <p className=" text-xs">Demo1 Test</p>
+                              <p className=" text-xs">Polygon Mumbai</p>
                             </div>
                           </div>
                         </li>
@@ -237,7 +237,7 @@ export default function AppHeader() {
                             </div>
                             <div className="flex flex-col ml-0">
                               <p>Pool</p>
-                              <p className=" text-xs">Demo1 Test</p>
+                              <p className=" text-xs">Polygon Mumbai</p>
                             </div>
                           </div>
                         </li>
