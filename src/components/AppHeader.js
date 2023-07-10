@@ -218,7 +218,7 @@ export default function AppHeader() {
                             </div>
                             <div className="flex flex-col ml-0">
                               <p>Swap</p>
-                              <p className=" text-xs">Prototype on Polygon Testnet</p>
+                              <p className=" text-xs">Prototype|Polygon-Testnet</p>
                             </div>
                           </div>
                         </li>
@@ -237,7 +237,7 @@ export default function AppHeader() {
                             </div>
                             <div className="flex flex-col ml-0">
                               <p>Pools</p>
-                              <p className=" text-xs">Prototype on Polygon Testnet</p>
+                              <p className=" text-xs">Prototype|Polygon-Testnet</p>
                             </div>
                           </div>
                         </li>
