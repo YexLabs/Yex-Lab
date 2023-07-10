@@ -16,7 +16,7 @@ export default function Main() {
       <div className="mb-[100px] relative">
         <img
           className="absolute flex justify-center  w-full top-20 z-0 mt-48"
-          src={yexbanner}
+          src={curve}
           alt=""
           style={{ zIndex: -1, backgroundImage: `url(${stars})` }}
         />
@@ -55,7 +55,7 @@ export default function Main() {
 
           <div className="flex flex-col items-center mt-2 mx-2">
             <div className="px-12">
-              <img src={curve} />
+              <img src={yexbanner} />
             </div>
           </div>
 
