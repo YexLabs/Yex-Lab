@@ -6,7 +6,7 @@ export default function Footer() {
   const [isDocsHovered, setIsDocsHovered] = useState(false);
 
   const docsList = [
-    { name: "WhitePaper", link: "/whitePaper" },
+    { name: "YexFund", link: "/whitePaper" },
     { name: "Splatter", link: "/" },
   ];
 

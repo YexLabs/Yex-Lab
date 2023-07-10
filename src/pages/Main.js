@@ -1,7 +1,6 @@
 //@xiaochen
 import React from "react";
-import curve from "../assets/images/intro/curve.png";
-import stars from "../assets/images/intro/stars.png";
+import yexbanner from "../assets/images/intro/yexbanner.png";
 import honeypot_banner from "../assets/images/intro/honeypot.png";
 import scroll_banner from "../assets/images/intro/scroll.png";
 import berachain_banner from "../assets/images/intro/bera.png";
@@ -13,12 +12,6 @@ export default function Main() {
   return (
     <div className="box-border mx-auto mb-7 min-h-screen md:min-h-auto md:h-auto md:pt-7">
       <div className="mb-[100px] relative">
-        <img
-          className="absolute flex justify-center  w-full top-20 z-0 mt-48"
-          src={curve}
-          alt=""
-          style={{ zIndex: -1, backgroundImage: `url(${stars})` }}
-        />
         <div className="flex flex-col box-border mx-auto w-full max-w-screen-lg pt-40">
           <div className="flex flex-col cursor-default">
             <div className="flex flex-col ml-24 text-left m-2 gap-8">
@@ -54,7 +47,7 @@ export default function Main() {
 
           <div className="flex flex-col items-center mt-2 mx-2">
             <div className="px-12">
-              <img src={curve} />
+              <img src={yexbanner} />
             </div>
           </div>
 
