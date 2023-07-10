@@ -1,6 +1,7 @@
 //@xiaochen
 import React from "react";
 import curve from "../assets/images/intro/curve.png";
+import yexbanner from "../assets/images/intro/yexbanner.png";
 import stars from "../assets/images/intro/stars.png";
 import honeypot_banner from "../assets/images/intro/honeypot.png";
 import scroll_banner from "../assets/images/intro/scroll.png";
@@ -15,7 +16,7 @@ export default function Main() {
       <div className="mb-[100px] relative">
         <img
           className="absolute flex justify-center  w-full top-20 z-0 mt-48"
-          src={curve}
+          src={yexbanner}
           alt=""
           style={{ zIndex: -1, backgroundImage: `url(${stars})` }}
         />
