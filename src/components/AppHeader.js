@@ -179,7 +179,7 @@ export default function AppHeader() {
                         className="flex items-center gap-1 md:gap-1 py-2 cursor-pointer flex-row"
                       >
                         <div className="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
-                          Hackathon
+                          BatchSwap
                         </div>
                         <div className="mt-1">
                           <svg
@@ -241,7 +241,7 @@ export default function AppHeader() {
                             </div>
                           </div>
                         </li>
-                        <li>
+                        {/* <li>
                           <div
                             className="flex"
                             onClick={() => {
@@ -259,26 +259,25 @@ export default function AppHeader() {
                               <p className=" text-xs">Demo2 Test</p>
                             </div>
                           </div>
-                        </li>
+                        </li> */}
                       </ul>
                     </div>
                   </div>
                 </div>
-                {/* <div className="relative">
-                  <div>
-                    <a
-                      href="#"
-                      className="no-underline text-current cursor-default"
-                    >
-                      <div className="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
-                        <p className="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
-                          Otc
-                        </p>
-                      </div>
-                    </a>
+                <div className="relative">
+                  <div
+                    onClick={() => {
+                      handleHackathonClick("demo2_ilo");
+                    }}
+                  >
+                    <div className="flex items-center gap-1 md:gap-4 py-2 cursor-pointer">
+                      <p className="m-0 font-inter leading-6 text-base font-medium text-gray-500 opacity-90">
+                        ILO
+                      </p>
+                    </div>
                   </div>
                 </div>
-                <div className="relative">
+                {/* <div className="relative">
                   <div>
                     <a
                       href="#"
