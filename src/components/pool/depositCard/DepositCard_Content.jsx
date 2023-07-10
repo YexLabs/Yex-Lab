@@ -23,7 +23,7 @@ import { ethers } from "ethers";
 import { message } from "antd";
 import { flare } from "@wagmi/chains";
 
-const DepositCard_Content = () => {
+const DepositCard_Content = ({ poolSelected }) => {
   const [hash, setHash] = useState("0x");
   const { address } = useAccount();
   const [inputValue, setInputValue] = useState(1781.84);
@@ -44,7 +44,7 @@ const DepositCard_Content = () => {
   const [isOpen_Alert, setIsOpen_Alert] = useState(false);
   const [isLoading_Btn, setIsLoading_Btn] = useState(false);
 
-  const [poolSelected, setPoolSelected] = useState("pool1");
+  // const [poolSelected, setPoolSelected] = useState("pool1");
 
   const confirmation = useWaitForTransaction({
     hash: hash,
@@ -259,36 +259,6 @@ const DepositCard_Content = () => {
   return (
     <div className="flex-col mt-8">
       {/* tokenA */}
-      <div className="flex">
-        <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Pool1</span>
-            <input
-              type="radio"
-              name="radio-10"
-              className="radio checked:bg-blue-500 ml-1"
-              checked={poolSelected === "pool1" ? true : false}
-              onClick={() => {
-                setPoolSelected("pool1");
-              }}
-            />
-          </label>
-        </div>
-        <div className="form-control">
-          <label className="label cursor-pointer">
-            <span className="label-text">Pool2</span>
-            <input
-              type="radio"
-              name="radio-10"
-              className="radio checked:bg-blue-500 ml-1"
-              checked={poolSelected === "pool2" ? true : false}
-              onClick={() => {
-                setPoolSelected("pool2");
-              }}
-            />
-          </label>
-        </div>
-      </div>
       <div className=" bg-white  bg-opacity-50 rounded-xl p-4 relative">
         <div className="flex-col">
           <div className="flex justify-between">

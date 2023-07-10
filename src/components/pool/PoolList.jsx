@@ -1,6 +1,7 @@
 import React from "react";
 
 const PoolList = ({
+  pool,
   tokenAIcon,
   tokenBIcon,
   statusIcon,
@@ -9,10 +10,23 @@ const PoolList = ({
   status,
   liquidity,
   apr,
+  currentComponent,
+  setCurrentComponent,
+  setPoolSelected,
 }) => {
   return (
     <div className="w-auto h-auto flex justify-center items-center bg-white rounded-lg m-2">
-      <button className="grid grid-cols-4 gap-6">
+      <button
+        className="grid grid-cols-4 gap-6"
+        onClick={() => {
+          if (currentComponent === "PoolList") {
+            setCurrentComponent("DepositCard");
+            setPoolSelected(pool);
+          } else {
+            setPoolSelected(pool);
+          }
+        }}
+      >
         <div className="flex flex-row flex-wrap pl-5 m-1">
           <div className="flex flex-row flex-wrap gap-1">
             <div className="flex flex-row gap-1 items-center border rounded-2xl">

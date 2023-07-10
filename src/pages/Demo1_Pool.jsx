@@ -65,6 +65,8 @@ const Demo1_Pool = () => {
   const [pool2Reserve0, setPool2Reserve0] = useState(0);
   const [pool2Reserve1, setPool2Reserve1] = useState(0);
 
+  const [poolSelected, setPoolSelected] = useState("");
+
   console.log(pool1Reserve0, "pool1Reserve0");
   console.log(pool1Reserve1, "pool1Reserve1");
 
@@ -114,15 +116,12 @@ const Demo1_Pool = () => {
   }, [reservesPool2Data]);
 
   return (
-    <div className="flex flex-row gap-2 justify-center mt-20 min-h-screen">
-      <div>
-        <Sidebar onSelectComponent={setCurrentComponent} />
-      </div>
-      <div className="w-3/4">
-        <div>{currentComponent === "DepositCard" && <DepositCard />}</div>
+    <div className=" gap-2 justify-center mt-20 min-h-screen">
+      <div className="flex-col justify-center px-12">
+        {/* <div>{currentComponent === "DepositCard" && <DepositCard />}</div> */}
         <div>
           <div className="justify-center items-center flex flex-col">
-            {currentComponent === "PoolList" && (
+            {true && (
               // mockData.map((data, index) => (
               //   <PoolList
               //     key={index}
@@ -136,31 +135,64 @@ const Demo1_Pool = () => {
               //     apr={data.apr}
               //   />
               // ))
-              <div className="bg-white bg-opacity-30 mt-10 rounded-xl shadow-xl flex-col p-4">
-                <div className="p-1 hover:cursor-pointer rounded-xl">
-                  <p>Pool Lists</p>
+              <div>
+                <div className="bg-white bg-opacity-30 mt-10 rounded-xl shadow-xl flex-col p-4">
+                  <div className="p-1 hover:cursor-pointer rounded-xl">
+                    <p>Pool Lists</p>
+                  </div>
+                  <PoolList
+                    pool={"pool1"}
+                    tokenAIcon={ethicon}
+                    tokenBIcon={ethicon}
+                    tokenAName={"TokenA"}
+                    tokenBName={"TokenB"}
+                    status={"Openning"}
+                    liquidity={Number(pool1Reserve0) + Number(pool1Reserve1)}
+                    currentComponent={currentComponent}
+                    setCurrentComponent={setCurrentComponent}
+                    setPoolSelected={setPoolSelected}
+                  />
+                  <PoolList
+                    pool={"pool2"}
+                    tokenAIcon={ethicon}
+                    tokenBIcon={ethicon}
+                    tokenAName={"TokenA"}
+                    tokenBName={"TokenB"}
+                    status={"Openning"}
+                    liquidity={Number(pool2Reserve0) + Number(pool2Reserve1)}
+                    currentComponent={currentComponent}
+                    setCurrentComponent={setCurrentComponent}
+                    setPoolSelected={setPoolSelected}
+                  />
                 </div>
-                <PoolList
-                  tokenAIcon={ethicon}
-                  tokenBIcon={ethicon}
-                  tokenAName={"TokenA"}
-                  tokenBName={"TokenB"}
-                  status={"Openning"}
-                  liquidity={Number(pool1Reserve0) + Number(pool1Reserve1)}
-                />
-                <PoolList
-                  tokenAIcon={ethicon}
-                  tokenBIcon={ethicon}
-                  tokenAName={"TokenA"}
-                  tokenBName={"TokenB"}
-                  status={"Openning"}
-                  liquidity={Number(pool2Reserve0) + Number(pool2Reserve1)}
-                />
+                {currentComponent !== "PoolList" && (
+                  <div className="flex justify-between w-full px-12">
+                    <div className="">
+                      <Sidebar
+                        onSelectComponent={setCurrentComponent}
+                        poolSelected={poolSelected}
+                      />
+                    </div>
+                    <div className="w-full">
+                      <div>
+                        {currentComponent === "DepositCard" && (
+                          <DepositCard poolSelected={poolSelected} />
+                        )}
+                      </div>
+                      <div>
+                        {currentComponent === "WithdrawCard" && (
+                          <WithdrawCard poolSelected={poolSelected} />
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )}
               </div>
             )}
           </div>
         </div>
-        <div>{currentComponent === "WithdrawCard" && <WithdrawCard />}</div>
+
+        {/* <div>{currentComponent === "WithdrawCard" && <WithdrawCard />}</div> */}
       </div>
     </div>
   );

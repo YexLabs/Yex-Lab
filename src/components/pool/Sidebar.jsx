@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 
-const Sidebar = ({ onSelectComponent }) => {
+const Sidebar = ({ onSelectComponent, poolSelected }) => {
   const componentConfig = [
-    { name: "PoolList", displayName: "Pools" },
+    // { name: "PoolList", displayName: "Pools" },
     { name: "DepositCard", displayName: "Deposit" },
     { name: "WithdrawCard", displayName: "Withdraw" },
   ];
 
-  const [selectedComponent, setSelectedComponent] = useState("PoolList");
+  const [selectedComponent, setSelectedComponent] = useState("DepositCard");
 
   const handleClick = (componentName) => {
     onSelectComponent(componentName);
@@ -24,7 +24,7 @@ const Sidebar = ({ onSelectComponent }) => {
           }`}
           onClick={() => handleClick(config.name)}
         >
-          {config.displayName}
+          {`${config.displayName} (${poolSelected})`}
         </button>
       ))}
     </div>

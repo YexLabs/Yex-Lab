@@ -14,15 +14,16 @@ import {
   Mumbai_yexExample_address,
   Mumbai_tokenA_address,
   Mumbai_tokenB_address,
+  Mumbai_yexExample_pool2_address,
 } from "../../../contracts/addresses";
 import { Mumbai_yexExample_abi } from "../../../contracts/abis";
 import { ethers } from "ethers";
 import { message } from "antd";
 
-const WithdrawCard_Content = () => {
+const WithdrawCard_Content = ({ poolSelected }) => {
   const [hash, setHash] = useState("0x");
   const inputAmountLPRef = useRef(null);
-  const [inputAmount, setInputAmount] = useState("");
+  const [inputAmount, setInputAmount] = useState("0");
   const { address } = useAccount();
   const [isLoading_Btn, setIsLoading_Btn] = useState(false);
 
@@ -42,13 +43,19 @@ const WithdrawCard_Content = () => {
   // User LP balance
   const LPBalance = useBalance({
     address: address,
-    token: Mumbai_yexExample_address,
+    token:
+      poolSelected.poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
     watch: true,
   });
 
   // get totalSupply LP
   const { data } = useContractRead({
-    address: Mumbai_yexExample_address,
+    address:
+      poolSelected.poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
     abi: Mumbai_yexExample_abi,
     functionName: "totalSupply",
   });
@@ -56,33 +63,44 @@ const WithdrawCard_Content = () => {
 
   //获取tokenA储备
   const tokenABalance = useBalance({
-    address: Mumbai_yexExample_address,
+    address:
+      poolSelected.poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
     token: Mumbai_tokenA_address,
     watch: true,
   });
 
   //获取tokenB储备
   const tokenBBalance = useBalance({
-    address: Mumbai_yexExample_address,
+    address:
+      poolSelected.poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
     token: Mumbai_tokenB_address,
     watch: true,
   });
 
   // 计算预期的tokenA和tokenB数量
-  const expectedTokenA =
-    (inputAmount / totalSupplyLp) * tokenABalance.data?.formatted;
-  const expectedTokenB =
-    (inputAmount / totalSupplyLp) * tokenBBalance.data?.formatted;
+  const expectedTokenA = String(
+    (Number(inputAmount) / totalSupplyLp) * tokenABalance.data?.formatted
+  );
+  const expectedTokenB = String(
+    (Number(inputAmount) / totalSupplyLp) * tokenBBalance.data?.formatted
+  );
   console.log(expectedTokenA, "Expected TokenA");
   console.log(expectedTokenB, "Expected TokenB");
 
   const handleInputChange = (event) => {
-    setInputAmount(event.target.value);
+    1;
   };
 
   // prepare approve
   const { config: approveConfig } = usePrepareContractWrite({
-    address: Mumbai_yexExample_address,
+    address:
+      poolSelected.poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
     abi: Mumbai_yexExample_abi,
     functionName: "approve",
     args: [address, ethers.utils.parseEther(inputAmount || "0")],
@@ -108,7 +126,10 @@ const WithdrawCard_Content = () => {
 
   // removeLiquidity config
   const { config: removeLiquidityConfig } = usePrepareContractWrite({
-    address: Mumbai_yexExample_address,
+    address:
+      poolSelected.poolSelected === "pool1"
+        ? Mumbai_yexExample_address
+        : Mumbai_yexExample_pool2_address,
     abi: Mumbai_yexExample_abi,
     functionName: "removeLiquidity",
     args: [
@@ -116,7 +137,7 @@ const WithdrawCard_Content = () => {
       0, // RemoveBoth
     ],
   });
-
+  console.log(inputAmount, "inputAmount");
   console.log(removeLiquidityConfig, "removeLiquidityConfig");
 
   // removeLiquidity action
@@ -148,14 +169,16 @@ const WithdrawCard_Content = () => {
   };
 
   const inputTokenPercentSelect = (value) => {
-    inputAmountLPRef.current.value = LPBalance.data
-      ? ((LPBalance?.data?.formatted * value) / 100).toFixed(6)
-      : "0.0";
-    setInputAmount(
-      LPBalance.data
-        ? ((LPBalance?.data?.formatted * value) / 100).toString()
-        : "0.0"
-    );
+    if (inputAmountLPRef !== null) {
+      inputAmountLPRef.current.value = LPBalance.data
+        ? (Number(LPBalance?.data?.formatted * value) / 100).toFixed(6)
+        : "0.0";
+      setInputAmount(
+        LPBalance.data
+          ? (Number(LPBalance?.data?.formatted * value) / 100).toFixed(6)
+          : "0.0"
+      );
+    }
   };
 
   return (
@@ -168,7 +191,7 @@ const WithdrawCard_Content = () => {
                 type="text"
                 step="0.0000001"
                 placeholder="0.0"
-                className="bg-transparent border-none text-3xl outline-none "
+                className="bg-transparent border-none text-3xl outline-none   w-full "
                 ref={inputAmountLPRef}
                 onChange={handleInputChange}
               />
