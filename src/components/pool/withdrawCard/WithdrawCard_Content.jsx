@@ -188,12 +188,18 @@ const WithdrawCard_Content = ({ poolSelected }) => {
           <div className="flex justify-between">
             <div className="text-2xl">
               <input
-                type="text"
+                type="number"
                 step="0.0000001"
                 placeholder="0.0"
                 className="bg-transparent border-none text-3xl outline-none   w-full "
                 ref={inputAmountLPRef}
                 onChange={handleInputChange}
+                pattern="[0-9]*"
+                onKeyPress={(event) => {
+                  if (!/[0-9.]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
               />
             </div>
             <div>
