@@ -325,6 +325,12 @@ export default function SwapCard_Content() {
                 placeholder="0.0"
                 className="bg-transparent border-none text-3xl outline-none  w-full"
                 ref={inputAmountRef}
+                pattern="[0-9]*"
+                onKeyPress={(event) => {
+                  if (!/[0-9.]/.test(event.key)) {
+                    event.preventDefault();
+                  }
+                }}
               />
             </div>
             {/* coinlist */}
